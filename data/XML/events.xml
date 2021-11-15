@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+	<event name="Double Respawn" startdate="05/28/2021" enddate="05/31/2021" script="example.lua" >
+		<ingame exprate="250" lootrate="200" spawnrate="100" skillrate="200" />
+		<description description="weekend of double respawn" />
+		<colors colordark="#46FF33" colorlight="#2d7400" />
+		<details displaypriority="6" isseasonal="0" specialevent="0" />
+	</event>
+	<event name="Bonus Exp, Skill, Loot" startdate="06/2/2021" enddate="06/6/2021" script="example.lua" >
+		<ingame exprate="25" lootrate="125" spawnrate="100" skillrate="125" />
+		<description description="25% more loot" />
+		<colors colordark="#735D10" colorlight="#8B6D05" />
+		<details displaypriority="6" isseasonal="0" specialevent="0" />
+	</event>
+</events>

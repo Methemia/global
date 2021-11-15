@@ -1,0 +1,15 @@
+	local area = createCombatArea(AREA_BEAM8)
+	local combat = Combat()
+	combat:setParameter(COMBAT_PARAM_TYPE, COMBAT_EARTHDAMAGE)
+	combat:setParameter(COMBAT_PARAM_EFFECT, CONST_ME_GREEN_ENERGY_SPARK)
+	combat:setArea(area)
+	local condition = Condition(CONDITION_HEX)
+	condition:setParameter(CONDITION_PARAM_TICKS, 5000)
+	condition:setParameter(CONDITION_PARAM_BUFF_HEALINGRECEIVED, 40)
+	condition:setParameter(CONDITION_PARAM_BUFF_DAMAGEDEALT, 40)
+	condition:setParameter(CONDITION_PARAM_HEALTHREDUCTIONPERCENT, 60)
+	combat:addCondition(condition)
+
+function onCastSpell(creature, var)
+	return combat:execute(creature, var)
+end

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Maeryn" walkinterval="2000" floorchange="0" script="default.lua">
+	<health now="100" max="100"/>
+	<look type="683" head="97" body="0" legs="96" feet="114" addons="2"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="shop_buyable" value="
+			vial of liquid silver, 24714, 100;
+			closed trap, 2578, 6;"/>
+	</parameters>
+</npc>

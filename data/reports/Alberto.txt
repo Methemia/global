@@ -1,0 +1,42 @@
+------------------------------
+Reported by: Alberto
+Date: 2021-5-0022, 06:03:23
+Comment: '33855, 31450, 9'
+Position: {x = 33857, y = 31446, z = 9}
+------------------------------
+------------------------------
+Reported by: Alberto
+Date: 2021-5-0027, 09:14:52
+Comment: '33572, 31450, 10'
+Position: {x = 33573, y = 31450, z = 10}
+------------------------------
+------------------------------
+Reported by: Alberto
+Date: 2021-6-0019, 06:24:19
+Comment: 'no sirve esta madre'
+Position: {x = 33603, y = 31448, z = 10}
+------------------------------
+------------------------------
+Reported by: Alberto
+Date: 2021-6-0019, 06:24:53
+Comment: 'no sirve esta madre 33603, 31447, 10'
+Position: {x = 33603, y = 31448, z = 10}
+------------------------------
+------------------------------
+Reported by: Alberto
+Date: 2021-6-0019, 11:57:27
+Comment: 'bugs viasuales en el -2 de dark fauns'
+Position: {x = 33563, y = 32191, z = 9}
+------------------------------
+------------------------------
+Reported by: Alberto
+Date: 2021-6-0020, 02:26:14
+Comment: 'no sirve el market de feiryst'
+Position: {x = 33491, y = 32223, z = 6}
+------------------------------
+------------------------------
+Reported by: Alberto
+Date: 2021-6-0021, 04:40:26
+Comment: 'no sale king zelos!!'
+Position: {x = 33445, y = 31544, z = 13}
+------------------------------

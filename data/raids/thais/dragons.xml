@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<raid>
+	<announce delay="1000" type="event" message="There are rumors that Demodras is on his way to thais!" />
+	<announce delay="6000" type="event" message="Dragons have invaded thais!" />
+	<areaspawn delay="6000" fromx="32331" fromy="32182" fromz="7" tox="32426" toy="32261" toz="7">
+		<monster name="dragon" amount="60" />
+		<monster name="dragon lord" amount="20" />
+		<monster name="demodras" amount="1" />
+	</areaspawn>
+</raid>
