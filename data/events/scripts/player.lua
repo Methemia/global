@@ -767,10 +767,9 @@ function Player:onGainExperience(source, exp, rawExp)
   -- Client 12 Bonus Experience
     local clientVersion = self:getClient().version
     if clientVersion >= 1200 then
-        exp = exp * 1.1
+        exp = exp * 1.2
     end
 	
-
 	if self:isVip() then
 	exp = exp * 1.05 -- 20% exp
 	end

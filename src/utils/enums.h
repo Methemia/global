@@ -95,6 +95,7 @@ enum itemAttrTypes : uint32_t {
 	ITEM_ATTRIBUTE_IMBUINGSLOTS = 1 << 24,
 	ITEM_ATTRIBUTE_OPENCONTAINER = 1 << 25,
 	ITEM_ATTRIBUTE_QUICKLOOTCONTAINER = 1 << 26,
+	ITEM_ATTRIBUTE_DURATION_TIMESTAMP = 1 << 27,
 	ITEM_ATTRIBUTE_CUSTOM = 1U << 31
 };
 
@@ -1077,6 +1078,7 @@ enum SessionEndInformations : uint8_t {
 	SESSION_END_LOGOUT, // work only with standard logout
 	SESSION_END_UNK2,
 	SESSION_END_FORCECLOSE,
+	SESSION_END_UNK3,
 	SESSION_END_LOGOUT2, // work with standard logout and offline training logout
 };
 

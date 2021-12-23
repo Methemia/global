@@ -16,7 +16,13 @@ local skills = {
     [40116] = {id=SKILL_CLUB,voc=4,range=CONST_ANI_WHIRLWINDCLUB}, -- KNIGHT
     [40117] = {id=SKILL_DISTANCE,voc=3,range=CONST_ANI_SIMPLEARROW}, -- PALADIN
     [40118] = {id=SKILL_MAGLEVEL,voc=2,range=CONST_ANI_SMALLICE}, -- DRUID
-    [40119] = {id=SKILL_MAGLEVEL,voc=1,range=CONST_ANI_FIRE} -- SORCERER
+    [40119] = {id=SKILL_MAGLEVEL,voc=1,range=CONST_ANI_FIRE}, -- SORCERER
+    [40120] = {id=SKILL_SWORD,voc=4,range=CONST_ANI_WHIRLWINDSWORD}, -- KNIGHT
+    [40121] = {id=SKILL_AXE,voc=4,range=CONST_ANI_WHIRLWINDAXE}, -- KNIGHT
+    [40122] = {id=SKILL_CLUB,voc=4,range=CONST_ANI_WHIRLWINDCLUB}, -- KNIGHT
+    [40123] = {id=SKILL_DISTANCE,voc=3,range=CONST_ANI_SIMPLEARROW}, -- PALADIN
+    [40124] = {id=SKILL_MAGLEVEL,voc=2,range=CONST_ANI_SMALLICE}, -- DRUID
+    [40125] = {id=SKILL_MAGLEVEL,voc=1,range=CONST_ANI_FIRE} -- SORCERER
 }
 
 local houseDummies = {32143, 32144, 32145, 32146, 32147, 32148}
@@ -110,6 +116,7 @@ function exerciseTraining.onUse(player, item, fromPosition, target, toPosition, 
     local startPos = player:getPosition()
     if player:getStorageValue(Storage.isTraining) == 1 then
         player:sendTextMessage(MESSAGE_FAILURE, "You are already training.")
+	stopEvent(training)
         return false
     end
     if target:isItem() then
@@ -160,5 +167,15 @@ for id = 40117, 40119 do
     exerciseTraining:id(id)
     exerciseTraining:allowFarUse(true)
 end
+
+for id = 40120, 40122 do
+    exerciseTraining:id(id)
+end
+
+for id = 40123, 40125 do
+    exerciseTraining:id(id)
+    exerciseTraining:allowFarUse(true)
+end
+
 
 exerciseTraining:register()

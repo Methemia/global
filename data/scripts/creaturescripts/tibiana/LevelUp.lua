@@ -16,7 +16,7 @@ local table = {
      [42] = {items = {{itemid = 8922, count = 1}}, storage = 40106, msg = "You gain a wand!"},
 [50] = {items = {{itemid = 2160, count = 5}}, storage = 40172, msg = "You win 5 crystal coins por alcancar o level 50!"},
 [130] = {items = {{itemid = 2160, count = 10}}, storage = 40173, msg = "You win 10 crystal coins por alcancar o level 130!"},
-[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
+--[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
       
    },
    [{2, 6, 10}] = {
@@ -30,7 +30,7 @@ local table = {
      [42] = {items = {{itemid = 8910, count = 1}}, storage = 40207, msg = "You gain a rod!"},
 [50] = {items = {{itemid = 2160, count = 5}}, storage = 40172, msg = "You win 5 crystal coins por alcancar o level 50!"},
 [130] = {items = {{itemid = 2160, count = 10}}, storage = 40173, msg = "You win 10 crystal coins por alcancar o level 130!"},    
-[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
+--[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
 
    },
    [{3, 7, 11}] = {
@@ -40,7 +40,7 @@ local table = {
 [50] = {items = {{itemid = 2160, count = 5}}, storage = 40172, msg = "You win 5 crystal coins por alcancar o level 50!"},
 [80] = {items = {{itemid = 7368, count = 100}}, storage = 40175, msg = "You win 100 assassin stars por alcancar o level 80!"},
 [130] = {items = {{itemid = 2160, count = 10}}, storage = 40173, msg = "You win 10 crystal coins por alcancar o level 130!"},   
-[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
+--[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
      
    },
    [{4, 8, 12}] = {
@@ -50,7 +50,7 @@ local table = {
  [35] = {items = {{itemid = 2160, count = 3}}, storage = 40171, msg = "You win 3 crystal coins por alcancar o level 20!"},
 [50] = {items = {{itemid = 2160, count = 5}}, storage = 40172, msg = "You win 5 crystal coins por alcancar o level 50!"},
 [130] = {items = {{itemid = 2160, count = 10}}, storage = 40173, msg = "You win 10 crystal coins por alcancar o level 130!"}, 
-[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
+--[200] = {items = {{itemid = 25380, count = 1}}, storage = 82192, msg = "You win 1 Destruction Token por alcancar o level 200!"}     
    }
 }
 

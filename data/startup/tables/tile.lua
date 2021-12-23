@@ -1475,6 +1475,10 @@ TileUnique = {
 		itemId = 426,
 		itemPos = {x = 32225, y = 32268, z = 9}
 	},
+	[35010] = {
+		itemId = 1387,
+		itemPos = {x = 32616, y = 32529, z = 13}
+	},
 --Tibiana uniqueid
 	[30801] = {
 		itemId = 27717,

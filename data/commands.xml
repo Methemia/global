@@ -12,7 +12,12 @@ words="!flask - bye bye vials"
 words="!guildpoints - gain tokens"
 words="!backpack - buy backpack"
 words="!days - check your fast regen days"
-
+words="--CITY WAR--"
+words="/citywar guildname"
+words="/citywar accept,guildname"
+words="/citywar cancel,guildname"
+words="/citywar go"
+words="/citywar end"
 
 words="--SUPPORT--"
 words="https://discord.gg/HSCTDNnVH2"

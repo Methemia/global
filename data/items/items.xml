@@ -51880,33 +51880,33 @@
 		<attribute key="showcharges" value="1" />
 		<attribute key="weight" value="1000" />
 	</item>
-	<item id="40120" article="an" name="infinite exercise sword">
-		<attribute key="charges" value="1" />
+	<item id="40120" article="an" name="lasting exercise sword">
+		<attribute key="charges" value="14400" />
 		<attribute key="showcharges" value="1" />
 		<attribute key="weight" value="1000" />
 	</item>
-	<item id="40121" article="an" name="infinite exercise axe">
-		<attribute key="charges" value="1" />
+	<item id="40121" article="an" name="lasting exercise axe">
+		<attribute key="charges" value="14400" />
 		<attribute key="showcharges" value="1" />
 		<attribute key="weight" value="1000" />
 	</item>
-	<item id="40122" article="an" name="infinite exercise club">
-		<attribute key="charges" value="1" />
+	<item id="40122" article="an" name="lasting exercise club">
+		<attribute key="charges" value="14400" />
 		<attribute key="showcharges" value="1" />
 		<attribute key="weight" value="1000" />
 	</item>
-	<item id="40123" article="an" name="infinite exercise bow">
-		<attribute key="charges" value="1" />
+	<item id="40123" article="an" name="lasting exercise bow">
+		<attribute key="charges" value="14400" />
 		<attribute key="showcharges" value="1" />
 		<attribute key="weight" value="1000" />
 	</item>
-	<item id="40124" article="an" name="infinite exercise rod">
-		<attribute key="charges" value="1" />
+	<item id="40124" article="an" name="lasting exercise rod">
+		<attribute key="charges" value="14400" />
 		<attribute key="showcharges" value="1" />
 		<attribute key="weight" value="1000" />
 	</item>
-	<item id="40125" article="an" name="infinite exercise wand">
-		<attribute key="charges" value="1" />
+	<item id="40125" article="an" name="lasting exercise wand">
+		<attribute key="charges" value="14400" />
 		<attribute key="showcharges" value="1" />
 		<attribute key="weight" value="1000" />
 	</item>

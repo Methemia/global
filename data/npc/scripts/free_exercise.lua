@@ -21,7 +21,7 @@ local voices = {
 
 local config = {
 str = 54839,
-charges = 7000
+charges = 2000
 }
 
 local function creatureSayCallback(cid, type, msg)

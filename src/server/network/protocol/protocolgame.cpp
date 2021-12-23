@@ -456,7 +456,7 @@ void ProtocolGame::logout(bool displayEffect, bool forced)
 	}
 
 	if (player->getProtocolVersion() >= 1264) {
-		sendSessionEndInformation(forced ? SESSION_END_FORCECLOSE : SESSION_END_LOGOUT);
+		sendSessionEndInformation(SESSION_END_LOGOUT2);
 	} else {
 		disconnect();
 	}
@@ -2761,18 +2761,21 @@ void ProtocolGame::sendCreatureLight(const Creature *creature)
 void ProtocolGame::sendCreatureIcon(const Creature* creature)
 {
 	if (!creature || version < 1200)
-    	return;
-  	CreatureIcon_t icon = creature->getIcon();
-  	NetworkMessage msg;
- 	msg.addByte(0x8B);
-  	msg.add<uint32_t>(creature->getID());
-  	msg.addByte(14); // type 14 for this
-  	msg.addByte(icon != CREATUREICON_NONE); // 0 = no icon, 1 = we'll send an icon
-  	if (icon != CREATUREICON_NONE) {
-    	msg.addByte(icon);
-    	msg.addByte(1); // ???
-    	msg.add<uint16_t>(0); // used for the life in the new quest
-  	}
+    	{
+		return;
+	}
+
+	CreatureIcon_t icon = creature->getIcon();
+	NetworkMessage msg;
+	msg.addByte(0x8B);
+	msg.add<uint32_t>(creature->getID());
+	msg.addByte(14); // type 14 for this
+	msg.addByte(icon != CREATUREICON_NONE); // 0 = no icon, 1 = we'll send an icon
+	if (icon != CREATUREICON_NONE) {
+		msg.addByte(icon);
+		msg.addByte(0); // Creature update
+		msg.add<uint16_t>(0); // Used for the life in the new quest
+	}
 	writeToOutputBuffer(msg);
 }
 
@@ -2992,7 +2995,7 @@ void ProtocolGame::sendCyclopediaCharacterGeneralStats()
 	for (uint8_t i = SKILL_FIRST; i < SKILL_CRITICAL_HIT_CHANCE; ++i)
 	{
 		// check if all clients have the same hardcoded skill ids
-		static const uint8_t HardcodedSkillIds[] = {11, 9, 8, 10, 7, 6, 13};
+		static const uint8_t HardcodedSkillIds[] = { 11, 9, 8, 10, 7, 6, 13 };
 		msg.addByte(HardcodedSkillIds[i]);
 		msg.add<uint16_t>(std::min<int32_t>(player->getSkillLevel(i), std::numeric_limits<uint16_t>::max()));
 		msg.add<uint16_t>(player->getBaseSkill(i));
@@ -3000,6 +3003,10 @@ void ProtocolGame::sendCyclopediaCharacterGeneralStats()
 		msg.add<uint16_t>(player->getBaseSkill(i));
 		msg.add<uint16_t>(player->getSkillPercent(i) * 100);
 	}
+
+	// Version 12.70
+	msg.addByte(0x00);
+
 	writeToOutputBuffer(msg);
 }
 
@@ -3014,6 +3021,22 @@ void ProtocolGame::sendCyclopediaCharacterCombatStats()
 		msg.add<uint16_t>(std::min<int32_t>(player->getSkillLevel(i), std::numeric_limits<uint16_t>::max()));
 		msg.add<uint16_t>(0);
 	}
+
+// Cleave (12.70)
+	msg.add<uint16_t>(0);
+	// Magic shield capacity (12.70)
+	msg.add<uint16_t>(0); // Direct bonus
+	msg.add<uint16_t>(0); // Percentage bonus
+
+	// Perfect shot range (12.70)
+	for (uint16_t i = 1; i <= 5; i++)
+	{
+		msg.add<uint16_t>(0x00);
+	}
+
+	// Damage reflection
+	msg.add<uint16_t>(0);
+
 	uint8_t haveBlesses = 0;
 	uint8_t blessings = 8;
 	for (uint8_t i = 1; i < blessings; ++i)
@@ -3166,6 +3189,9 @@ void ProtocolGame::sendCyclopediaCharacterCombatStats()
 			++combats;
 		}
 	}
+
+	// Concoctions potions (12.70)
+	msg.addByte(0x00);
 
 	msg.setBufferPosition(startCombats);
 	msg.addByte(combats);
@@ -4626,6 +4652,15 @@ void ProtocolGame::sendMarketDetail(uint16_t itemId)
 	{
 		msg.add<uint16_t>(0x00);
 	}
+
+	// Magic shield capacity modifier (12.70)
+	msg.add<uint16_t>(0x00);
+	// Cleave modifier (12.70)
+	msg.add<uint16_t>(0x00);
+	// Damage reflection modifier (12.70)
+	msg.add<uint16_t>(0x00);
+	// Perfect shot modifier (12.70)
+	msg.add<uint16_t>(0x00);
 
 	MarketStatistics *statistics = IOMarket::getInstance().getPurchaseStatistics(itemId);
 	if (statistics)

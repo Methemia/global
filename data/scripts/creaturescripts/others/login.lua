@@ -160,55 +160,42 @@ end
 		player:setStorageValue(198009, 1)
 	end
 	
-		if player:getLevel() >= 1 and (player:getStorageValue(38783) ~= 1) then	
-		player:addOutfit(962)
-		player:addOutfit(963)
-		player:addOutfit(964)
-		player:addOutfit(965)
-		player:addOutfit(966)
-		player:addOutfit(967)
-		player:addOutfit(968)
-		player:addOutfit(969)
-		player:addOutfit(970)
-		player:addOutfit(971)
-		player:addOutfit(972)
-		player:addOutfit(973)
-		player:addOutfit(974)
-		player:addOutfit(975)
-		player:setStorageValue(38783, 1)
-		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You have won all retro outfits for first login.")
-	end
+	--	if player:getLevel() >= 1 and (player:getStorageValue(38783) ~= 1) then	
+	--	player:addOutfit(962)
+	--	player:addOutfit(963)
+	--	player:addOutfit(964)
+	--	player:addOutfit(965)
+	--	player:addOutfit(966)
+	--	player:addOutfit(967)
+	--	player:addOutfit(968)
+	--	player:addOutfit(969)
+	--	player:addOutfit(970)
+	--	player:addOutfit(971)
+	--	player:addOutfit(972)
+	--	player:addOutfit(973)
+	--	player:addOutfit(974)
+	--	player:addOutfit(975)
+	--	player:setStorageValue(38783, 1)
+	--	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You have won all retro outfits for first login.")
+	--end
 
 		if player:getLevel() >= 1 and (player:getStorageValue(38785) ~= 1) then	
 		player:addMount(math.random(187))
 		player:setStorageValue(38785, 1)
 		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You have won a random mount for first login.")
 	end
-		if player:getLevel() >= 1 and (player:getStorageValue(31987) ~= 1) then		
-		player:removeOutfitAddon(130, 1)
-		player:removeOutfitAddon(130, 2)
-		player:removeOutfitAddon(133, 1)
-		player:removeOutfitAddon(133, 2)
-		player:removeOutfitAddon(138, 1)
-		player:removeOutfitAddon(138, 2)
-		player:removeOutfitAddon(141, 1)
-		player:removeOutfitAddon(141, 2)
-		player:setOutfit({lookType = 128, lookFeet = 114, lookLegs = 134, lookHead = 114, lookAddons = 0})
-		player:setStorageValue(31987, 1)
-		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Remove new BUG abuse Ferumbras Hat.")
-	end
 
-		if player:getLevel() >= 1 and (player:getStorageValue(31990) ~= 1) then		
-		player:removeOutfitAddon(1210, 1)
-		player:removeOutfitAddon(1210, 2)
-		player:removeOutfitAddon(1211, 1)
-		player:removeOutfitAddon(1211, 2)
-		player:removeOutfit(1210)
-		player:removeOutfit(1211)
-		player:setOutfit({lookType = 128, lookFeet = 114, lookLegs = 134, lookHead = 114, lookAddons = 0})
-		player:setStorageValue(31990, 1)
-		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Remove new BUG abuse GOLDEN OUTFIT.")
-	end
+	--	if player:getLevel() >= 1 and (player:getStorageValue(31990) ~= 1) then		
+	--	player:removeOutfitAddon(1210, 1)
+	--	player:removeOutfitAddon(1210, 2)
+	--	player:removeOutfitAddon(1211, 1)
+	--	player:removeOutfitAddon(1211, 2)
+	--	player:removeOutfit(1210)
+	--	player:removeOutfit(1211)
+	--	player:setOutfit({lookType = 128, lookFeet = 114, lookLegs = 134, lookHead = 114, lookAddons = 0})
+	--	player:setStorageValue(31990, 1)
+	--	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Remove new BUG abuse GOLDEN OUTFIT.")
+	--end
 
 if player:getStorageValue(5000000) == 1 then
     removePlayerVials(player:getId())

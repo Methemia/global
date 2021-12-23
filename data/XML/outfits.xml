@@ -102,6 +102,8 @@
 	<outfit type="0" looktype="1416" name="Forest Warden" premium="no" unlocked="no" enabled="yes" from="store" />
 	<outfit type="0" looktype="1437" name="Royal Bounacean Advisor" premium="no" unlocked="no" enabled="yes" from="quest" />
 	<outfit type="0" looktype="1445" name="Dragon Knight" premium="no" unlocked="no" enabled="yes" from="store" />
+	<outfit type="0" looktype="1449" name="Arbalester" premium="no" unlocked="no" enabled="yes" from="store" />
+	<outfit type="0" looktype="1456" name="Royal Costume" premium="no" unlocked="no" enabled="yes" from="quest" />
 
 	<!-- Male outfits -->
 	<outfit type="1" looktype="128" name="Citizen" premium="no" unlocked="yes" enabled="yes" />
@@ -205,4 +207,7 @@
 	<outfit type="1" looktype="1415" name="Forest Warden" premium="no" unlocked="no" enabled="yes" from="store" />
 	<outfit type="1" looktype="1436" name="Royal Bounacean Advisor" premium="no" unlocked="no" enabled="yes" from="quest" />
 	<outfit type="1" looktype="1444" name="Dragon Knight" premium="no" unlocked="no" enabled="yes" from="store" />
+	<outfit type="1" looktype="1450" name="Arbalester" premium="no" unlocked="no" enabled="yes" from="store" />
+	<outfit type="1" looktype="1457" name="Royal Costume" premium="no" unlocked="no" enabled="yes" from="quest" />
+
 </outfits>
