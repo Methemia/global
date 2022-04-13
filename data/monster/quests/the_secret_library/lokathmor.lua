@@ -86,12 +86,12 @@ monster.loot = {
 	{name = "magic sulphur", chance = 70000},
 	{name = "stone skin amulet", chance = 70000},
 	{name = "silver token", chance = 30000, maxCount = 4},
-	{name = "blue robe", chance = 30000},
-	{name = "dreaded cleaver", chance = 30000},
+	{name = "blue robe", chance = 3000},
+	{name = "dreaded cleaver", chance = 3000},
 	{id = 9814, chance = 30000},
 	{name = "wand of inferno", chance = 30000},
-	{id = 33094, chance = 1000},
-	{name = "sturdy book", chance = 1000}
+	{id = 33094, chance = 500},
+	{name = "sturdy book", chance = 400}
 }
 
 monster.attacks = {

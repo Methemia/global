@@ -1,54 +1,95 @@
-local autoloot = TalkAction("/autotibiana")
+local autoloot = TalkAction("!autoloot")
+
 function autoloot.onSay(player, words, param)
-	if (param == '') then
-		local list = player:getAutoLootList()
+    local split = param:split(",")
+    local action = split[1]
+    if action == "add" then
+   
+        if not split[2] then return true end
+       
+        local item = split[2]:gsub("%s+", "", 1)
+        local itemType = ItemType(item)
+        if itemType:getId() == 0 then
+            itemType = ItemType(tonumber(item))
+            if itemType:getId() == 0 then
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "There is no item with that id or name.")
+                return false
+            end
+        end
 
-		if (not list) then
-			return player:sendCancelMessage("Your auto loot list is empty, usage: /autoloot [add/remove], [itemID/name]")
-		end
+        local itemName = tonumber(split[2]) and itemType:getName() or item
+        local size = 0
+        for i = AUTOLOOT_STORAGE_START, AUTOLOOT_STORAGE_END do
+            local storage = player:getStorageValue(i)
+            if size == AUTO_LOOT_MAX_ITEMS then
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "The list is full, please remove from the list to make some room.")
+                break
+            end
 
-		local text = "You're auto looting: "
+            if storage == itemType:getId() then
+                player:sendTextMessage(MESSAGE_INFO_DESCR, itemName .." is already in the list.")
+                break
+            end
 
-		for _, itemID in ipairs(list) do
-			local itemType = ItemType(itemID)
-			text = text .. itemType:getName() .. ' [ID: ' .. itemID .. '], '
-		end
+            if storage <= 0 then
+                player:setStorageValue(i, itemType:getId())
+                player:sendTextMessage(MESSAGE_INFO_DESCR, itemName .." has been added to the list.")
+                break
+            end
 
-		return player:sendTextMessage(MESSAGE_INFO_DESCR, text:sub(1, -3) .. '.')
-	end
+            size = size + 1
+        end
+    elseif action == "remove" then
+        if not split[2] then return true end
+       
+        local item = split[2]:gsub("%s+", "", 1)
+        local itemType = ItemType(item)
+        if itemType:getId() == 0 then
+            itemType = ItemType(tonumber(item))
+            if itemType:getId() == 0 then
+                player:sendTextMessage(MESSAGE_INFO_DESCR, "There is no item with that id or name.")
+                return false
+            end
+        end
 
-	local params = param:split(",")
+        local itemName = tonumber(split[2]) and itemType:getName() or item
+        for i = AUTOLOOT_STORAGE_START, AUTOLOOT_STORAGE_END do
+            if player:getStorageValue(i) == itemType:getId() then
+                player:sendTextMessage(MESSAGE_INFO_DESCR, itemName .." has been removed from the list.")
+                player:setStorageValue(i, 0)
+                return false
+            end
+        end
 
-	if (not params[2]) then
-		return player:sendCancelMessage("Missing itemID or name, usage: /autoloot [add/remove], [itemID/name]")
-	end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, itemName .." was not founded in the list.")
+    elseif action == "show" then
+        local text = "-- Auto Loot List --\n"
+        local count = 1
+        for i = AUTOLOOT_STORAGE_START, AUTOLOOT_STORAGE_END do
+            local storage = player:getStorageValue(i)
+            if storage > 0 then
+                text = string.format("%s%d. %s\n", text, count, ItemType(storage):getName())
+                count = count + 1
+            end
+        end
 
-	if (params[1] == 'add' or params[1] == 'remove') then
-		local itemType = ItemType(params[2]:trim())
+        if text == "" then
+            text = "Empty"
+        end
 
-		if (itemType:getId() == 0) then
-			itemType = ItemType(tonumber(params[2]:trim()))
-		end
+        player:showTextDialog(1950, text, false)
+    elseif action == "clear" then
+        for i = AUTOLOOT_STORAGE_START, AUTOLOOT_STORAGE_END do
+            player:setStorageValue(i, 0)
+        end
 
-		if (itemType:getName() == '') then
-			return player:sendCancelMessage("There is no item with that ID or name.")
-		end
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "The autoloot list has been cleared.")
+    else
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "Use the commands: !autoloot {add, remove, show, clear}")
+    end
 
-		if (params[1] == 'add') then
-			if (player:addAutoLootItem(itemType:getId())) then
-				return player:sendTextMessage(MESSAGE_INFO_DESCR, "You're now auto looting " .. itemType:getName() .. ' [ID: ' .. itemType:getId() .. '].')
-			end
-
-			return not player:sendCancelMessage("You're already auto looting this item.")
-		elseif (params[1] == 'remove') then
-			if (player:removeAutoLootItem(itemType:getId())) then
-				return player:sendTextMessage(MESSAGE_INFO_DESCR, "You're not auto looting " .. itemType:getName() .. ' [ID: ' .. itemType:getId() .. '] anymore.')
-			end
-
-			return player:sendCancelMessage("You're not auto looting this item.")
-		end
-	end
-
-    return player:sendCancelMessage("Unknown parameter, usage: /autoloot [add/remove], [itemID/name]")
+    return false
 end
+
+autoloot:separator(" ")
 autoloot:register()

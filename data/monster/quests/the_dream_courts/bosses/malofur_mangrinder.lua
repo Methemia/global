@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 200000
-monster.maxHealth = 200000
+monster.health = 220000
+monster.maxHealth = 220000
 monster.race = "blood"
 monster.corpse = 34655
 monster.speed = 250
@@ -86,20 +86,20 @@ monster.loot = {
 	{name = "Mysterious Remains", chance = 10000},
 	{name = "Energy Bar", chance = 10000},
 	{id = 26199, chance = 10000},
-	{name = "Ring of the Sky", chance = 100000},
-	{name = "Crunor Idol", chance = 1200},
-	{name = "Resizer", chance = 1280},
-	{name = "Shoulder Plate", chance = 1280},
-	{name = "Malofur's Lunchbox", chance = 1500},
-	{name = "Pomegranate", chance = 1300}
+	{name = "Ring of the Sky", chance = 1000},
+	{name = "Crunor Idol", chance = 20},
+	{name = "Resizer", chance = 20},
+	{name = "Shoulder Plate", chance = 20},
+	{name = "Malofur's Lunchbox", chance = 50},
+	{name = "Pomegranate", chance = 30}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -2000},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_PHYSICALDAMAGE, minDamage = -250, maxDamage = -800, length = 7, effect = CONST_ME_POFF, target = false},
-	{name ="combat", interval = 2000, chance = 10, type = COMBAT_PHYSICALDAMAGE, minDamage = -200, maxDamage = -700, range = 5, effect = CONST_ME_EXPLOSIONAREA, target = true},
-	{name ="combat", interval = 2000, chance = 5, type = COMBAT_PHYSICALDAMAGE, minDamage = -2000, maxDamage = -2000, radius = 7, effect = CONST_ME_GROUNDSHAKER, target = true},
-	{name ="combat", interval = 2000, chance = 13, type = COMBAT_EARTHDAMAGE, minDamage = -260, maxDamage = -600, range = 5, shootEffect = CONST_ANI_LARGEROCK, effect = CONST_ME_GREEN_ENERGY_SPARK, target = true}
+	{name ="melee", interval = 2000, chance = 100, minDamage = -700, maxDamage = -2000},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_PHYSICALDAMAGE, minDamage = -850, maxDamage = -1800, length = 7, effect = CONST_ME_POFF, target = false},
+	{name ="combat", interval = 2000, chance = 10, type = COMBAT_PHYSICALDAMAGE, minDamage = -900, maxDamage = -1700, range = 5, effect = CONST_ME_EXPLOSIONAREA, target = true},
+	{name ="combat", interval = 2000, chance = 5, type = COMBAT_PHYSICALDAMAGE, minDamage = -2000, maxDamage = -2300, radius = 7, effect = CONST_ME_GROUNDSHAKER, target = true},
+	{name ="combat", interval = 2000, chance = 13, type = COMBAT_EARTHDAMAGE, minDamage = -560, maxDamage = -1600, range = 5, shootEffect = CONST_ANI_LARGEROCK, effect = CONST_ME_GREEN_ENERGY_SPARK, target = true}
 }
 
 monster.defenses = {

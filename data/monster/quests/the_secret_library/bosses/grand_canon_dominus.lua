@@ -71,9 +71,9 @@ monster.loot = {
 	{name = "patch of fine cloth", chance = 1000},
 	{name = "red gem", chance = 1800},
 	{name = "violet gem", chance = 1850},
-	{name = "falcon bow", chance = 50},
-	{name = "falcon wand", chance = 50},
-	{name = "falcon plate", chance = 50}
+	{name = "falcon bow", chance = 5},
+	{name = "falcon wand", chance = 5},
+	{name = "falcon plate", chance = 5}
 }
 
 monster.attacks = {

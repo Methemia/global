@@ -66,21 +66,21 @@ monster.voices = {
 }
 
 monster.loot = {
-	{id = 7633, chance = 26900},
-	{name = "magic sulphur", chance = 18920},
-	{name = "mino shield", chance = 17620},
+	{id = 7633, chance = 490},
+	{name = "magic sulphur", chance = 220},
+	{name = "mino shield", chance = 320},
 	{name = "silver token", chance = 1732},
 	{name = "gold token", chance = 1532},
 	{name = "gold coin", chance = 100000, maxCount = 200},
 	{name = "platinum coin", chance = 29840, maxCount = 30},
-	{name = "piece of hell steel", chance = 12370, maxCount = 9},
-	{name = "red piece of cloth", chance = 16370, maxCount = 6},
+	{name = "piece of hell steel", chance = 170, maxCount = 9},
+	{name = "red piece of cloth", chance = 160, maxCount = 6},
 	{name = "yellow gem", chance = 29460},
 	{name = "blue gem", chance = 21892},
-	{name = "underworld rod", chance = 117270},
+	{name = "underworld rod", chance = 1170},
 	{name = "war axe", chance = 127270},
 	{name = "pair of iron fists", chance = 9510},
-	{name = "mysterious remains", chance = 100000},
+	{name = "mysterious remains", chance = 100},
 	{name = "small diamond", chance = 12760, maxCount = 10},
 	{name = "small amethyst", chance = 14700, maxCount = 10},
 	{name = "small topaz", chance = 11520, maxCount = 10},
@@ -90,19 +90,19 @@ monster.loot = {
 	{name = "energy bar", chance = 16872, maxCount = 3},
 	{name = "ultimate health potion", chance = 27652, maxCount = 10},
 	{name = "great mana potion", chance = 33721, maxCount = 10},
-	{name = "great spirit potion", chance = 25690, maxCount = 5},
-	{name = "piece of royal steel", chance = 15890},
-	{name = "execowtioner axe", chance = 7890},
-	{name = "maimer", chance = 1890},
-	{name = "ornate mace", chance = 7890},
-	{name = "velvet mantle", chance = 1890},
-	{name = "iron ore", chance = 14542},
-	{name = "giant sword", chance = 16892}
+	{name = "great spirit potion", chance = 250, maxCount = 5},
+	{name = "piece of royal steel", chance = 150},
+	{name = "execowtioner axe", chance = 90},
+	{name = "maimer", chance = 190},
+	{name = "ornate mace", chance = 70},
+	{name = "velvet mantle", chance = 180},
+	{name = "iron ore", chance = 142},
+	{name = "giant sword", chance = 192}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -400},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_EARTHDAMAGE, minDamage = 0, maxDamage = -500, range = 4, radius = 4, effect = CONST_ME_STONES, target = true},
+	{name ="melee", interval = 1000, chance = 100, minDamage = -500, maxDamage = -1400},
+	{name ="combat", interval = 1000, chance = 20, type = COMBAT_EARTHDAMAGE, minDamage = -500, maxDamage = -2500, range = 4, radius = 4, effect = CONST_ME_STONES, target = true},
 	{name ="speed", interval = 2000, chance = 20, speedChange = -650, radius = 5, effect = CONST_ME_MAGIC_RED, target = false, duration = 5000}
 }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servers>
+	<server name="LunaCores" ip="sv.lunacores.com" port="7172" id="0" />
+	<server name="LunaCores2" ip="sv.lunacores.com" port="7176" id="1" />
+</servers>

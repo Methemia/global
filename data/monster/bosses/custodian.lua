@@ -65,8 +65,8 @@ monster.voices = {
 }
 
 monster.loot = {
-	{name = "cobra crest", chance = 11000},
-	{name = "cobra hood", chance = 270},
+	{name = "cobra crest", chance = 30},
+	{name = "cobra hood", chance = 5},
 	{name = "Small Sapphire", chance = 33500}
 }
 

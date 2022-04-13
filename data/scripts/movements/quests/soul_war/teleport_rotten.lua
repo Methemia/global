@@ -1,6 +1,6 @@
 
 local portals = {
-	[59703] = {position = Position(33947, 31027, 11)}
+	[59713] = {position = Position(33947, 31027, 11)}
 }
 
 local teleportRotten = MoveEvent()
@@ -21,5 +21,5 @@ function teleportRotten.onStepIn(creature, item, position, fromPosition)
 end
 
 teleportRotten:type("stepin")
-teleportRotten:uid(59703)
+teleportRotten:uid(59713)
 teleportRotten:register()

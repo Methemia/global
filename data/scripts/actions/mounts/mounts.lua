@@ -40,7 +40,6 @@ local config = {
 	[34808]	= {NAME = 'Lacewing Moth', ID = 130, BREAK = false, TYPE = TYPE_MONSTER, CHANCE = 15, FAIL_MSG = { {1, 'runs away.'}, {2, 'fail.'} }, SUCCESS_MSG = 'You have tamed a lacewing mount.', ACHIEV = "Lacewing Catcher"},
 	[34809]	= {NAME = 'Hibernal Moth', ID = 131, BREAK = false, TYPE = TYPE_MONSTER, CHANCE = 15, FAIL_MSG = { {1, 'runs away.'}, {2, 'fail.'} }, SUCCESS_MSG = 'You have tamed a hibernal mount.', ACHIEV = "Moth Whisperer"}
 	
-	
 }
 
 local function doFailAction(cid, mount, pos, item, itemEx, loseItem)

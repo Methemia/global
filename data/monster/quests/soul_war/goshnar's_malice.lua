@@ -2,22 +2,22 @@ local mType = Game.createMonsterType("Goshnar's Malice")
 local monster = {}
 
 monster.description = "a goshnar's malice"
-monster.experience = 600
+monster.experience = 35000
 monster.outfit = {
-	lookType = 1307,
-	lookHead = 0,
-	lookBody = 0,
-	lookLegs = 0,
-	lookFeet = 0,
-	lookAddons = 0,
+	lookType = 1306,
+	lookHead = 95,
+	lookBody = 114,
+	lookLegs = 76,
+	lookFeet = 57,
+	lookAddons = 1,
 	lookMount = 0
 }
 
-monster.health = 8200
-monster.maxHealth = 8200
-monster.race = "fire"
-monster.corpse = 5995
-monster.speed = 240
+monster.health = 400000
+monster.maxHealth = 400000
+monster.race = "undead"
+monster.corpse = 38706
+monster.speed = 220
 monster.manaCost = 0
 monster.maxSummons = 0
 
@@ -39,7 +39,7 @@ monster.flags = {
 	hostile = true,
 	convinceable = false,
 	pushable = false,
-	rewardBoss = false,
+	rewardBoss = true,
 	illusionable = true,
 	canPushItems = true,
 	canPushCreatures = true,
@@ -67,73 +67,67 @@ monster.voices = {
 }
 
 monster.loot = {
-		{name="purple tome", chance = 1180},
-		{name="gold coin", maxCount = 100, chance = 60000},
-		{name="gold coin", maxCount = 100, chance = 60000},
-		{name="small emerald", maxCount = 10, chance = 9690},
-		{name="small amethyst", maxCount = 10, chance = 7250},		
-		{name="small ruby", maxCount = 10, chance = 7430},		
-		{name="small topaz", maxCount = 10, chance = 7470},		
-		{name="red gem", chance = 5000},
-		{name="demonic essence", chance = 14630},		
-		{name="talon", chance = 5000},
-		{name="platinum coin", maxCount=8, chance = 90540},
-		{name="might ring", chance = 2500},
-		{name="stealth ring", chance = 2170},
-		{name="platinum amulet", chance = 1500},
-		{name="orb", chance = 2854},
-		{name="gold ring", chance = 2000},
-		{name="ring of healing", chance = 2300},
-		{name="double axe", chance = 4750},
-		{name="giant sword", chance = 5000},
-		{name="ice rapier", chance = 2000},
-		{name="golden sickle", chance = 5000},
-		{name="fire axe", chance = 6000},
-		{name="devil helmet", chance = 2000},
-		{name="golden legs", chance = 1200},
-		{name="magic plate armor", chance = 650},
-		{name="mastermind shield", chance = 600},
-		{name="demon shield", chance = 800},
-		{name="fire mushroom", maxCount = 6, chance = 19660},
-		{name="demon horn", chance = 14920},
-		{name="assassin star", maxCount = 10, chance = 12550},
-		{name="demonrage sword", chance = 2000},
-		{id=7393, chance = 1000},
-		{name="great mana potion", maxCount = 3, chance = 22220},
-		{name="ultimate health potion", maxCount = 3, chance = 19540},
-		{name="great spirit potion", maxCount = 3, chance = 18510}
+	{id = 2160, countmax = 25, chance = 20000},-- cc -->
+	{id = 2150, countmax = 3, chance = 10000},-- small amethyst -->
+	{id = 38944, chance = 5},-- bag you desire -->								
+	{id = 5022, countmax = 4, chance = 40000},-- white pearl -->		
+	{id = 38910, chance = 1200},-- skull of the beast -->		
+	{id = 7589, chance = 7500},-- strong mana potion -->		
+	{id = 8910, chance = 5000},-- underworld rod -->		
+	{id = 8473, chance = 7777},-- ultimate health potion -->
+	{id = 8920, chance = 5000},-- wand of starstorm -->	
+	{id = 38756, chance = 50},-- malice's spine -->	
+	{id = 38755, chance = 50},-- malice's horn -->	
+	{id = 38910, chance = 10},-- the skull of a beast -->	
+	{id = 38911, chance = 10},-- bracelet of strenghtening -->	
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -350},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_FIREDAMAGE, minDamage = -60, maxDamage = -140, range = 7, radius = 4, shootEffect = CONST_ANI_FIRE, effect = CONST_ME_FIREAREA, target = true},
-	{name ="combat", interval = 2000, chance = 10, type = COMBAT_FIREDAMAGE, minDamage = -100, maxDamage = -170, length = 8, spread = 3, effect = CONST_ME_FIREAREA, target = false}
+	{name ="melee", interval = 2000, chance = 100, skill = 180, attack = 300},
+	{name ="combat", interval = 1000, chance = 15, type = COMBAT_LIFEDRAIN, minDamage = -750, maxDamage = -1850, length = 8, spread = 3, effect = CONST_ME_YELLOWENERGY, target = false},
+	{name ="combat", interval = 1000, chance = 40, type = COMBAT_PHYSICALDAMAGE, minDamage = -550, maxDamage = -1480, length = 4, spread = 2, effect = CONST_ME_MORTAREA, target = false},
+	{name ="combat", interval = 1000, chance = 40, type = COMBAT_PHYSICALDAMAGE, minDamage = -540, maxDamage = -1280, length = 6, spread = 0, effect = CONST_ME_GROUNDSHAKER, target = false},
+	{name ="combat", interval = 1000, chance = 15, type = COMBAT_FIREDAMAGE, minDamage = -1110, maxDamage = -1690, range = 3, radius = 8, effect = CONST_ME_EXPLOSIONAREA, target = true},
+	{name ="combat", interval = 1000, chance = 15, type = COMBAT_MANADRAIN, minDamage = -735, maxDamage = -1615, range = 1, radius = 8, effect = CONST_ME_YELLOWENERGY, target = true},
+	{name ="combat", interval = 1000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = -410, maxDamage = -770, range = 3, shootEffect = CONST_ANI_DEATH, target = true},
+	{name ="speed", interval = 3000, chance = 22, speedChange = -1900, radius = 6, effect = CONST_ME_SMALLCLOUDS, target = false, duration = 60000},
+	{name ="combat", interval = 1000, chance = 23, type = COMBAT_LIFEDRAIN, minDamage = -900, maxDamage = -1700, radius = 8, effect = CONST_ME_LOSEENERGY, target = false},
+	{name ="combat", interval = 1000, chance = 10, type = COMBAT_MANADRAIN, minDamage = -800, maxDamage = -1700, radius = 8, effect = CONST_ME_MAGIC_GREEN, target = false},
+	{name ="combat", interval = 1000, chance = 10, type = COMBAT_DEATHDAMAGE, minDamage = -510, maxDamage = -1090, range = 7, shootEffect = CONST_ANI_MORTAREA, target = true},
+	{name ="combat", interval = 2000, chance = 18, type = COMBAT_FIREDAMAGE, minDamage = -2300, maxDamage = -3200, radius = 7, effect = CONST_ME_EXPLOSIONAREA, target = false},
+	{name ="big death wave", interval = 2000, chance = 10, minDamage = -300, maxDamage = -1200, range = 5, target = false},
 }
 
 monster.defenses = {
-	defense = 30,
-	armor = 30,
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_HEALING, minDamage = 40, maxDamage = 70, effect = CONST_ME_MAGIC_BLUE, target = false}
+	defense = 40,
+	armor = 40,
+	{name ="combat", interval = 2000, chance = 20, type = COMBAT_HEALING, minDamage = 80, maxDamage = 150, effect = CONST_ME_MAGIC_BLUE, target = false}
 }
 
 monster.elements = {
 	{type = COMBAT_PHYSICALDAMAGE, percent = 0},
-	{type = COMBAT_ENERGYDAMAGE, percent = 20},
-	{type = COMBAT_EARTHDAMAGE, percent = 80},
-	{type = COMBAT_FIREDAMAGE, percent = 100},
+	{type = COMBAT_ENERGYDAMAGE, percent = 0},
+	{type = COMBAT_EARTHDAMAGE, percent = 0},
+	{type = COMBAT_FIREDAMAGE, percent = 20},
 	{type = COMBAT_LIFEDRAIN, percent = 0},
 	{type = COMBAT_MANADRAIN, percent = 0},
 	{type = COMBAT_DROWNDAMAGE, percent = 0},
-	{type = COMBAT_ICEDAMAGE, percent = -10},
+	{type = COMBAT_ICEDAMAGE, percent = 0},
 	{type = COMBAT_HOLYDAMAGE , percent = 0},
-	{type = COMBAT_DEATHDAMAGE , percent = 0}
+	{type = COMBAT_DEATHDAMAGE , percent = 20}
 }
 
 monster.immunities = {
 	{type = "paralyze", condition = true},
-	{type = "outfit", condition = true},
+	{type = "outfit", condition = false},
 	{type = "invisible", condition = true},
-	{type = "bleed", condition = true}
+	{type = "bleed", condition = false}
 }
+
+mType.onAppear = function(monster, creature)
+	if monster:getType():isRewardBoss() then
+		monster:setReward(true)
+	end
+end
 
 mType:register(monster)

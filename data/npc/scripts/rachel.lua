@@ -23,8 +23,8 @@ keywordHandler:addKeyword({"magic"}, StdModule.say,
 )
 
 local items = {
-	[VOCATION.CLIENT_ID.SORCERER] = 2190,
-	[VOCATION.CLIENT_ID.DRUID] = 2182
+	[VOCATION.BASE_ID.SORCERER] = 2190,
+	[VOCATION.BASE_ID.DRUID] = 2182
 }
 
 local function creatureSayCallback(cid, type, msg)
@@ -35,7 +35,7 @@ local function creatureSayCallback(cid, type, msg)
 	local player = Player(cid)
 	if msgcontains(msg, "first rod") or msgcontains(msg, "first wand") then
 		if player:isMage() then
-			local itemId = items[player:getVocation():getClientId()]
+			local itemId = items[player:getVocation():getBaseId()]
 			if player:getStorageValue(Storage.firstMageWeapon) == -1 then
 				npcHandler:say("So you ask me for a {" .. ItemType(itemId):getName() .. "} to begin your adventure?", cid)
 				npcHandler.topic[cid] = 1

@@ -406,6 +406,8 @@ function heartDestructionFinal.onUse(player, item, fromPosition, itemEx, toPosit
 						config.hungerPositions[i]:sendMagicEffect(CONST_ME_POFF)
 						teamHunger:teleportTo(config.hungerNewPos)
 						teamHunger:setStorageValue(14333, os.time() + 7*24*60*60)
+						teamHunger:setStorageValue(Storage.Tibiana.DevourerStorage, os.time() + 15 * 60 * 60) -- + 20 * 60 * 3600
+
 						teamHunger:setStorageValue(14334, 1) --storage Hunger
 						teamHunger:registerEvent("DevourerStorage")
 					end
@@ -414,6 +416,8 @@ function heartDestructionFinal.onUse(player, item, fromPosition, itemEx, toPosit
 						teamDestruction = storeDestruction[i]
 						config.destructionPositions[i]:sendMagicEffect(CONST_ME_POFF)
 						teamDestruction:teleportTo(config.destructionNewPos)
+						teamDestruction:setStorageValue(Storage.Tibiana.DevourerStorage, os.time() + 15 * 60 * 60) -- + 20 * 60 * 3600	
+
 						teamDestruction:setStorageValue(14333, os.time() + 7*24*60*60)
 						teamDestruction:setStorageValue(14335, 1) --storage Destruction
 						teamDestruction:registerEvent("DevourerStorage")
@@ -424,6 +428,7 @@ function heartDestructionFinal.onUse(player, item, fromPosition, itemEx, toPosit
 						config.ragePositions[i]:sendMagicEffect(CONST_ME_POFF)
 						teamRage:teleportTo(config.rageNewPos)
 						teamRage:setStorageValue(14333, os.time() + 7*24*60*60)
+						teamRage:setStorageValue(Storage.Tibiana.DevourerStorage, os.time() + 15 * 60 * 60) -- + 20 * 60 * 3600
 						teamRage:setStorageValue(14336, 1) --storage Rage
 						teamRage:registerEvent("DevourerStorage")
 					end

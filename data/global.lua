@@ -5,6 +5,14 @@ NOT_MOVEABLE_ACTION = 100
 PARTY_PROTECTION = 1 -- Set to 0 to disable.
 ADVANCED_SECURE_MODE = 1 -- Set to 0 to disable.
 
+-- AutoLoot config
+    AUTO_LOOT_MAX_ITEMS = 10
+
+    -- Reserved storage
+    AUTOLOOT_STORAGE_START = 10000
+    AUTOLOOT_STORAGE_END = AUTOLOOT_STORAGE_START + AUTO_LOOT_MAX_ITEMS
+-- AutoLoot config end
+
 STORAGEVALUE_PROMOTION = 30018
 
 SERVER_NAME = configManager.getString(configKeys.SERVER_NAME)
@@ -13,6 +21,24 @@ SERVER_NAME = configManager.getString(configKeys.SERVER_NAME)
 GLOBAL_CHARM_GUT = 0
 GLOBAL_CHARM_SCAVENGE = 0
 
+function doSendOfflineMessage(targetName, message)
+	db.query(string.format('INSERT INTO `offline_message` (player_name, message) VALUES (%s, %s)', db.escapeString(targetName), db.escapeString(message)))
+end
+
+function Player.checkOfflineMessage(self, playerName)
+	local resultId = db.storeQuery(string.format('SELECT * FROM `offline_message` WHERE `player_name` = %s', db.escapeString(playerName)))
+    if resultId ~= false then
+    	local message = result.getDataString(resultId, "message")
+    	local id = result.getDataString(resultId, "id")
+        self:sendTextMessage(MESSAGE_INFO_DESCR, string.format('Offline Message:\n%s', message))
+
+        db.query(string.format('DELETE FROM `offline_message` WHERE `id` = %d', id))
+    end
+end
+
+string.trim = function(str)
+	return str:match'^()%s*$' and '' or str:match'^%s*(.*%S)'
+end
 
 
 --WEATHER
@@ -56,6 +82,17 @@ damageImpact = {}
 
 -- New prey => preyTimeLeft
 nextPreyTime = {}
+
+function Player.getPremiumPoints(self)
+    local query = db.storeQuery("SELECT `coins` FROM `accounts` WHERE `id` = " .. self:getAccountId())
+    if not query then
+        return false
+    end
+
+    local value = result.getNumber(query, "coins")
+    result.free(query)
+    return value
+end
 
 startupGlobalStorages = {
 	GlobalStorage.TheAncientTombs.AshmunrahSwitchesGlobalStorage,
@@ -131,10 +168,6 @@ string.splitTrimmed = function(str, sep)
 	return res
 end
 
-string.trim = function(str)
-	return str:match'^()%s*$' and '' or str:match'^%s*(.*%S)'
-end
-
 -- Stamina
 if nextUseStaminaTime == nil then
 	nextUseStaminaTime = {}
@@ -160,3 +193,6 @@ end
 if not playerDelayPotion then
 	playerDelayPotion = {}
 end
+
+-- Exercise Training
+onExerciseTraining = {}

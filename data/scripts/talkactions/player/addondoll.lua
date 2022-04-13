@@ -65,7 +65,7 @@ local maleOutfits = {
     ["philosopher"] = {873}
 }
 
-local addondoll_id = 24807
+local addondoll_id = 248074
 
 function addon.onSay(cid, words, param)
     local player, param = Player(cid), string.lower(param)

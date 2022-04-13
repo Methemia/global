@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("Rotten Golem")
 local monster = {}
 
 monster.description = "a rotten golem"
-monster.experience = 23400
+monster.experience = 17860
 monster.outfit = {
 	lookType = 1312,
 	lookHead = 0,
@@ -54,15 +54,15 @@ monster.flags = {
 	pushable = false,
 	rewardBoss = false,
 	illusionable = false,
-	canPushItems = false,
-	canPushCreatures = false,
+	canPushItems = true,
+	canPushCreatures = true,
 	staticAttackChance = 90,
 	targetDistance = 1,
 	runHealth = 0,
 	healthHidden = false,
 	isBlockable = false,
 	canWalkOnEnergy = false,
-	canWalkOnFire = false,
+	canWalkOnFire = true,
 	canWalkOnPoison = true,
 	pet = false
 }
@@ -94,13 +94,14 @@ monster.loot = {
 	{name = "wood cape", chance = 2500},
 	{name = "rubber cap", chance = 1500},
 	{name = "stone skin amulet", chance = 2000},
-	{id = 38944, chance = 50} -- Bag you desire
+	{id = 38944, chance = 1} -- Bag you desire
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -950},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_HOLYDAMAGE, minDamage = -650, maxDamage = -900, range = 7, shootEffect = CONST_ANI_SMALLHOLY, effect = CONST_ME_HOLYAREA, target = true},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_EARTHDAMAGE, minDamage = -750, maxDamage = -1200, radius = 7, effect = CONST_ME_BIGPLANTS, target = false}
+	{name ="melee", interval = 1000, chance = 100, minDamage = -300, maxDamage = -950},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_HOLYDAMAGE, minDamage = -1200, maxDamage = -1400, range = 7, shootEffect = CONST_ANI_SMALLHOLY, effect = CONST_ME_HOLYAREA, target = true},
+	{name ="combat", interval = 2000, chance = 30, type = COMBAT_EARTHDAMAGE, minDamage = -1100, maxDamage = -1300, radius = 7, effect = CONST_ME_BIGPLANTS, target = false},
+	{name ="combat", interval = 2000, chance = 25, type = COMBAT_EARTHDAMAGE, minDamage = -1000, maxDamage = -1200, radius = 7, effect = CONST_ME_BIGPLANTS, target = false}
 	-- Chain: const_me-> CONST_ME_GREEN_ENERGY_SPARK, combat_t->COMBAT_EARTHDAMAGE
 	-- Root
 }

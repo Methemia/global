@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 200000
-monster.maxHealth = 200000
+monster.health = 220000
+monster.maxHealth = 220000
 monster.race = "blood"
 monster.corpse = 34793
 monster.speed = 250
@@ -82,31 +82,31 @@ monster.loot = {
 	{id = 26198, chance = 23520},-- collar of blue plasma
 	{id = 26200, chance = 10590},
 	{name = "Gold Ingot", chance = 7630},
-	{name = "Huge Chunk of Crude Iron", chance = 8900},
-	{name = "Mysterious Remains", chance = 90000},
+	{name = "Huge Chunk of Crude Iron", chance = 80},
+	{name = "Mysterious Remains", chance = 90},
 	{name = "Piggy Bank", chance = 13770, maxCount = 4},
 	{name = "green gem", chance = 2740},
 	{name = "red gem", chance = 2580},
 	{name = "Crunor Idol", chance = 2640},
 	{name = "Giant Ruby", chance = 2840},
-	{name = "Magic Sulphur", chance = 2740},
+	{name = "Magic Sulphur", chance = 100},
 	{name = "yellow gem", chance = 2900},
 	{name = "mastermind potion", chance = 2900, maxCount = 10},
 	{name = "violet gem", chance = 1500},
-	{name = "Alptramun's Toothbrush", chance = 520},
-	{name = "Pair of Dreamwalkers", chance = 1220},
-	{name = "Soul Stone", chance = 820},
-	{id = 26185, chance = 1059},
-	{name = "Pomegranate", chance = 880},
-	{name = "Dream Shroud", chance = 1180},
-	{id = 26186, chance = 1059}
+	{name = "Alptramun's Toothbrush", chance = 30},
+	{name = "Pair of Dreamwalkers", chance = 20},
+	{name = "Soul Stone", chance = 20},
+	{id = 26185, chance = 29},
+	{name = "Pomegranate", chance = 20},
+	{name = "Dream Shroud", chance = 20},
+	{id = 26186, chance = 50}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -2000},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_DEATHDAMAGE, minDamage = -190, maxDamage = -1300, range = 7, length = 6, spread = 3, shootEffect = CONST_ANI_POISON, target = false},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_DEATHDAMAGE, minDamage = -70, maxDamage = -1100, range = 3, length = 6, spread = 3, effect = CONST_ME_MORTAREA, target = false},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_FIREDAMAGE, minDamage = -90, maxDamage = -1400, range = 3, length = 6, spread = 3, effect = CONST_ME_HITBYFIRE, target = false},
+	{name ="melee", interval = 2000, chance = 100, minDamage = -700, maxDamage = -2000},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_DEATHDAMAGE, minDamage = -590, maxDamage = -1300, range = 7, length = 6, spread = 3, shootEffect = CONST_ANI_POISON, target = false},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_DEATHDAMAGE, minDamage = -300, maxDamage = -1100, range = 3, length = 6, spread = 3, effect = CONST_ME_MORTAREA, target = false},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_FIREDAMAGE, minDamage = -490, maxDamage = -1400, range = 3, length = 6, spread = 3, effect = CONST_ME_HITBYFIRE, target = false},
 	{name ="stone shower", interval = 2000, chance = 10, minDamage = -230, maxDamage = -700, range = 7, target = false}
 }
 

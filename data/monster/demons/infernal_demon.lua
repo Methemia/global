@@ -54,7 +54,7 @@ monster.flags = {
 	pushable = false,
 	rewardBoss = false,
 	illusionable = false,
-	canPushItems = false,
+	canPushItems = true,
 	canPushCreatures = false,
 	staticAttackChance = 90,
 	targetDistance = 1,
@@ -95,7 +95,7 @@ monster.loot = {
 	{name = "mercenary sword", chance = 11500},
 	{name = "green crystal fragment", chance = 9500},
 	{name = "onyx chip", chance = 7500},
-	{id = 38944, chance = 50} -- Bag you desire
+	{id = 38944, chance = 1} -- Bag you desire
 }
 
 monster.attacks = {

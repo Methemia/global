@@ -26,7 +26,7 @@ function reportCommand.onSay(player, words, param, channel)
 	if (player:getStorageValue(storage) <= os.time()) then
 		local file = io.open(string.format("data/reports/%s.txt", name), "a")
 		if not file then
-			player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "There was an error when processing your report, please contact a gamemaster.")
+			player:sendTextMessage(MESSAGE_INFO_DESCR, "There was an error when processing your report, please contact a gamemaster.")
 			return
 		end
 
@@ -39,11 +39,11 @@ function reportCommand.onSay(player, words, param, channel)
 		io.write("------------------------------\n")
 		io.close(file)
 		
-		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, string.format("Thank you for your report %s. Your report \z
+		player:sendTextMessage(MESSAGE_INFO_DESCR, string.format("Thank you for your report %s. Your report \z
 		will be processed by %s team as soon as possible.", name, configManager.getString(configKeys.SERVER_NAME)))
 		player:setStorageValue(storage, os.time() + delaytime)
     else
-        player:sendTextMessage(MESSAGE_STATUS_WARNING, "You have to wait "..player:getStorageValue(storage) - os.time().." seconds to report again.")
+        player:sendTextMessage(MESSAGE_INFO_DESCR, "You have to wait "..player:getStorageValue(storage) - os.time().." seconds to report again.")
     end
 return false
 end

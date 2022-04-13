@@ -9,5 +9,5 @@ function tibiaCoin.onUse(player, item, fromPosition, target, toPosition, isHotke
 		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You have to carry tibia coins in your backpack.")
 	end
 
-tibiaCoin:id(24774)
+tibiaCoin:id(247749)
 tibiaCoin:register()

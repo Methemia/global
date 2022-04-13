@@ -577,7 +577,11 @@ achievements =
 
 	--Hexoria
 	[479] = {name = "Lacewing Catcher", grade = 1, points = 1, description = "tamed mount."},
-	[480] = {name = "Moth Whisperer", grade = 1, points = 1, description = "tamed mount."}
+	[480] = {name = "Moth Whisperer", grade = 1, points = 1, description = "tamed mount."},
+	--Lunacores
+	[481] = {name = "Mainstreet Nightmare", grade = 1, points = 1, description = "tamed mount."},
+	[482] = {name = "Unleash the Beast", grade = 1, points = 1, description = "tamed mount."}
+
 
 }
 

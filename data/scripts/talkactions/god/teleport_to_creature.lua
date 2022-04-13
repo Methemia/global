@@ -2,9 +2,9 @@ local teleportToCreature = TalkAction("/goto")
 
 function teleportToCreature.onSay(player, words, param)
 	logCommand(player, words, param)
-	if not player:getGroup():getAccess() or player:getAccountType() < ACCOUNT_TYPE_GAMEMASTER then
-		return true
-	end
+	if not(player:getGroup():getId() >= 5) then
+    return true
+end
 
 	if param == "" then
 		player:sendCancelMessage("Command param required.")

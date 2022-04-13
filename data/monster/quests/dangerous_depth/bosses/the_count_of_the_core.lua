@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 50000
-monster.maxHealth = 50000
+monster.health = 250000
+monster.maxHealth = 250000
 monster.race = "blood"
 monster.corpse = 30872
 monster.speed = 270
@@ -84,38 +84,38 @@ monster.loot = {
 	{name = "Blue Gem", chance = 10000},
 	{id = 30861, chance = 10000},
 	{name = "Crystal Coin", chance = 10000},
-	{name = "Crystalline Armor", chance = 5000},
+	{name = "Crystalline Armor", chance = 120},
 	{name = "Dragon Necklace", chance = 10000},
 	{name = "Fire Axe", chance = 10000},
 	{name = "Fire Sword", chance = 10000},
-	{id = 7632, chance = 10000},
+	{id = 7632, chance = 100},
 	{name = "Giant Sword", chance = 10000},
-	{name = "Guardian Axe", chance = 10000},
-	{name = "Gold Token", chance = 10000},
+	{name = "Guardian Axe", chance = 100},
+	{name = "Gold Token", chance = 100000},
 	{name = "Green Gem", chance = 10000},
-	{name = "Harpoon of a Giant Snail", chance = 10000},
-	{name = "Huge Spiky Snail Shell", chance = 10000},
-	{name = "Luminous Orb", chance = 10000},
+	{name = "Harpoon of a Giant Snail", chance = 100},
+	{name = "Huge Spiky Snail Shell", chance = 100},
+	{name = "Luminous Orb", chance = 100},
 	{name = "Red Gem", chance = 10000},
-	{name = "Silver Token", chance = 1000},
+	{name = "Silver Token", chance = 10000},
 	{name = "Stone Skin Amulet", chance = 1000},
-	{name = "Twiceslicer", chance = 1000},
+	{name = "Twiceslicer", chance = 100},
 	{name = "Wand of Inferno", chance = 1000},
 	{name = "Yellow Gem", chance = 1000},
-	{name = "Candle Stump", chance = 1000},
-	{name = "Gnome Shield", chance = 1000},
-	{name = "Gnome Sword", chance = 1000},
-	{name = "Mallet Handle", chance = 1000},
-	{name = "Tinged Pot", chance = 1000},
-	{name = "Gnome Helmet", chance = 100}
+	{name = "Candle Stump", chance = 50},
+	{name = "Gnome Shield", chance = 50},
+	{name = "Gnome Sword", chance = 50},
+	{name = "Mallet Handle", chance = 50},
+	{name = "Tinged Pot", chance = 100},
+	{name = "Gnome Helmet", chance = 50}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -1500},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = 0, maxDamage = -1500, range = 3, length = 9, spread = 3, effect = CONST_ME_MORTAREA, target = false},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = 0, maxDamage = -1500, range = 3, length = 9, spread = 4, effect = CONST_ME_SMALLCLOUDS, target = false},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_PHYSICALDAMAGE, minDamage = 0, maxDamage = -1500, radius = 8, effect = CONST_ME_HITAREA, target = false},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_DEATHDAMAGE, minDamage = 0, maxDamage = -1500, radius = 8, effect = CONST_ME_BLACKSMOKE, target = false}
+	{name ="melee", interval = 2000, chance = 100, minDamage = -400, maxDamage = -1500},
+	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = -900, maxDamage = -1500, range = 3, length = 9, spread = 3, effect = CONST_ME_MORTAREA, target = false},
+	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = -700, maxDamage = -1500, range = 3, length = 9, spread = 4, effect = CONST_ME_SMALLCLOUDS, target = false},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_PHYSICALDAMAGE, minDamage = -400, maxDamage = -1500, radius = 8, effect = CONST_ME_HITAREA, target = false},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_DEATHDAMAGE, minDamage = -600, maxDamage = -1500, radius = 8, effect = CONST_ME_BLACKSMOKE, target = false}
 }
 
 monster.defenses = {

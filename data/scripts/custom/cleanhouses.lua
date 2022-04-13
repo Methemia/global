@@ -1,5 +1,5 @@
 local config = {
-    days = 14, --- days to clean houses ---
+    days = 7, --- days to clean houses ---
     log = true,
     file = "data/logs/cleanhouses.txt"
 }

@@ -16,6 +16,12 @@ function onSpeak(player, type, message)
 		return true
 	end
 
+local mutedstorage = 1501
+    if player:getStorageValue(mutedstorage) > os.time() then
+        player:sendCancelMessage("You have been muted, try again later.")
+        return false
+    end
+
 	if player:getLevel() == 1 then
 		player:sendCancelMessage("You may not speak into channels as long as you are on level 1.")
 		return false

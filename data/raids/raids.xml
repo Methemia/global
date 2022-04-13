@@ -29,7 +29,6 @@
 	<raid name="Undead Darashia" file="darashia/undead_darashia.xml" interval2="500" margin="70" />
 	<raid name="White Pale" file="darashia/white_pale.xml" interval2="440" margin="60"/>
 	<!-- Edron -->
-	<raid name="Feroxa" file="edron/feroxa.xml" interval2="430" margin="81" />
 	<raid name="GoEdron" file="edron/goblins.xml" interval2="500" margin="90" />
 	<raid name="Mad Mage" file="edron/mad_mage.xml" interval2="360" margin="30"/>
 	<raid name="Orcss" file="edron/orc.xml" interval2="500" margin="100" />

@@ -2,12 +2,13 @@ local deathListEnabled = true
 
 local playerDeath = CreatureEvent("PlayerDeath")
 function playerDeath.onDeath(player, corpse, killer, mostDamageKiller, unjustified, mostDamageUnjustified)
-		if nextUseStaminaTime[playerId] ~= nil then
+	local playerId = player:getId()
+	if nextUseStaminaTime[playerId] then
 		nextUseStaminaTime[playerId] = nil
 	end
 
-	player:sendTextMessage(MESSAGE_BEYOND_LAST, 'You are dead.')
-	if player:getStorageValue(Storage.SvargrondArena.PitDoor) > 0 then
+	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You are dead.")
+		if player:getStorageValue(Storage.SvargrondArena.PitDoor) > 0 then
 		player:setStorageValue(Storage.SvargrondArena.PitDoor, 0)
 	end
 
@@ -70,7 +71,7 @@ function playerDeath.onDeath(player, corpse, killer, mostDamageKiller, unjustifi
 		if targetGuild ~= 0 then
 			local killerGuild = killer:getGuild()
 			killerGuild = killerGuild and killerGuild:getId() or 0
-			if killerGuild ~= 0 and targetGuild ~= killerGuild and isInWar(playerId, killer.uid) then
+			if killerGuild ~= 0 and targetGuild ~= killerGuild and isInWar(playerId, killer:getId()) then
 				local warId = false
 				local fraglimit = 0
 				resultId = db.storeQuery('SELECT `id`, `fraglimit` FROM `guild_wars` WHERE `status` = 1 AND ((`guild1` = ' .. killerGuild .. ' AND `guild2` = ' .. targetGuild .. ') OR (`guild1` = ' .. targetGuild .. ' AND `guild2` = ' .. killerGuild .. '))')

@@ -1,0 +1,18 @@
+------------------------------
+Reported by: Masslognows
+Date: 2022-2-0013, 11:47:39
+Comment: 'se bugeo feroxa'
+Position: {x = 33430, y = 31528, z = 11}
+------------------------------
+------------------------------
+Reported by: Masslognows
+Date: 2022-2-0013, 11:48:11
+Comment: 'tambien hay un bug. en cobras portal de fire lo pasan como su andubieran en su casita jajaja'
+Position: {x = 33425, y = 31543, z = 11}
+------------------------------
+------------------------------
+Reported by: Masslognows
+Date: 2022-2-0013, 11:53:14
+Comment: 'a pense que feroxa estaba bugeado, por que no te enviaba al room. pero al parecer esta todo bien solo tenia que pasar el tp'
+Position: {x = 33243, y = 31817, z = 7}
+------------------------------

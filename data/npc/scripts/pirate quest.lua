@@ -47,8 +47,8 @@ local function creatureSayCallback(cid, type, msg)
 	player:setStorageValue(Storage.PiratsTails.RatMiral.Counter, 0)
 	player:addItem(40412, 1)
 	player:addMount(175)
-	player:addOutfitAddon(1372, 3)	
-	player:addOutfitAddon(1371, 3)
+	player:addOutfitAddon(1372, 0)	
+	player:addOutfitAddon(1371, 0)
 	npcHandler:say({"Congratulations you made it, now get these rewards..."}, cid)
 	return true
 	end	

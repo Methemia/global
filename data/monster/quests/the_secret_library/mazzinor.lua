@@ -79,20 +79,20 @@ monster.loot = {
 	{name = "wand of starstorm", chance = 70000},
 	{name = "gold token", chance = 30000, maxCount = 4},
 	{name = "assassin dagger", chance = 30000},
-	{name = "crystalline armor", chance = 30000},
-	{name = "dreaded cleaver", chance = 30000},
-	{name = "frozen lightning", chance = 30000},
+	{name = "crystalline armor", chance = 300},
+	{name = "dreaded cleaver", chance = 300},
+	{name = "frozen lightning", chance = 300},
 	{name = "sinister book", chance = 1000},
 	{name = "wand of dimensions", chance = 10}
 }
 
 monster.attacks = {
 	{name ="melee", interval = 2000, chance = 100, skill = 90, attack = 80},
-	{name ="divine missile", interval = 2000, chance = 10, minDamage = -135, maxDamage = -700, target = true},
-	{name ="berserk", interval = 2000, chance = 20, minDamage = -90, maxDamage = -500, range = 7, target = true},
-	{name ="combat", interval = 2000, chance = 10, type = COMBAT_LIFEDRAIN, minDamage = -135, maxDamage = -280, range = 7, radius = 5, effect = CONST_ME_MAGIC_BLUE, target = true},
-	{name ="combat", interval = 2000, chance = 10, type = COMBAT_ENERGYDAMAGE, minDamage = -210, maxDamage = -600, length = 8, spread = 3, effect = CONST_ME_ENERGYAREA, target = false},
-	{name ="combat", interval = 2000, chance = 10, type = COMBAT_HOLYDAMAGE, minDamage = -210, maxDamage = -700, length = 8, spread = 3, effect = CONST_ME_HOLYAREA, target = false}
+	{name ="divine missile", interval = 2000, chance = 10, minDamage = -435, maxDamage = -700, target = true},
+	{name ="berserk", interval = 2000, chance = 20, minDamage = -390, maxDamage = -500, range = 7, target = true},
+	{name ="combat", interval = 2000, chance = 10, type = COMBAT_LIFEDRAIN, minDamage = -335, maxDamage = -980, range = 7, radius = 5, effect = CONST_ME_MAGIC_BLUE, target = true},
+	{name ="combat", interval = 2000, chance = 10, type = COMBAT_ENERGYDAMAGE, minDamage = -310, maxDamage = -600, length = 8, spread = 3, effect = CONST_ME_ENERGYAREA, target = false},
+	{name ="combat", interval = 2000, chance = 10, type = COMBAT_HOLYDAMAGE, minDamage = -290, maxDamage = -700, length = 8, spread = 3, effect = CONST_ME_HOLYAREA, target = false}
 }
 
 monster.defenses = {

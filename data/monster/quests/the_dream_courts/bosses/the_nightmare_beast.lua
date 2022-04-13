@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 150000
-monster.maxHealth = 150000
+monster.health = 350000
+monster.maxHealth = 350000
 monster.race = "blood"
 monster.corpse = 34797
 monster.speed = 250
@@ -89,40 +89,40 @@ monster.loot = {
 	{name = "crystal coin", chance = 17270},
 	{name = "skull staff", chance = 16550},
 	{name = "bullseye potion", chance = 13670, maxCount = 10},
-	{name = "ice shield", chance = 13670},
-	{name = "chaos mace", chance = 13670},
-	{name = "gold ingot", chance = 12950},
+	{name = "ice shield", chance = 20},
+	{name = "chaos mace", chance = 70},
+	{name = "gold ingot", chance = 120},
 	{id = 7633, chance = 10790},
 	{id = 26200, chance = 10070},
 	{id = 26198, chance = 9350},-- collar of blue plasma
 	{id = 26187, chance = 8630},
-	{name = "ring of the sky", chance = 8630},
-	{id = 26199, chance = 7910},
-	{name = "beast's nightmare-cushion", chance = 6470},
+	{name = "ring of the sky", chance = 130},
+	{id = 26199, chance = 100},
+	{name = "beast's nightmare-cushion", chance = 40},
 	{name = "violet gem", chance = 6470},
-	{name = "magic sulphur", chance = 6470},
-	{name = "purple tendril lantern", chance = 5760},
-	{id = 26185, chance = 5040},
-	{id = 26189, chance = 5040},
-	{name = "soul stone", chance = 5040},
-	{name = "dragon figurine", chance = 5040},
+	{name = "magic sulphur", chance = 70},
+	{name = "purple tendril lantern", chance = 30},
+	{id = 26185, chance = 50},
+	{id = 26189, chance = 50},
+	{name = "soul stone", chance = 40},
+	{name = "dragon figurine", chance = 200},
 	{name = "giant sapphire", chance = 4320},
-	{name = "giant emerald", chance = 4320},
-	{name = "turquoise tendril lantern", chance = 2880},
-	{name = "dark whispers", chance = 2880},
-	{name = "arcane staff", chance = 2880},
-	{name = "giant ruby", chance = 2880},
-	{name = "abyss hammer", chance = 2160},
-	{id = 34981, chance = 2160},
-	{name = "unicorn figurine", chance = 1000}
+	{name = "giant emerald", chance = 320},
+	{name = "turquoise tendril lantern", chance = 30},
+	{name = "dark whispers", chance = 20},
+	{name = "arcane staff", chance = 280},
+	{name = "giant ruby", chance = 280},
+	{name = "abyss hammer", chance = 160},
+	{id = 34981, chance = 30},
+	{name = "unicorn figurine", chance = 100}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -500},
-	{name ="combat", interval = 2000, chance = 25, type = COMBAT_DEATHDAMAGE, minDamage = -500, maxDamage = -1000, radius = 5, shootEffect = CONST_ANI_SUDDENDEATH, effect = CONST_ME_MORTAREA, target = true},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = -500, maxDamage = -1000, length = 8, effect = CONST_ME_MORTAREA, target = false},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = -500, maxDamage = -1000, length = 9, spread = 2, effect = CONST_ME_SMALLCLOUDS, target = false},
-	{name ="combat", interval = 2000, chance = 10, type = COMBAT_LIFEDRAIN, minDamage = -80, maxDamage = -200, effect = CONST_ME_MAGIC_RED, target = false}
+	{name ="melee", interval = 2000, chance = 100, minDamage = -400, maxDamage = -800},
+	{name ="combat", interval = 2000, chance = 25, type = COMBAT_DEATHDAMAGE, minDamage = -700, maxDamage = -2000, radius = 5, shootEffect = CONST_ANI_SUDDENDEATH, effect = CONST_ME_MORTAREA, target = true},
+	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = -500, maxDamage = -1400, length = 8, effect = CONST_ME_MORTAREA, target = false},
+	{name ="combat", interval = 2000, chance = 20, type = COMBAT_DEATHDAMAGE, minDamage = -700, maxDamage = -1600, length = 9, spread = 2, effect = CONST_ME_SMALLCLOUDS, target = false},
+	{name ="combat", interval = 2000, chance = 10, type = COMBAT_LIFEDRAIN, minDamage = -280, maxDamage = -400, effect = CONST_ME_MAGIC_RED, target = false}
 }
 
 monster.defenses = {

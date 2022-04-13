@@ -91,14 +91,14 @@ function heartDestructionEradicator.onUse(player, item, fromPosition, itemEx, to
 						players = storePlayers[i]
 						config.playerPositions[i]:sendMagicEffect(CONST_ME_POFF)
 						players:teleportTo(config.newPos)
-						players:setStorageValue(14329, os.time() + 20*60*60)
+						players:setStorageValue(Storage.Tibiana.Eradicator, os.time() + 15 * 60 * 60) -- + 20 * 60 * 3600	
 					end
 					Position(config.newPos):sendMagicEffect(11)
 
 					eradicatorReleaseT = false -- Liberar Spell
 					eradicatorWeak = 0 -- Eradicator Form
-					areaEradicator1 = addEvent(clearArea, 15 * 60000)
-					areaEradicator2 = addEvent(function() eradicatorReleaseT = true end, 74000)
+					--areaEradicator1 = addEvent(clearArea, 15 * 60000)
+					--areaEradicator2 = addEvent(function() eradicatorReleaseT = true end, 74000)
 
 					Game.createMonster("Spark of Destruction", {x = 32304, y = 31282, z = 14}, false, true)
 					Game.createMonster("Spark of Destruction", {x = 32305, y = 31287, z = 14}, false, true)

@@ -1,8 +1,8 @@
 local config = {
-	ratio = {180, 2}, -- {total secs, received min}
+	ratio = {180, 3}, -- {total secs, received min}
 	interval = 15,
 	storage = 30968,
-	message = "You have entered in a protection zone. You will regain +2 stamina every 3 minutes while in this zone (fast stamina event actived).",
+	message = "You have entered in a protection zone. You will regain +3 stamina every 3 minutes while in this zone (fast stamina event actived).",
 	messagetype = MESSAGE_EVENT_DEFAULT,
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<npc name="[Imbuements]" script="default.lua" walkinterval="0" floorchange="0">
+<npc name="Luna Imbus" script="default.lua" walkinterval="0" floorchange="0">
 	<health now="100" max="100" />
-	<look type="683" head="97" body="0" legs="96" feet="114" addons="3" />
+	<look type="471" head="1" body="0" legs="93" feet="114" addons="3" />
 	<parameters>
 		<parameter key="module_shop" value="1" />
 		<parameter key="shop_buyable" value="fiery hearth,10553,20000;

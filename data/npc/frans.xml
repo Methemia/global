@@ -16,10 +16,12 @@
 			convince creature rune, 2290, 80;
 			cure poison rune, 2266, 65;
 			destroy field rune, 2261, 15;
+			durable exercise rod, 40118, 945000, 1800;
+			durable exercise wand, 40119, 945000, 1800;
 			energy field rune, 2277, 38;
 			energy wall rune, 2279, 85;
-			exercise rod, 32388, 945000, 1800;
-			exercise wand, 32389, 945000, 1800;
+			exercise rod, 32388, 262500, 500;
+			exercise wand, 32389, 262500, 500;
 			explosion rune, 2313, 31;
 			fire bomb rune, 2305, 147;
 			fire field rune, 2301, 28;
@@ -27,8 +29,8 @@
 			great fireball rune, 2304, 57;
 			heavy magic missile rune, 2311, 12;
 			intense healing rune, 2265, 95;
-			lasting exercise rod, 40118, 7560000, 14400;
-			lasting exercise wand, 40119, 7560000, 14400;
+			lasting exercise rod, 40124, 7560000, 14400;
+			lasting exercise wand, 40125, 7560000, 14400;
 			light magic missile rune, 2287, 4;
 			moonlight rod, 2186, 1000;
 			necrotic rod, 2185, 5000;

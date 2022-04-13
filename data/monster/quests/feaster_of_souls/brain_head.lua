@@ -15,6 +15,11 @@ monster.speed = 0
 monster.manaCost = 0
 monster.maxSummons = 0
 
+monster.events = {
+	"healFireDamage",
+	"healEnergyDamage"
+}
+
 monster.changeTarget = {
 	interval = 5000,
 	chance = 8
@@ -63,23 +68,23 @@ monster.loot = {
 	{name = "berserk potion", chance = 23530, maxCount = 10},
 	{name = "death toll", chance = 23530},
 	{name = "mastermind potion", chance = 19610, maxCount = 10},
-	{name = "moonstone", chance = 19610, maxCount = 1},
+	{name = "moonstone", chance = 190, maxCount = 1},
 	{name = "ultimate mana potion", chance = 29410, maxCount = 6},
 	{name = "ultimate spirit potion", chance = 29410, maxCount = 6},
 	{name = "ivory comb", chance = 13730},
 	{name = "angel figurine", chance = 11760},
 	{name = "diamond", chance = 11760},
-	{name = "cursed bone", chance = 7840},
+	{name = "cursed bone", chance = 70},
 	{name = "giant amethyst", chance = 1380},
 	{name = "giant topaz", chance = 1330},
-	{name = "ghost claw", chance = 1960},
-	{name = "silver hand mirror", chance = 1400},
-	{id = 37451, chance = 150},
-	{id = 37456, chance = 150},
-	{name = "Brain Head's Giant Neuron", chance = 990},
-	{name = "Brain Head's Right Hemisphere", chance = 950},
-	{name = "Brain Head's Left Hemisphere", chance = 950},
-	{name = "Pair of Old Bracers", chance = 1120}
+	{name = "ghost claw", chance = 40},
+	{name = "silver hand mirror", chance = 40},
+	{id = 37451, chance = 30},
+	{id = 37456, chance = 30},
+	{name = "Brain Head's Giant Neuron", chance = 30},
+	{name = "Brain Head's Right Hemisphere", chance = 30},
+	{name = "Brain Head's Left Hemisphere", chance = 30},
+	{name = "Pair of Old Bracers", chance = 30}
 }
 
 monster.attacks = {
@@ -89,9 +94,9 @@ monster.attacks = {
 }
 
 monster.defenses = {
-	defense = 40,
-	armor = 82,
-	{name ="combat", interval = 4000, chance = 10, type = COMBAT_HEALING, minDamage = 500, maxDamage = 1500, effect = CONST_ME_MAGIC_BLUE, target = false}
+	defense = 20,
+	armor = 25,
+	{name ="summonsbrainhead", interval = 8000, chance = 100, target = false},
 }
 
 monster.reflects = {

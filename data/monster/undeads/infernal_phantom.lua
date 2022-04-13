@@ -54,7 +54,7 @@ monster.flags = {
 	pushable = false,
 	rewardBoss = false,
 	illusionable = false,
-	canPushItems = false,
+	canPushItems = true,
 	canPushCreatures = false,
 	staticAttackChance = 90,
 	targetDistance = 4,
@@ -96,7 +96,7 @@ monster.loot = {
 	{name = "warrior's axe", chance = 17920},
 	{id = 38974, chance = 11560}, -- Infernal hearth
 	{id = 38981, chance = 7560}, -- Infernal robe
-	{id = 38944, chance = 50} -- Bag you desire
+	{id = 38944, chance = 1} -- Bag you desire
 }
 
 monster.attacks = {

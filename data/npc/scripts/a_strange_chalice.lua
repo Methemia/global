@@ -25,7 +25,7 @@ local function creatureSayCallback(cid, type, msg)
 	end
 
 	local player = Player(cid)
-	if msgcontains(msg, "chalice") and player:getStorageValue(Storage.ForgottenKnowledge.Chalice) == 1 then
+	if msgcontains(msg, "chalice") and player:setStorageValue(Storage.ForgottenKnowledge.Chalice, 1) then
 		npcHandler:say({
 			"Finally. That's what I... oh wait, you're still talking to me - you will blow my cover! What do you want? Oh wait, did my {daughter} send you? It has been some time now, indeed."
 		}, cid)

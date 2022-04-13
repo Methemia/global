@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("Turbulent Elemental")
 local monster = {}
 
 monster.description = "a turbulent elemental"
-monster.experience = 29900
+monster.experience = 19360
 monster.outfit = {
 	lookType = 1314,
 	lookHead = 0,
@@ -54,7 +54,7 @@ monster.flags = {
 	pushable = false,
 	rewardBoss = false,
 	illusionable = false,
-	canPushItems = false,
+	canPushItems = true,
 	canPushCreatures = false,
 	staticAttackChance = 90,
 	targetDistance = 1,
@@ -92,15 +92,15 @@ monster.loot = {
 	{name = "crystalline armor", chance = 4500},
 	{name = "rubber cap", chance = 3500},
 	{name = "fur armor", chance = 2500},
-	{id = 38944, chance = 50} -- Bag you desire
+	{id = 38944, chance = 1} -- Bag you desire
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -900},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_ICEDAMAGE, minDamage = -750, maxDamage = -900, range = 7, shootEffect = CONST_ANI_SNOWBALL, effect = CONST_ME_ICEATTACK, target = true},
-	{name ="combat", interval = 3000, chance = 15, type = COMBAT_PHYSICALDAMAGE, minDamage = -550, maxDamage = -900, range = 7, shootEffect = CONST_ANI_HUNTINGSPEAR, effect = CONST_ME_DRAWBLOOD, target = true},
-	{name ="combat", interval = 4000, chance = 24, type = COMBAT_ICEDAMAGE, minDamage = -750, maxDamage = -1100, radius = 4, effect = CONST_ME_ICETORNADO, target = false},
-	{name ="combat", interval = 2000, chance = 17, type = COMBAT_ICEDAMAGE, minDamage = -750, maxDamage = -950, radius = 4, effect = CONST_ME_ICEATTACK, target = false},
+	{name ="melee", interval = 2000, chance = 100, minDamage = -300, maxDamage = -900},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_ICEDAMAGE, minDamage = -1050, maxDamage = -1300, range = 7, shootEffect = CONST_ANI_SNOWBALL, effect = CONST_ME_ICEATTACK, target = true},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_PHYSICALDAMAGE, minDamage = -550, maxDamage = -1200, range = 7, shootEffect = CONST_ANI_HUNTINGSPEAR, effect = CONST_ME_DRAWBLOOD, target = true},
+	{name ="combat", interval = 2000, chance = 24, type = COMBAT_ICEDAMAGE, minDamage = -750, maxDamage = -1100, radius = 4, effect = CONST_ME_ICETORNADO, target = false},
+	{name ="combat", interval = 2000, chance = 17, type = COMBAT_ICEDAMAGE, minDamage = -1050, maxDamage = -1050, radius = 4, effect = CONST_ME_ICEATTACK, target = false},
 	{name ="combat", interval = 2000, chance = 10, type = COMBAT_EARTHDAMAGE, minDamage = -800, maxDamage = -1050, length = 5, radius = 2, effect = CONST_ME_GREEN_RINGS, target = false}
 	-- Fear
 }

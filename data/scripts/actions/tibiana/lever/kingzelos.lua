@@ -71,7 +71,7 @@ function zelosAction.onUse(player, item, fromPosition, target, toPosition, isHot
 				playerTile:getPosition():sendMagicEffect(CONST_ME_POFF)
 				playerTile:teleportTo(config.newPosition)
 				playerTile:getPosition():sendMagicEffect(CONST_ME_TELEPORT)	
-				playerTile:setStorageValue(Storage.GraveDangerBosses.KingZelos.Timer, 20 * 60 * 60)
+				playerTile:setStorageValue(Storage.GraveDangerBosses.KingZelos.Timer, 7 * 24 * 60 * 60 + os.time())
 		addEvent(clearRoom, 60 * config.time * 1000, Player(playerTile):getId())
 					end
 					end

@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 20000
-monster.maxHealth = 20000
+monster.health = 220000
+monster.maxHealth = 220000
 monster.race = "venom"
 monster.corpse = 34660
 monster.speed = 170
@@ -71,37 +71,37 @@ monster.voices = {
 monster.loot = {
 	{name = "platinum coin", chance = 100000, maxCount = 5},
 	{name = "Piggy Bank", chance = 100000},
-	{name = "Mysterious Remains", chance = 100000},
+	{name = "Mysterious Remains", chance = 1000},
 	{name = "Energy Bar", chance = 100000},
 	{name = "Silver Token", chance = 100000, maxCount = 3},
 	{name = "Gold Token", chance = 22000, maxCount = 2},
 	{name = "Supreme Health Potion", chance = 23550},
 	{name = "Ultimate Mana Potion", chance = 25550},
-	{name = "Huge Chunk of Crude Iron", chance = 27550},
-	{name = "Royal Star", chance = 15770, maxCount = 100},
+	{name = "Huge Chunk of Crude Iron", chance = 80},
+	{name = "Royal Star", chance = 1570, maxCount = 100},
 	{name = "Green Gem", chance = 12800, maxCount = 2},
-	{name = "Yellow Gem", chance = 12000, maxCount = 2},
+	{name = "Yellow Gem", chance = 1200, maxCount = 2},
 	{name = "Red Gem", chance = 12700, maxCount = 2},
-	{name = "Bullseye Potion", chance = 25000, maxCount = 10},
-	{name = "Pomegranate", chance = 8000},
+	{name = "Bullseye Potion", chance = 2500, maxCount = 10},
+	{name = "Pomegranate", chance = 30},
 	{name = "Crystal Coin", chance = 7700, maxCount = 2},
 	{name = "Skull Staff", chance = 7650},
-	{name = "Chaos Mace", chance = 2200},
-	{name = "Gold Ingot", chance = 2800},
-	{id = 26199, chance = 2500},
-	{id = 7632, chance = 2600},
+	{name = "Chaos Mace", chance = 200},
+	{name = "Gold Ingot", chance = 180},
+	{id = 26199, chance = 250},
+	{id = 7632, chance = 260},
 	{name = "Blue Gem", chance = 2500},
 	{name = "Violet Gem", chance = 2300, maxCount = 2},
-	{name = "Living Armor", chance = 1100},
-	{name = "Magic Sulphur", chance = 1000},
-	{name = "Mastermind Potion", chance = 800, maxCount = 10},
-	{id = 26185, chance = 800},
-	{name = "Ring of the Sky", chance = 800},
-	{name = "Living Vine Bow", chance = 1280},
-	{name = "Abyss Hammer", chance = 1400},
-	{id = 26187, chance = 1280},
-	{name = "Plagueroot Offshoot", chance = 1400},
-	{name = "Turquoise Tendril Lantern", chance = 1280}
+	{name = "Living Armor", chance = 30},
+	{name = "Magic Sulphur", chance = 100},
+	{name = "Mastermind Potion", chance = 200, maxCount = 10},
+	{id = 26185, chance = 80},
+	{name = "Ring of the Sky", chance = 80},
+	{name = "Living Vine Bow", chance = 30},
+	{name = "Abyss Hammer", chance = 40},
+	{id = 26187, chance = 40},
+	{name = "Plagueroot Offshoot", chance = 40},
+	{name = "Turquoise Tendril Lantern", chance = 30}
 }
 
 monster.attacks = {

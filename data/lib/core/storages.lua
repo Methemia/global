@@ -638,11 +638,35 @@ Tibiana = {
 		KatexBloodTongueTimer = 90551,
 		UtuaStoneStingTimer = 90552,
 		SrezzYellowEyesTimer = 90553,
-		Goshnars = 90554,
-		Megalomania = 90555,
-		Hatred = 90659,
-		Cruelty = 90660,
-		Goshnars5 = 90558
+		GoshnarsCruelty = 90554,
+		GoshnarsMegalomania = 90555,
+		GoshnarsHatred = 90656,
+		GoshnarsMalice = 90657,
+		GoshnarsSpice = 90558,
+		GoshnarsGreed = 91559,
+		GoshnarsCrueltyKilled = 91760,
+		GoshnarsMegalomaniaKilled = 91761,
+		GoshnarsHatredKilled = 91762,
+		GoshnarsMaliceKilled = 91763,
+		GoshnarsSpiceKilled = 91764,
+		GoshnarsGreedKilled = 91765,
+		SoulWarEnd = 91566,
+		OutfitSoulWarEnd = 91567,
+		Anomaly = 91568,
+		Rupture = 91569,
+		Realityquake = 91570,
+		Eradicator = 91571,
+		Outburst = 91572,
+		TheMegaMagmaoid = 91785,
+		TheBrainstealer = 91786,
+		Ferumbras1 = 91787,
+		Ferumbras2 = 91788,
+		Ferumbras3 = 91789,
+		Ferumbras4 = 91790,
+		Ferumbras5 = 91791,
+		Ferumbras6 = 91792,
+		Ferumbras7 = 91793
+		
 	},
 	ExplorerSociety = {
 		-- Reserved storage from 50530 - 50599
@@ -2470,9 +2494,50 @@ Tibiana = {
 		-- Kilmaresh = {}, done earlier in the file
 		GraveDanger = {},
 		-- update 12.30
-		FeasterOfSouls = {},
-		PoltergeistOutfits = {},
-		PiratsTails = {}
+		FeasterOfSouls = {
+			Bosses = {
+				BrainHead = {
+					Timer = 284700,
+					Killed = 284701,
+				},
+				UnazTheMean = {
+					Timer = 284702,
+					Killed = 284712,
+				},
+				IrgixTheFlimsy = {
+					Timer = 284703,
+					Killed = 284713,
+				},
+				VokTheFreakish = {
+					Timer = 284704,
+					Killed = 284714,
+				},
+				TheUnwelcome = {
+					Timer = 284705,
+					Killed = 284715,
+				},
+				TheDreadMaiden = {
+					Timer = 284706,
+					Souls = 284707,
+					Killed = 284716,
+				},
+				TheFearFeaster = {
+					Timer = 284708,
+					Totem = 284709,
+					Killed = 284717,
+				},
+				ThePaleWorm = {
+					Timer = 284710,
+					WeakSpot = 284711,
+					Killed = 284718,
+				}
+			}
+		},
+		PoltergeistOutfits = {
+			Outfit = 284719,
+			Addon1 = 284720,
+			Addon2 = 284721,
+		}
 	}
 }
 

@@ -43,10 +43,12 @@
 			wand of decay, 2188, 5000;
 			wand of dragonbreath, 2191, 1000;
 			wand of vortex, 2190, 500;
-			exercise rod, 32388, 945000, 1800;
-			exercise wand, 32389, 945000, 1800;
-			lasting exercise rod, 40118, 7560000, 14400;
-			lasting exercise wand, 40119, 7560000, 14400;"/>
+			exercise rod, 32388, 262500, 500;
+			exercise wand, 32389, 262500, 500;
+			durable exercise rod, 40118, 945000, 1800;
+			durable exercise wand, 40119, 945000, 1800;
+			lasting exercise rod, 40124, 7560000, 14400;
+			lasting exercise wand, 40125, 7560000, 14400;"/>
 		<parameter key="shop_sellable" value="
 			empty potion flask, 7634, 5;
 			empty potion flask, 7635, 5;

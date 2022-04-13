@@ -67,9 +67,9 @@ local UniqueTable = {
 		value = 1,
 		range = 1,
 		timer = Storage.Tibiana.VokTheFreakishTimer,
-		newPos = {x = 33562, y = 31493, z = 8},
+		newPos = {x = 33505, y = 31486, z = 9},
 		bossName = "Vok The Freakish",
-		bossPos = {x = 33575, y = 31494, z = 8}
+		bossPos = {x = 33509, y = 31495, z = 9}
 	},
 	-- Yirkas Blue Scales entrance
 	[30809] = {

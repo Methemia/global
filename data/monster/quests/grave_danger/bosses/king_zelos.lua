@@ -17,8 +17,8 @@ monster.events = {
 	"king_zelos"
 }
 
-monster.health = 250000
-monster.maxHealth = 250000
+monster.health = 450000
+monster.maxHealth = 450000
 monster.race = "undead"
 monster.corpse = 36446
 monster.speed = 2*190
@@ -81,28 +81,31 @@ monster.loot = {
 	{name = "terra hood", chance = 11110},
 	{name = "blue gem", chance = 11110},
 	{id = 26198, chance = 11110},
-	{name = "ancient liche bone", chance = 9560},
-	{name = "chaos mace", chance = 5560},
+	{name = "ancient liche bone", chance = 950},
+	{name = "chaos mace", chance = 560},
 	{name = "young lich worm", chance = 6560},
 	{name = "giant sapphire", chance = 5560},
 	{id = 26189, chance = 5560},
 	{id = 26187, chance = 5560},
 	{name = "rotten heart", chance = 6000},
-	{name = "toga mortis", chance = 100},
-	{name = "galea mortis", chance = 100},
+	{name = "toga mortis", chance = 50},
+	{name = "galea mortis", chance = 50},
 	{name = "mortal mace", chance = 100},
-	{name = "bow of cataclysm", chance = 100},
+	{name = "bow of cataclysm", chance = 50},
 	{name = "golden hyena pendant", chance = 500},
 	{name = "holy icon", chance = 650},
-	{name = "final judgement", chance = 200},
-	{name = "shadow cowl", chance = 200}
+	{name = "final judgement", chance = 80},
+	{name = "shadow cowl", chance = 90}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = -300, maxDamage = -700, effect = CONST_ME_DRAWBLOOD},
-	{name ="Sudden Death", interval = 3000, chance = 33, minDamage = -600, maxDamage = -800, target = true},
-	{name ="zelosexpandingring", interval = 10000, chance = 40, target = false},
-	{name ="greathexbeam", interval = 8000, chance = 60, target = false},
+	{name ="melee", interval = 1000, chance = 100, minDamage = -900, maxDamage = -1200, effect = CONST_ME_DRAWBLOOD},
+	{name ="Sudden Death", interval = 1000, chance = 33, minDamage = -800, maxDamage = -1800, target = true},
+	{name ="zelosexpandingring", interval = 8000, chance = 40, target = false},
+	{name ="combat", interval = 1000, chance = 23, type = COMBAT_LIFEDRAIN, minDamage = -500, maxDamage = -1700, radius = 8, effect = CONST_ME_LOSEENERGY, target = false},
+	{name ="combat", interval = 1000, chance = 20, type = COMBAT_MANADRAIN, minDamage = -500, maxDamage = -1700, radius = 8, effect = CONST_ME_MAGIC_GREEN, target = false},
+	{name ="combat", interval = 1000, chance = 34, type = COMBAT_DEATHDAMAGE, minDamage = -700, maxDamage = -1900, range = 7, radius = 7, shootEffect = CONST_ANI_FIRE, effect = CONST_ME_FIREAREA, target = true},
+	{name ="greathexbeam", interval = 1000, chance = 60, target = false},
 }
 
 monster.defenses = {

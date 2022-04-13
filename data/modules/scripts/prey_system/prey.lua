@@ -83,7 +83,7 @@ Prey.MonsterList = {
 	"Quara Constrictor Scout", "Quara Hydromancer", "Quara Hydromancer Scout", "Quara Mantassin", "Quara Mantassin Scout",
 	"Quara Pincher", "Quara Pincher Scout", "Quara Predator", "Quara Predator Scout", "Shark", "Berserker Chicken",
 	"Demon Parrot", "Marsh Stalker", "Penguin", "Terror Bird", "Biting Book", "Clay Guardian", "Damaged Worker Golem",
-	"Diamond Servant", "Enraged Crystal Golem",	"Eternal Guardian", "Glooth Golem", "Golden Servant", "Ice Golem",
+	"Diamond Servant", "Enraged Crystal Golem", "Eternal Guardian", "Glooth Golem", "Golden Servant", "Ice Golem",
 	"Infected Weeper", "Iron Servant", "Lava Golem","Metal Gargoyle", "Orewalker", "Rotten Golem", "Rustheap Golem",
 	"Sandstone Scorpion", "Stone Devourer",	"Stone Golem", "Walker", "War Golem", "Weeper", "Worker Golem", "Askarak Demon",
 	"Askarak Lord", "Askarak Prince", "Brachiodemon", "Dark Torturer", "Dawnfire Asura", "Demon", "Demon Outcast",

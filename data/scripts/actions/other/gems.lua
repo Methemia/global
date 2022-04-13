@@ -102,7 +102,7 @@ function gems.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	-- Gems teleport to feyrist
 	for index, value in pairs(shrine) do
 		if target.actionid == value.targetAction then
-			if (player:getStorageValue(Storage.ThreatenedDreams.TroubledMission01) == 1) then
+			if player:getLevel() >= 1 then
 				if item.itemid == index then
 					player:teleportTo(value.destination)
 					player:getPosition():sendMagicEffect(value.effect)	

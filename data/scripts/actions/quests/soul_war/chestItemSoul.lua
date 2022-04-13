@@ -32,13 +32,15 @@ function bagyouDesireChest.onUse(player, item, fromPosition, target, toPosition,
 		return true
 	end
 
-	if player:getLevel() < 300 then
-		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You're not a Level 300.")
+	if player:getLevel() < 400 then
+		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You're not a Level 400.")
 		return true
 	end
 
 	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You received a ' .. rewardItem.name .. '.')
 	player:addItem(rewardItem.id, 1)
+	player:addOutfit(1322)
+	player:addOutfit(1323)
 	player:setStorageValue(39425, 1)
 	return true
 end

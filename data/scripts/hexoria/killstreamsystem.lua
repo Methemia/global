@@ -30,7 +30,7 @@ function creatureevent.onKill(creature, target)
         end
         local k = streaks[creature:getStorageValue(storage)]
         if k then
-            Game.broadcastMessage(creature:getName() .. " - ".. k, MESSAGE_EVENT_ADVANCE)
+            creature:say(creature:getName() .. " - ".. k, TALKTYPE_MONSTER_SAY)
         end
     end
     return true

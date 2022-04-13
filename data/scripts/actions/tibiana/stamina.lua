@@ -16,5 +16,5 @@ function staminarefill.onUse(player, item, fromPosition, itemEx, toPosition, isH
     end
     return true
 end
-staminarefill:id(38762)
+staminarefill:id(41560)
 staminarefill:register()

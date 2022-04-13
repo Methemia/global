@@ -70,10 +70,10 @@ monster.loot = {
 	{name = "Golden Armor", chance = 1000},
 	{name = "Green Gem", chance = 1300},--done
 	{name = "Damaged Armor Plates", chance = 1800, maxCount = 3},--done
-	{name = "Falcon Crest", chance = 30, maxCount = 3},--done
+	{name = "Falcon Crest", chance = 5, maxCount = 3},--done
 	{name = "Patch of Fine Cloth", chance = 2500},--done
-	{name = "Falcon Coif", chance = 50},--done
-	{name = "Falcon Bow", chance = 50}--done
+	{name = "Falcon Coif", chance = 5},--done
+	{name = "Falcon Bow", chance = 5}--done
 }
 
 monster.attacks = {

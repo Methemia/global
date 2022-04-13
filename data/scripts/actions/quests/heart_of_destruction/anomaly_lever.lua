@@ -89,13 +89,17 @@ function heartDestructionAnomaly.onUse(player, item, fromPosition, itemEx, toPos
 						players = storePlayers[i]
 						config.playerPositions[i]:sendMagicEffect(CONST_ME_POFF)
 						players:teleportTo(config.newPos)
-						players:setStorageValue(14321, os.time() + 20*60*60)
+						
+						players:sendTextMessage(MESSAGE_STATUS_SMALL, "You or a member in your team have to wait 20 hours to challange again!")
+
 					end
 					Position(config.newPos):sendMagicEffect(11)
 
 					areaAnomaly1 = addEvent(clearArea, 15 * 60000)
 
-					Game.setStorageValue(14322, 0) -- Anomaly Stages
+					Game.setStorageValue(14321, 0) -- Anomaly Stages
+					players:setStorageValue(Storage.Tibiana.Anomaly, os.time() + 15 * 60 * 60) -- + 20 * 60 * 3600
+
 
 					Game.createMonster("Spark of Destruction", {x = 32267, y = 31253, z = 14}, false, true)
 					Game.createMonster("Spark of Destruction", {x = 32274, y = 31255, z = 14}, false, true)

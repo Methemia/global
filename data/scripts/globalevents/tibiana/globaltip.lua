@@ -8,10 +8,8 @@ local globalTip = GlobalEvent("globalTip")
 local message = {
     "We have automatic donations in paypal.",
     "To see full list of available commands type !commands.",
-    "Please report bugs in the Discord.",
-    "Discord: https://discord.gg/HSCTDNnVH2",
-    "Join our Facebook page: https://www.facebook.com/MethsoftGames",
-    "Tibiana, the only Latin server that will NEVER have a Reset",
+    "Please report bugs in the Discord - https://discord.gg/5SxFynCzyF",
+    "Follow us on www.facebook.com/lunacoresmx",
     "All bugs are reported by discord, Staff does not respond to private messages.",
     }
 

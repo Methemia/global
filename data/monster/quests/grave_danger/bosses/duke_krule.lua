@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 50000
-monster.maxHealth = 50000
+monster.health = 200000
+monster.maxHealth = 200000
 monster.race = "venom"
 monster.corpse = 36434
 monster.speed = 250

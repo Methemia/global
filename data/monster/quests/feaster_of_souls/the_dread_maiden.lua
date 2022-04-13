@@ -21,6 +21,11 @@ monster.speed = 500
 monster.manaCost = 0
 monster.maxSummons = 0
 
+
+monster.events = {
+	"theDreadMaidenHealth",
+}
+
 monster.changeTarget = {
 	interval = 5000,
 	chance = 8
@@ -98,7 +103,7 @@ monster.attacks = {
 monster.defenses = {
 	defense = 40,
 	armor = 82,
-	{name ="combat", interval = 4000, chance = 10, type = COMBAT_HEALING, minDamage = 500, maxDamage = 1500, effect = CONST_ME_MAGIC_BLUE, target = false}
+	{name ="summonsthedreadmaiden", interval = 8000, chance = 100, target = false},
 }
 
 monster.elements = {

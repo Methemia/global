@@ -11,8 +11,7 @@ function offlineTraining.onLogin(player)
 	player:setOfflineTrainingSkill(-1)
 
 	if offlineTime < 600 then
-		player:sendTextMessage(MESSAGE_EVENT_ADVANCE,
-			"You must be logged out for more than 10 minutes to start offline training.")
+		player:sendTextMessage(MESSAGE_OFFLINE_TRAINING, "You must be logged out for more than 10 minutes to start offline training.")
 		return true
 	end
 
@@ -57,11 +56,11 @@ function offlineTraining.onLogin(player)
 
 	local updateSkill = false
 	if isInArray({SKILL_CLUB, SKILL_SWORD, SKILL_AXE, SKILL_DISTANCE}, offlineTrainingSkill) then
-		local modifier = topVocation:getAttackSpeed() / 1000
+		local modifier = topVocation:getBaseAttackSpeed() / 1000 / configManager.getFloat(configKeys.RATE_OFFLINE_TRAINING_SPEED)
 		updateSkill = player:addOfflineTrainingTries(
 					offlineTrainingSkill, (trainingTime / modifier) / (offlineTrainingSkill == SKILL_DISTANCE and 4 or 2))
 	elseif offlineTrainingSkill == SKILL_MAGLEVEL then
-		local gainTicks = topVocation:getManaGainTicks() * 2
+		local gainTicks = (topVocation:getManaGainTicks() / 1000) * 2
 		if gainTicks == 0 then
 			gainTicks = 1
 		end

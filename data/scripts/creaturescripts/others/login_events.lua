@@ -27,6 +27,8 @@ function loginEvents.onLogin(player)
 		"MinotaurTask",
 		"VortexCarlin",
 		"LeidenHeal",
+		"ShocksDeath",
+		"ForeshockTransform",
 		"PirateDoorHeal",
 		"GlowingRubbishAmulet",
 		"DestroyedPillar",
@@ -108,8 +110,19 @@ function loginEvents.onLogin(player)
 		"removeConditionsPZ",
 		"staminaLogin",
 		"SkullPlayer",
+		"Autoloot",
 		"MirrorImageTransform",
 		"TibianaHalloween",
+		"SoulWarEnd",
+		"SoulwarBossKill",
+		"wboss",
+		"CrueltyKill",
+		"GreedKill",
+		"HatredKill",
+		"MaliceKill",
+		"SpiceKill",
+		"BrainHeadKills",
+		"MegalomaniaKill",
 		-- The Rookie Guard
 		"VascalirRatKills"
 	}
@@ -118,6 +131,9 @@ function loginEvents.onLogin(player)
 		player:registerEvent(events[i])
 		player:registerEvent("moreRegen")
 		player:registerEvent("AntiMC")
+		player:registerEvent("SoulWarEnd")
+		player:registerEvent("points_reward")
+		player:registerEvent("AutoLoot")
 	end
 	return true
 end

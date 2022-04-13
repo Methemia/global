@@ -1,7 +1,7 @@
-local mType = Game.createMonsterType("Lokathmor")
+local mType = Game.createMonsterType("Lokathmor Stuck")
 local monster = {}
 
-monster.description = "Lokathmor"
+monster.description = "Lokathmor Stuck"
 monster.experience = 0
 monster.outfit = {
 	lookType = 1062,

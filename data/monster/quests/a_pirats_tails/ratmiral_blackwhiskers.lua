@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 150000
-monster.maxHealth = 150000
+monster.health = 200000
+monster.maxHealth = 200000
 monster.race = "blood"
 monster.corpse = 40681
 monster.speed = 320
@@ -38,7 +38,7 @@ monster.flags = {
 	pushable = false,
 	rewardBoss = true,
 	illusionable = false,
-	canPushItems = false,
+	canPushItems = true,
 	canPushCreatures = false,
 	staticAttackChance = 90,
 	targetDistance = 1,
@@ -47,7 +47,7 @@ monster.flags = {
 	isBlockable = false,
 	canWalkOnEnergy = true,
 	canWalkOnFire = true,
-	canWalkOnPoison = false,
+	canWalkOnPoison = true,
 	pet = false
 }
 
@@ -70,28 +70,28 @@ monster.loot = {
 	{name = "berserk potion", chance = 44810},
 	{name = "golden skull", chance = 20150, maxCount = 5},
 	{name = "small treasure chest", chance = 19420},
-	{name = "Ratmiral's Hat", chance = 7810},
+	{name = "Ratmiral's Hat", chance = 140},
 	{name = "shark fins", chance = 1750},
-	{name = "Jungle Flail", chance = 300},
-	{name = "Jungle Bow", chance = 300},
-	{name = "Jungle Rod", chance = 300},
-	{name = "Jungle Wand", chance = 300},
-	{name = "Throwing Axe", chance = 300},
-	{name = "Jungle Quiver", chance = 350},
-	{name = "Make-Do Boots", chance = 350},
-	{name = "Makeshift Boots", chance = 350},
-	{name = "Exotic Legs", chance = 300},
-	{name = "Scrubbing Brush", chance = 300},
-	{name = "Soap", chance = 300},
-	{name = "Bast Legs", chance = 250},
-	{name = "Exotic Amulet", chance = 250}
+	{name = "Jungle Flail", chance = 50},
+	{name = "Jungle Bow", chance = 50},
+	{name = "Jungle Rod", chance = 50},
+	{name = "Jungle Wand", chance = 50},
+	{name = "Throwing Axe", chance = 70},
+	{name = "Jungle Quiver", chance = 70},
+	{name = "Make-Do Boots", chance = 70},
+	{name = "Makeshift Boots", chance = 80},
+	{name = "Exotic Legs", chance = 50},
+	{name = "Scrubbing Brush", chance = 50},
+	{name = "Soap", chance = 80},
+	{name = "Bast Legs", chance = 50},
+	{name = "Exotic Amulet", chance = 90}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -1200},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_LIFEDRAIN, minDamage = -250, maxDamage = -750, range = 7, radius = 7, effect = CONST_ME_MAGIC_RED, target = true},
-	{name ="combat", interval = 2000, chance = 10, type = COMBAT_FIREDAMAGE, minDamage = -550, maxDamage = -2000, length = 8, spread = 3, effect = CONST_ME_FIREATTACK, target = false},
-	{name ="combat", interval = 2000, chance = 15, type = COMBAT_LIFEDRAIN, minDamage = -350, maxDamage = -450, radius = 4, effect = CONST_ME_SOUND_RED, target = false},
+	{name ="melee", interval = 2000, chance = 100, minDamage = -200, maxDamage = -1200},
+	{name ="combat", interval = 2000, chance = 20, type = COMBAT_LIFEDRAIN, minDamage = -450, maxDamage = -1750, range = 7, radius = 7, effect = CONST_ME_MAGIC_RED, target = true},
+	{name ="combat", interval = 2000, chance = 10, type = COMBAT_FIREDAMAGE, minDamage = -550, maxDamage = -1700, length = 8, spread = 3, effect = CONST_ME_FIREATTACK, target = false},
+	{name ="combat", interval = 2000, chance = 15, type = COMBAT_LIFEDRAIN, minDamage = -550, maxDamage = -1450, radius = 4, effect = CONST_ME_SOUND_RED, target = false},
 }
 
 monster.defenses = {
@@ -119,5 +119,11 @@ monster.immunities = {
 	{type = "invisible", condition = true},
 	{type = "bleed", condition = false}
 }
+
+mType.onAppear = function(monster, creature)
+	if monster:getType():isRewardBoss() then
+		monster:setReward(true)
+	end
+end
 
 mType:register(monster)

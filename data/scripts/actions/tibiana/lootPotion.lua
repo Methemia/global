@@ -36,5 +36,5 @@ function loot.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	return true
 end
 
-loot:id(10089, 10760, 11100)
+loot:id(939393)
 loot:register()

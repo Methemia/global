@@ -22,5 +22,5 @@ function global.onTime()
 end
 
 --global:time(config.raidTime)
-global:interval(1620000)
-global:register()
+--global:interval(1620000)
+--global:register()

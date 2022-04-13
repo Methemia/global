@@ -54,7 +54,7 @@ monster.flags = {
 	pushable = false,
 	rewardBoss = false,
 	illusionable = false,
-	canPushItems = false,
+	canPushItems = true,
 	canPushCreatures = false,
 	staticAttackChance = 90,
 	targetDistance = 4,
@@ -95,7 +95,7 @@ monster.loot = {
 	{id = 26189, chance = 28920}, -- Ring of red plasma
 	{id = 38977, chance = 18920}, -- Distorted hearth
 	{id = 38984, chance = 11920}, -- Distorted robe
-	{id = 38944, chance = 50} -- Bag you desire
+	{id = 38944, chance = 1} -- Bag you desire
 }
 
 monster.attacks = {

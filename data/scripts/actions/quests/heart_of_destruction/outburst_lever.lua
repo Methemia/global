@@ -90,7 +90,7 @@ function heartDestructionOutburst.onUse(player, item, fromPosition, itemEx, toPo
 						players = storePlayers[i]
 						config.playerPositions[i]:sendMagicEffect(CONST_ME_POFF)
 						players:teleportTo(config.newPos)
-						players:setStorageValue(14331, os.time() + 20*60*60)
+						players:setStorageValue(Storage.Tibiana.Outburst, os.time() + 15 * 60 * 60) -- + 20 * 60 * 3600	
 					end
 					Position(config.newPos):sendMagicEffect(11)
 

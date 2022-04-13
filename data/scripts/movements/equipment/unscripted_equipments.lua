@@ -384,6 +384,7 @@ if not equipmentsTable then
 		{
 			itemid = 38985,
 			type = "deequip",
+			level = 270,
 			slot = "hand"
 		}, -- lion longbow
 		{
@@ -1860,12 +1861,24 @@ if not equipmentsTable then
 		{
 			itemid = 32423,
 			type = "equip",
-			slot = "hand"
+			level = 300,
+			slot = "hand",
+			vocation = {
+				{"Knight", true},
+				{"Elite Knight"}
+			}
+
 		}, -- falcon longsword
 		{
 			itemid = 32423,
 			type = "deequip",
-			slot = "hand"
+			level = 300,
+			slot = "hand",
+			vocation = {
+				{"Knight", true},
+				{"Elite Knight"}
+			}
+
 		}, -- falcon longsword
 		{
 			itemid = 32422,
@@ -1883,7 +1896,14 @@ if not equipmentsTable then
 			itemid = 32422,
 			type = "deequip",
 			slot = "shield",
-			level = 300
+			level = 300,
+			vocation = {
+				{"Knight", true},
+				{"Paladin", true, true},
+				{"Elite Knight"},
+				{"Royal Paladin"}
+			}
+
 		}, -- falcon escutcheon
 		{
 			itemid = 32421,
@@ -1919,7 +1939,14 @@ if not equipmentsTable then
 			itemid = 32420,
 			type = "deequip",
 			slot = "legs",
-			level = 300
+			level = 300,
+			vocation = {
+				{"Knight", true},
+				{"Paladin", true, true},
+				{"Elite Knight"},
+				{"Royal Paladin"}
+			}
+
 		}, -- falcon greaves
 		{
 			itemid = 32419,
@@ -1935,17 +1962,34 @@ if not equipmentsTable then
 			itemid = 32419,
 			type = "deequip",
 			slot = "armor",
-			level = 300
+			level = 300,
+			vocation = {
+				{"Knight", true},
+				{"Elite Knight"}
+			}
+
 		}, -- falcon plate
 		{
 			itemid = 32418,
 			type = "equip",
-			slot = "hand"
+			level = 300,
+			slot = "hand",
+			vocation = {
+				{"Paladin", true},
+				{"Royal Paladin"}
+			}
+
 		}, -- falcon bow
 		{
 			itemid = 32418,
 			type = "deequip",
-			slot = "hand"
+			level = 300,
+			slot = "hand",
+			vocation = {
+				{"Paladin", true},
+				{"Royal Paladin"}
+			}
+
 		}, -- falcon bow
 		{
 			itemid = 32417,
@@ -1977,7 +2021,12 @@ if not equipmentsTable then
 			itemid = 32416,
 			type = "deequip",
 			slot = "hand",
-			level = 300
+			level = 300,
+			vocation = {
+				{"Druid", true},
+				{"Elder Druid"}
+			}
+
 		}, -- falcon rod
 		{
 			itemid = 32415,

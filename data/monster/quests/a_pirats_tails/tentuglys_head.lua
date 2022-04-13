@@ -7,8 +7,8 @@ monster.outfit = {
 	lookTypeEx = 39940
 }
 
-monster.health = 30000
-monster.maxHealth = 30000
+monster.health = 130000
+monster.maxHealth = 130000
 monster.race = "blood"
 monster.corpse = 40435
 monster.speed = 0
@@ -30,7 +30,7 @@ monster.flags = {
 	hostile = true,
 	convinceable = false,
 	pushable = false,
-	rewardBoss = false,
+	rewardBoss = true,
 	illusionable = false,
 	canPushItems = false,
 	canPushCreatures = false,
@@ -60,21 +60,21 @@ monster.summons = {
 }
 
 monster.loot = {
-	{name = "cheese key", chance = 100000},
+	{name = "cheese key", chance = 300},
 	{name = "ultimate health potion", chance = 44810, maxCount = 10},
 	{name = "berserk potion", chance = 44810, maxCount = 5},
 	{name = "berserk potion", chance = 44810},
-	{name = "golden skull", chance = 20150, maxCount = 5},
+	{name = "golden skull", chance = 100, maxCount = 5},
 	{name = "small treasure chest", chance = 19420},
-	{name = "Tentugly's eye", chance = 2810},
-	{name = "Tentugly's jaws", chance = 2750},
-	{name = "Tentacle of Tentugly", chance = 2650},
-	{name = "Plushie of Tentugly", chance = 400}
+	{name = "Tentugly's eye", chance = 50},
+	{name = "Tentugly's jaws", chance = 50},
+	{name = "Tentacle of Tentugly", chance = 40},
+	{name = "Plushie of Tentugly", chance = 40}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = -400, maxDamage = -800},
-	{name ="combat", interval = 2000, chance = 30, type = COMBAT_ENERGYDAMAGE, minDamage = -350, maxDamage = -650, range = 7, radius = 4, shootEffect = CONST_ANI_ENERGY, effect = CONST_ME_ENERGYHIT, target = true}
+	{name ="melee", interval = 1000, chance = 100, minDamage = -800, maxDamage = -1000},
+	{name ="combat", interval = 1000, chance = 30, type = COMBAT_ENERGYDAMAGE, minDamage = -750, maxDamage = -1650, range = 7, radius = 4, shootEffect = CONST_ANI_ENERGY, effect = CONST_ME_ENERGYHIT, target = true}
 }
 
 monster.defenses = {
@@ -102,5 +102,12 @@ monster.immunities = {
 	{type = "invisible", condition = true},
 	{type = "bleed", condition = false}
 }
+
+mType.onAppear = function(monster, creature)
+	if monster:getType():isRewardBoss() then
+		monster:setReward(true)
+	end
+end
+
 
 mType:register(monster)

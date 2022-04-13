@@ -1,7 +1,6 @@
 local vortex = {
 	[14321] = Position(32149, 31359, 14), -- Charger TP 1
 	[14322] = Position(32092, 31330, 12), -- Charger Exit
-	[14324] = Position(32104, 31329, 12), -- Anomaly Exit
 	[14325] = Position(32216, 31380, 14), -- Main Room
 	[14340] = Position(32159, 31329, 11), -- Main Room Exit
 	[14341] = Position(32078, 31320, 13), -- Cracklers Exit
@@ -11,7 +10,6 @@ local vortex = {
 	[14348] = Position(32218, 31375, 14), -- Eradicator Exit (Main Room)
 	[14350] = Position(32208, 31372, 14), -- Outburst Exit (Main Room)
 	[14352] = Position(32214, 31376, 14), -- World Devourer Exit (Main Room)
-	[14354] = Position(32112, 31375, 14), -- World Devourer (Reward Room)
 }
 
 local accessVortex = {

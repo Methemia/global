@@ -5,12 +5,12 @@ function smallstaminarefill.onUse(player, item, ...)
         player:sendCancelMessage("You have a full stamina.")
         return true
     end
-    player:setStamina(math.min(2520, stamina + 120))
+    player:setStamina(math.min(2520, stamina + 360))
     player:getPosition():sendMagicEffect(CONST_ME_MAGIC_GREEN)
-    player:sendCancelMessage("You have regenerate 2 hours of stamina.")
+    player:sendCancelMessage("You have regenerate 6 hours of stamina.")
     item:remove(1)
     return true
 end
 
-smallstaminarefill:id(38763)
+smallstaminarefill:id(41563)
 smallstaminarefill:register()

@@ -1,7 +1,9 @@
 local destinations = {
     -- please use lower case names
     --["place name"] = { position=Position(100, 100, 7), inPz=true, level=100, infight=false }
-    ["house"] = { house=true, inPz=true, infight=false }
+    ["house"] = { house=true, inPz=true, infight=false },
+    ["thais"] = { position=Position(32369, 32241, 7), inPz=true, infight=false }
+
 }
 
 local destString = "Available destinations:"

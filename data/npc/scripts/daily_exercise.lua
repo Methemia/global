@@ -21,7 +21,7 @@ local voices = {
 
 local config = {
 str = 52375,
-charges = 150
+charges = 250
 }
 
 local function creatureSayCallback(cid, type, msg)
@@ -37,7 +37,7 @@ npcHandler.topic[cid] = 0
 return true
 end
 
-if player:getVocation():getClientId() == VOCATION.CLIENT_ID.KNIGHT then
+if player:getVocation():getBaseId() == VOCATION.BASE_ID.KNIGHT then
 if player:getStorageValue(config.str) > os.time() then
 npcHandler:say("Rewards can only be collected every 24 hours", cid)
 npcHandler.topic[cid] = 0
@@ -48,7 +48,7 @@ npcHandler.topic[cid] = 2
 end
 
 
-if player:getVocation():getClientId() == VOCATION.CLIENT_ID.PALADIN then
+if player:getVocation():getBaseId() == VOCATION.BASE_ID.PALADIN then
 if player:getStorageValue(config.str) > os.time() then
 npcHandler:say("Rewards can only be collected every 24 hours", cid)
 npcHandler.topic[cid] = 0
@@ -61,7 +61,7 @@ player:setStorageValue(config.str, os.time() + (24 * 60 * 60))
 npcHandler.topic[cid] = 0
 end
 
-if player:getVocation():getClientId() == VOCATION.CLIENT_ID.SORCERER then
+if player:getVocation():getBaseId() == VOCATION.BASE_ID.SORCERER then
 if player:getStorageValue(config.str) > os.time() then
 npcHandler:say("Rewards can only be collected every 24 hours", cid)
 npcHandler.topic[cid] = 0
@@ -74,7 +74,7 @@ player:setStorageValue(config.str, os.time() + (24 * 60 * 60))
 npcHandler.topic[cid] = 0
 end
 
-if player:getVocation():getClientId() == VOCATION.CLIENT_ID.DRUID then
+if player:getVocation():getBaseId() == VOCATION.BASE_ID.DRUID then
 if player:getStorageValue(config.str) > os.time() then
 npcHandler:say("Rewards can only be collected every 24 hours", cid)
 npcHandler.topic[cid] = 0

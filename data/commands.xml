@@ -18,6 +18,12 @@ words="/citywar accept,guildname"
 words="/citywar cancel,guildname"
 words="/citywar go"
 words="/citywar end"
+words="!fastregen - free 5 days (IP-Account)"
 
-words="--SUPPORT--"
-words="https://discord.gg/HSCTDNnVH2"
+words="-- Autoloot --"
+words="!autoloot - add, clear, show"
+
+words="!report - report system"
+
+words="--SUPPORT LunaCores--"
+words="https://discord.gg/5SxFynCzyF"

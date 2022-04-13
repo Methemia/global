@@ -1,4 +1,4 @@
-local AccPorIp = 2
+local AccPorIp = 4
 
 local antiMcScript = CreatureEvent("antiMcScript")
 function antiMcScript.onLogin(player)

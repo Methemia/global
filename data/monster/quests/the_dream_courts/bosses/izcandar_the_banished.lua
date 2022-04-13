@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 30000
-monster.maxHealth = 30000
+monster.health = 230000
+monster.maxHealth = 230000
 monster.race = "blood"
 monster.corpse = 6068
 monster.speed = 250
@@ -84,20 +84,20 @@ monster.loot = {
 	{name = "supreme health potion", chance = 12000, maxCount = 10},
 	{name = "ultimate mana potion", chance = 12000, maxCount = 20},
 	{id = 26165, chance = 10000},
-	{id = 2123, chance = 3400},
-	{id = 7427, chance = 3400},
-	{id = 2453, chance = 1500},
-	{id = 34582, chance = 9650},
-	{id = 34694, chance = 9650},
-	{id = 34807, chance = 9650},
-	{id = 26185, chance = 12000},
-	{id = 26198, chance = 12000},
-	{id = 26200, chance = 12000},
-	{id = 26189, chance = 12000},
-	{id = 34060, chance = 600},
-	{id = 34807, chance = 9650},
-	{id = 34583, chance = 9650},
-	{id = 34059, chance = 600}
+	{id = 2123, chance = 30},
+	{id = 7427, chance = 30},
+	{id = 2453, chance = 30},
+	{id = 34582, chance = 30},
+	{id = 34694, chance = 30},
+	{id = 34807, chance = 30},
+	{id = 26185, chance = 30},
+	{id = 26198, chance = 30},
+	{id = 26200, chance = 30},
+	{id = 26189, chance = 30},
+	{id = 34060, chance = 30},
+	{id = 34807, chance = 30},
+	{id = 34583, chance = 30},
+	{id = 34059, chance = 30}
 }
 
 monster.attacks = {

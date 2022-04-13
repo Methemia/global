@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 200000
-monster.maxHealth = 200000
+monster.health = 2200000
+monster.maxHealth = 2200000
 monster.race = "blood"
 monster.corpse = 6068
 monster.speed = 250
@@ -78,24 +78,24 @@ monster.loot = {
 	{name = "silver token", chance = 100000, maxCount = 2},
 	{name = "royal star", chance = 100000, maxCount = 100},
 	{name = "green gem", chance = 100000, maxCount = 2},
-	{name = "huge chunk of crude iron", chance = 25100},
-	{name = "mysterious remains", chance = 25000},
+	{name = "huge chunk of crude iron", chance = 40},
+	{name = "mysterious remains", chance = 40},
 	{name = "piggy bank", chance = 12800},
 	{name = "platinum coin", chance = 12000, maxCount = 10},
 	{name = "gold ingot", chance = 12000, maxCount = 1},
 	{name = "supreme health potion", chance = 12000, maxCount = 10},
 	{name = "ultimate mana potion", chance = 12000, maxCount = 20},
-	{id = 34807, chance = 9650},
-	{id = 34583, chance = 9650},
-	{id = 26185, chance = 12000},
-	{id = 26198, chance = 12000},
-	{id = 26200, chance = 12000},
-	{id = 26189, chance = 12000},
-	{id = 34059, chance = 1280}
+	{id = 34807, chance = 30},
+	{id = 34583, chance = 30},
+	{id = 26185, chance = 30},
+	{id = 26198, chance = 30},
+	{id = 26200, chance = 30},
+	{id = 26189, chance = 30},
+	{id = 34059, chance = 30}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -1000},
+	{name ="melee", interval = 2000, chance = 100, minDamage = -800, maxDamage = -1000},
 	{name ="combat", interval = 2000, chance = 20, type = COMBAT_FIREDAMAGE, minDamage = -500, maxDamage = -1500, length = 8, spread = 3, effect = CONST_ME_FIREAREA, target = false},
 	{name ="combat", interval = 2000, chance = 20, type = COMBAT_FIREDAMAGE, minDamage = -500, maxDamage = -1000, length = 8, effect = CONST_ME_FIREATTACK, target = false}
 }

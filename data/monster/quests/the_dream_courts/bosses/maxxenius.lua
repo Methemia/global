@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 20000
-monster.maxHealth = 20000
+monster.health = 220000
+monster.maxHealth = 220000
 monster.race = "blood"
 monster.corpse = 34789
 monster.speed = 250
@@ -66,12 +66,12 @@ monster.voices = {
 
 monster.loot = {
 	{name = "Platinum Coin", chance = 100000, maxCount = 5},
-	{name = "Mysterious Remains", chance = 100000},
+	{name = "Mysterious Remains", chance = 100},
 	{name = "Piggy Bank", chance = 100000},
-	{name = "Brain in a Jar", chance = 100000},
-	{name = "Maxxenius Head", chance = 100000},
+	{name = "Brain in a Jar", chance = 100},
+	{name = "Maxxenius Head", chance = 100},
 	{name = "Silver Token", chance = 100000, maxCount = 3},
-	{name = "Energy Bar", chance = 100000},
+	{name = "Energy Bar", chance = 1000},
 	{name = "Crystal Coin", chance = 13790},
 	{name = "Gold Ingot", chance = 17240},
 	{name = "Bullseye Potion", chance = 24114, maxCount = 10},
@@ -81,22 +81,22 @@ monster.loot = {
 	{name = "Ultimate Spirit Potion", chance = 48280, maxCount = 60},
 	{name = "Ultimate Mana Potion", chance = 68970, maxCount = 14},
 	{name = "Giant Ruby", chance = 3450},
-	{name = "Ornate Locket", chance = 3450},
+	{name = "Ornate Locket", chance = 40},
 	{name = "Gold Token", chance = 68970, maxCount = 2},
-	{id = 7632, chance = 28540},
-	{name = "Pomegranate", chance = 24140},
+	{id = 7632, chance = 280},
+	{name = "Pomegranate", chance = 20},
 	{name = "Chaos Mace", chance = 6900},
-	{id = 26184, chance = 17240},
-	{id = 26199, chance = 13790},
+	{id = 26184, chance = 100},
+	{id = 26199, chance = 100},
 	{name = "Green Gem", chance = 31030},
 	{name = "Yellow Gem", chance = 31030},
 	{name = "Violet Gem", chance = 6900},
 	{name = "Blue Gem", chance = 10340},
-	{name = "Huge Chunk of Crude Iron", chance = 17240},
-	{id = 26185, chance = 3450},
-	{name = "Skull Staff", chance = 13790},
-	{name = "Energized Limb", chance = 3450},
-	{name = "Purple Tendril Lantern", chance = 1500}
+	{name = "Huge Chunk of Crude Iron", chance = 140},
+	{id = 26185, chance = 30},
+	{name = "Skull Staff", chance = 290},
+	{name = "Energized Limb", chance = 30},
+	{name = "Purple Tendril Lantern", chance = 30}
 }
 
 monster.attacks = {

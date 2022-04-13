@@ -1,6 +1,6 @@
 
 local portals = {
-	[59707] = {position = Position(33619, 31429, 10)}
+	[59707000] = {position = Position(33619, 31429, 10)}
 }
 
 local teleportsSoulWar = MoveEvent()
@@ -21,5 +21,5 @@ function teleportsSoulWar.onStepIn(creature, item, position, fromPosition)
 end
 
 teleportsSoulWar:type("stepin")
-teleportsSoulWar:uid(59707)
+teleportsSoulWar:uid(59707000)
 teleportsSoulWar:register()

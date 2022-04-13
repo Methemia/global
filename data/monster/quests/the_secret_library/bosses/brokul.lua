@@ -38,11 +38,11 @@ monster.flags = {
 	attackable = true,
 	hostile = true,
 	convinceable = false,
-	pushable = true,
+	pushable = false,
 	rewardBoss = true,
 	illusionable = true,
 	canPushItems = true,
-	canPushCreatures = true,
+	canPushCreatures = false,
 	staticAttackChance = 60,
 	targetDistance = 1,
 	runHealth = 60,
@@ -73,21 +73,21 @@ monster.loot = {
 	{name = "gold coin", chance = 70000, maxCount = 60},
 	{name = "platinum coin", chance = 80000, maxCount = 10},
 	{name = "Gold Ingot", chance = 3448, maxCount = 10},
-	{name = "Broccoli", chance = 2439, maxCount = 10},
+	{name = "Broccoli", chance = 2439, maxCount = 70},
 	{name = "Small Diamond", chance = 498, maxCount = 10},
 	{name = "Blue Gem", chance = 2500},
 	{name = "Red Gem", chance = 2000},
-	{name = "Deepling Ceremonial Dagger", chance = 80},
-	{name = "Deepling Fork", chance = 80},
+	{name = "Deepling Ceremonial Dagger", chance = 100},
+	{name = "Deepling Fork", chance = 100},
 	{name = "True Book of Death", chance = 100}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = -500},
-	{name ="combat", interval = 2000, chance = 14, type = COMBAT_HOLYDAMAGE, minDamage = -100, maxDamage = -700, length = 8, spread = 3, effect = CONST_ME_MORTAREA, target = false},
-	{name ="combat", interval = 2000, chance = 18, type = COMBAT_PHYSICALDAMAGE, minDamage = -300, maxDamage = -700, radius = 4, effect = CONST_ME_EXPLOSIONAREA, target = false},
-	{name ="combat", interval = 2000, chance = 14, type = COMBAT_FIREDAMAGE, minDamage = -300, maxDamage = -840, length = 8, spread = 3, effect = CONST_ME_HITBYFIRE, target = false},
-	{name ="combat", interval = 2000, chance = 14, type = COMBAT_HOLYDAMAGE, minDamage = -300, maxDamage = -700, length = 8, spread = 3, effect = CONST_ME_HOLYAREA, target = false},
+	{name ="melee", interval = 2000, chance = 100, minDamage = -400, maxDamage = -1500},
+	{name ="combat", interval = 2000, chance = 14, type = COMBAT_HOLYDAMAGE, minDamage = -400, maxDamage = -1400, length = 8, spread = 3, effect = CONST_ME_MORTAREA, target = false},
+	{name ="combat", interval = 2000, chance = 18, type = COMBAT_PHYSICALDAMAGE, minDamage = -300, maxDamage = -900, radius = 4, effect = CONST_ME_EXPLOSIONAREA, target = false},
+	{name ="combat", interval = 2000, chance = 14, type = COMBAT_FIREDAMAGE, minDamage = -400, maxDamage = -840, length = 8, spread = 3, effect = CONST_ME_HITBYFIRE, target = false},
+	{name ="combat", interval = 2000, chance = 14, type = COMBAT_HOLYDAMAGE, minDamage = -500, maxDamage = -700, length = 8, spread = 3, effect = CONST_ME_HOLYAREA, target = false},
 	{name ="combat", interval = 2000, chance = 29, type = COMBAT_ICEDAMAGE, minDamage = -300, maxDamage = -840, range = 7, radius = 4, effect = CONST_ME_FIREAREA, target = true}
 }
 

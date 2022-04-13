@@ -90,11 +90,11 @@ function heartDestructionQuake.onUse(player, item, fromPosition, itemEx, toPosit
 						players = storePlayers[i]
 						config.playerPositions[i]:sendMagicEffect(CONST_ME_POFF)
 						players:teleportTo(config.newPos)
-						players:setStorageValue(14325, os.time() + 20*60*60)
+						players:setStorageValue(Storage.Tibiana.Realityquake, os.time() + 15 * 60 * 60) -- + 20 * 60 * 3600
 					end
 					Position(config.newPos):sendMagicEffect(11)
 
-					areaQuake1 = addEvent(clearArea, 15 * 60000)
+					--areaQuake1 = addEvent(clearArea, 15 * 60000)
 
 					Game.createMonster("Spark of Destruction", {x = 32203, y = 31246, z = 14}, false, true)
 					Game.createMonster("Spark of Destruction", {x = 32205, y = 31251, z = 14}, false, true)
@@ -105,7 +105,7 @@ function heartDestructionQuake.onUse(player, item, fromPosition, itemEx, toPosit
 					foreshockHealth = 105000
 					aftershockHealth = 105000
 					realityQuakeStage = 0
-					foreshockStage = 0
+					foreshockStage = 10040
 					aftershockStage = 0
 
 					local vortex = Tile({x = 32199, y = 31248, z = 14}):getItemById(26138)

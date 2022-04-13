@@ -1,7 +1,7 @@
 local config = {
     monsterName = 'Jaul',
-   bossPosition = Position(33643, 31237, 11),
-    centerPosition = Position(33643, 31237, 11),
+    bossPosition = Position(33538, 31275, 11),
+    centerPosition = Position(33538, 31275, 11),
     rangeX = 50,
     rangeY = 50
 }
@@ -19,8 +19,8 @@ local function checkBoss(centerPosition, rangeX, rangeY, bossName)
     return false
 end
 
-local Jaul = GlobalEvent("Jaul")
-function Jaul.onThink(interval, lastExecution)
+local Tanjis = GlobalEvent("Tanjis")
+function Tanjis.onThink(interval, lastExecution)
     if checkBoss(config.centerPosition, config.rangeX, config.rangeY, config.monsterName) then
         return true
     end
@@ -29,5 +29,5 @@ function Jaul.onThink(interval, lastExecution)
     boss:setReward(true)
     return true
 end
-Jaul:interval(3600000)
-Jaul:register()
+Tanjis:interval(3600000)
+Tanjis:register()

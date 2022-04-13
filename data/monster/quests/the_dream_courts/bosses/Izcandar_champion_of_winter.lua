@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0
 }
 
-monster.health = 30000
-monster.maxHealth = 30000
+monster.health = 230000
+monster.maxHealth = 230000
 monster.race = "blood"
 monster.corpse = 6068
 monster.speed = 250
@@ -79,30 +79,30 @@ monster.loot = {
 	{name = "silver token", chance = 100000, maxCount = 2},
 	{name = "royal star", chance = 100000, maxCount = 100},
 	{name = "green gem", chance = 100000, maxCount = 2},
-	{name = "huge chunk of crude iron", chance = 25100},
-	{name = "mysterious remains", chance = 25000},
+	{name = "huge chunk of crude iron", chance = 30},
+	{name = "mysterious remains", chance = 250},
 	{name = "piggy bank", chance = 12800},
 	{name = "platinum coin", chance = 12000, maxCount = 10},
 	{name = "gold ingot", chance = 12000, maxCount = 1},
 	{name = "supreme health potion", chance = 12000, maxCount = 10},
 	{name = "ultimate mana potion", chance = 12000, maxCount = 20},
-	{id = 26165, chance = 10000},
-	{id = 2123, chance = 3400},
-	{id = 7427, chance = 3400},
-	{id = 34582, chance = 9650},
-	{id = 34694, chance = 9650},
-	{id = 34807, chance = 9650},
-	{id = 26185, chance = 12000},
-	{id = 26198, chance = 12000},
-	{id = 26200, chance = 12000},
-	{id = 26189, chance = 12000},
-	{id = 34060, chance = 1280}
+	{id = 26165, chance = 30},
+	{id = 2123, chance = 30},
+	{id = 7427, chance = 30},
+	{id = 34582, chance = 30},
+	{id = 34694, chance = 30},
+	{id = 34807, chance = 30},
+	{id = 26185, chance = 30},
+	{id = 26198, chance = 30},
+	{id = 26200, chance = 30},
+	{id = 26189, chance = 30},
+	{id = 34060, chance = 30}
 }
 
 monster.attacks = {
-	{name ="melee", interval = 2000, chance = 100, minDamage = 0, maxDamage = 1000},
+	{name ="melee", interval = 2000, chance = 100, minDamage = -900, maxDamage = 1000},
 	{name ="combat", interval = 2000, chance = 10, type = COMBAT_ICEDAMAGE, minDamage = -500, maxDamage = -1500, length = 4, spread = 3, effect = CONST_ME_GIANTICE, target = false},
-	{name ="combat", interval = 2000, chance = 20, type = COMBAT_ICEDAMAGE, minDamage = -500, maxDamage = -1000, length = 8, effect = CONST_ME_ICE, target = false}
+	{name ="combat", interval = 2000, chance = 20, type = COMBAT_ICEDAMAGE, minDamage = -500, maxDamage = -1900, length = 8, effect = CONST_ME_ICE, target = false}
 }
 
 monster.defenses = {

@@ -91,14 +91,14 @@ monster.loot = {
 	{name = "Terra Amulet", chance = 4800},
 	{name = "Giant Sapphire", chance = 4800},
 	{name = "Magma Monocle", chance = 3700},
-	{name = "Cobra Club", chance = 300},
-	{name = "Cobra Axe", chance = 300},
-	{name = "Cobra Crossbow", chance = 300},
-	{name = "Cobra Hood", chance = 300},
-	{name = "Cobra Rod", chance = 350},
-	{name = "Cobra Sword", chance = 350},
-	{name = "Cobra Wand", chance = 350},
-	{name = "The Cobra Amulet", chance = 250}
+	{name = "Cobra Club", chance = 40},
+	{name = "Cobra Axe", chance = 40},
+	{name = "Cobra Crossbow", chance = 40},
+	{name = "Cobra Hood", chance = 40},
+	{name = "Cobra Rod", chance = 40},
+	{name = "Cobra Sword", chance = 40},
+	{name = "Cobra Wand", chance = 40},
+	{name = "The Cobra Amulet", chance = 40}
 }
 
 monster.attacks = {

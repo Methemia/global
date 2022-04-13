@@ -18,6 +18,14 @@ function playerLogout.onLogout(player)
 			stats.stamina = player:getStamina()
 		end
 	end
+
+	
+	if onExerciseTraining[playerId] then
+		stopEvent(onExerciseTraining[playerId].event)
+		onExerciseTraining[playerId] = nil
+		player:setTraining(false)
+	end
+
 	player:setStorageValue(17101,0)
 	return true
 end

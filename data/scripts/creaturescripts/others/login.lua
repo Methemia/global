@@ -179,6 +179,8 @@ end
 	--	player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You have won all retro outfits for first login.")
 	--end
 
+player:checkOfflineMessage(player:getName())
+
 		if player:getLevel() >= 1 and (player:getStorageValue(38785) ~= 1) then	
 		player:addMount(math.random(187))
 		player:setStorageValue(38785, 1)
@@ -201,8 +203,8 @@ if player:getStorageValue(5000000) == 1 then
     removePlayerVials(player:getId())
 end
 
-
-
+player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Discord: https://discord.gg/5SxFynCzyF")
+player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Facebook: https://www.facebook.com/lunacoresmx")
 
 	-- Stamina
 	nextUseStaminaTime[playerId] = 1
@@ -265,8 +267,10 @@ end
 	player:setStaminaXpBoost(staminaBonus)
 	player:setBaseXpGain(baseExp)
 
-	if player:getStorageValue(Storage.isTraining) == 1 then --Reset exercise weapon storage
-		player:setStorageValue(Storage.isTraining,0)
+	if onExerciseTraining[player:getId()] then -- onLogin & onLogout
+		stopEvent(onExerciseTraining[player:getId()].event)
+		onExerciseTraining[player:getId()] = nil
+		player:setTraining(false)
 	end
 	return true
 end

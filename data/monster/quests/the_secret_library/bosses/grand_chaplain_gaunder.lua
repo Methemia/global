@@ -74,11 +74,11 @@ monster.loot = {
 	{name = "patch of fine cloth", chance = 1800},
 	{name = "spiked squelcher", chance = 3200},
 	{name = "titan axe", chance = 2400},
-	{name = "falcon battleaxe", chance = 50},
-	{name = "falcon longsword", chance = 50},
-	{name = "falcon mace", chance = 50},
-	{name = "falcon plate", chance = 50},
-	{name = "falcon shield", chance = 50}
+	{name = "falcon battleaxe", chance = 5},
+	{name = "falcon longsword", chance = 5},
+	{name = "falcon mace", chance = 5},
+	{name = "falcon plate", chance = 5},
+	{name = "falcon shield", chance = 5}
 }
 
 monster.attacks = {

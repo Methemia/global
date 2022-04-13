@@ -44,7 +44,7 @@ GameStore.ActionType = {
 	OPEN_OFFER = 4,
 }
 
-GameStore.CointType = {
+GameStore.CoinType = {
 	Coin = 0,
 	Transferable = 1,
 	Tournament = 2,
@@ -105,7 +105,7 @@ end
 GameStore.ClientOfferTypes = {
 	CLIENT_STORE_OFFER_OTHER = 0,
 	CLIENT_STORE_OFFER_NAMECHANGE = 1,
-	CLIENT_STORE_OFFER_HIRELING = 10,
+	CLIENT_STORE_OFFER_HIRELING = 3,
 }
 
 GameStore.HistoryTypes = {
@@ -242,7 +242,7 @@ function parseTransferCoins(playerId, msg)
 	local reciver = msg:getString()
 	local amount = msg:getU32()
 
-	if (player:getCoinsBalance() < amount) then
+	if (player:getCoinsBalance(GameStore.CoinType.Transferable) < amount) then
 		return addPlayerEvent(sendStoreError, 350, playerId, GameStore.StoreErrors.STORE_ERROR_TRANSFER, "You don't have this amount of coins.")
 	end
 
@@ -260,13 +260,13 @@ function parseTransferCoins(playerId, msg)
 		return addPlayerEvent(sendStoreError, 350, playerId, GameStore.StoreErrors.STORE_ERROR_TRANSFER, "You cannot transfer coin to a character in the same account.")
 	end
 
-	db.query("UPDATE `accounts` SET `coins` = `coins` + " .. amount .. " WHERE `id` = " .. accountId)
-	player:removeCoinsBalance(amount)
+	db.query("UPDATE `accounts` SET `transferable_coins` = `transferable_coins` + " .. amount .. " WHERE `id` = " .. accountId)
+	player:removeCoinsBalance(GameStore.CoinType.Transferable, amount)
 	addPlayerEvent(sendStorePurchaseSuccessful, 550, playerId, "You have transfered " .. amount .. " coins to " .. reciver .. " successfully")
 
 	-- Adding history for both reciver/sender
-	GameStore.insertHistory(accountId, GameStore.HistoryTypes.HISTORY_TYPE_NONE, player:getName() .. " transfered you this amount.", amount)
-	GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, "You transfered this amount to " .. reciver, -1 * amount) -- negative
+	GameStore.insertHistory(accountId, GameStore.HistoryTypes.HISTORY_TYPE_NONE, player:getName() .. " transfered you this amount.", GameStore.CoinType.Transferable,  amount)
+	GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, "You transfered this amount to " .. reciver, GameStore.CoinType.Transferable, -1 * amount) -- negative
 end
 
 function parseOpenStore(playerId, msg)
@@ -373,7 +373,7 @@ function parseBuyStoreOffer(playerId, msg)
 	-- At this point the purchase is assumed to be formatted correctly
 	local offerPrice = offer.type == GameStore.OfferTypes.OFFER_TYPE_EXPBOOST and GameStore.ExpBoostValues[player:getStorageValue(GameStore.Storages.expBoostCount)] or offer.price
 
-	if not player:canRemoveCoins(offerPrice) then
+	if not player:canRemoveCoins(offer.coinType, offerPrice) then
 		return queueSendStoreAlertToUser("You don't have enough coins. Your purchase has been cancelled.", 250, playerId)
 	end
 
@@ -395,7 +395,7 @@ function parseBuyStoreOffer(playerId, msg)
 		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_FAMILIAR         then GameStore.processFamiliarPurchase(player, offer.sexId)
 		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_OUTFIT_ADDON   then GameStore.processOutfitPurchase(player, offer.sexId, offer.addon)
 		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_MOUNT          then GameStore.processMountPurchase(player, offer.id)
-		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_NAMECHANGE     then local newName = msg:getString(); GameStore.processNameChangePurchase(player, offer.id, productType, newName, offer.name, offerPrice)
+		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_NAMECHANGE     then local newName = msg:getString(); GameStore.processNameChangePurchase(player, offer, productType, newName, offerPrice)
 		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_SEXCHANGE      then GameStore.processSexChangePurchase(player)
 		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_EXPBOOST       then GameStore.processExpBoostPuchase(player)
 		elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_PREYSLOT       then GameStore.processPreySlotPurchase(player)
@@ -427,8 +427,8 @@ function parseBuyStoreOffer(playerId, msg)
 
 	local configure = useOfferConfigure(offer.type)
 	if configure ~= GameStore.ConfigureOffers.SHOW_CONFIGURE then
-		player:removeCoinsBalance(offerPrice)
-		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name, (offerPrice) * -1)
+		player:removeCoinsBalance(offer.coinType, offerPrice)
+		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name, offer.coinType, (offerPrice) * -1)
 		local message = string.format("You have purchased %s for %d coins.", offer.name, offerPrice)
 		sendUpdateCoinBalance(playerId)
 		return addPlayerEvent(sendStorePurchaseSuccessful, 650, playerId, message)		
@@ -955,8 +955,8 @@ function sendStorePurchaseSuccessful(playerId, message)
 	msg:addByte(0x00)
 	msg:addString(message)
 	if player:getClient().version < 1200 then
-		msg:addU32(player:getCoinsBalance())
-		msg:addU32(player:getCoinsBalance())
+		msg:addU32(player:getCoinsBalance(GameStore.CoinType.Coin))
+		msg:addU32(player:getCoinsBalance(GameStore.CoinType.Transferable))
 	end
 
 	msg:sendToPlayer(player)
@@ -1006,11 +1006,11 @@ function sendUpdateCoinBalance(playerId)
 	msg:addByte(GameStore.SendingPackets.S_CoinBalance)
 	msg:addByte(0x01)
 
-	msg:addU32(player:getCoinsBalance())
-	msg:addU32(player:getCoinsBalance())
+	msg:addU32(player:getCoinsBalance(GameStore.CoinType.Coin))
+	msg:addU32(player:getCoinsBalance(GameStore.CoinType.Transferable))
 	if player:getClient().version > 1200 then
-		msg:addU32(player:getCoinsBalance())
-		msg:addU32(0) -- Tournament Coins
+		msg:addU32(0) -- Auction
+		msg:addU32(player:getCoinsBalance(GameStore.CoinType.Tournament)) -- Tournament Coins
 	end
 
 	msg:sendToPlayer(player)
@@ -1144,8 +1144,8 @@ GameStore.haveOfferRook = function(id)
 	return nil
 end
 
-GameStore.insertHistory = function(accountId, mode, description, amount)
-	return db.query(string.format("INSERT INTO `store_history`(`account_id`, `mode`, `description`, `coin_amount`, `time`) VALUES (%s, %s, %s, %s, %s)", accountId, mode, db.escapeString(description), amount, os.time()))
+GameStore.insertHistory = function(accountId, mode, description, coinType, amount)
+	return db.query(string.format("INSERT INTO `store_history`(`account_id`, `mode`, `description`, `coin_type`, `coin_amount`, `time`) VALUES (%s, %s, %s, %s, %s, %s)", accountId, mode, db.escapeString(description), coinType, amount, os.time()))
 end
 
 GameStore.retrieveHistoryTotalPages = function (accountId) 
@@ -1561,7 +1561,9 @@ function GameStore.processMountPurchase(player, offerId)
 	player:addMount(offerId)
 	end
 
-function GameStore.processNameChangePurchase(player, offerId, productType, newName, offerName, offerPrice)
+function GameStore.processNameChangePurchase(player, offer, productType, newName, offerPrice)
+	local offerId = offer.id
+	local offerName = offer.name
 	local playerId = player:getId()
 
 	if productType == GameStore.ClientOfferTypes.CLIENT_STORE_OFFER_NAMECHANGE then
@@ -1582,8 +1584,8 @@ function GameStore.processNameChangePurchase(player, offerId, productType, newNa
 			return error({code = 1, message = result.reason})
 		end
 
-		player:removeCoinsBalance(offerPrice)
-		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offerName, (offerPrice) * -1)
+		player:removeCoinsBalance(offer.coinType, offerPrice)
+		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offerName, 0, (offerPrice) * -1)
 		
 		local message = string.format("You have purchased %s for %d coins.", offerName, offerPrice) 
 		addPlayerEvent(sendStorePurchaseSuccessful, 500, playerId, message)
@@ -1685,8 +1687,8 @@ function GameStore.processHirelingPurchase(player, offer, productType, hirelingN
 			return error({code = 1, message = "Error delivering your hireling lamp, try again later."})
 		end
 
-		player:removeCoinsBalance(offer.price)
-		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name .. ' ('.. hirelingName ..')', (offer.price) * -1)
+		player:removeCoinsBalance(offer.coinType, offer.price)
+		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name .. ' ('.. hirelingName ..')', 0, (offer.price) * -1)
 		local message = "You have successfully bought " .. hirelingName
 		return addPlayerEvent(sendStorePurchaseSuccessful, 650, playerId, message)
 		-- If not, we ask him to do!
@@ -1757,36 +1759,70 @@ function GameStore.processHirelingOutfitPurchase(player, offer)
 end
 
 --==Player==--
-function Player.getCoinsBalance(self)
-	resultId = db.storeQuery("SELECT `coins` FROM `accounts` WHERE `id` = " .. self:getAccountId())
-	if not resultId then return 0 end
-	return result.getDataInt(resultId, "coins")
+function Player.getCoinsBalance(self, coinType)
+	if not self then return 0 end
+	if not coinType then
+		coinType = GameStore.CoinType.Coin
+	end
+	if coinType == GameStore.CoinType.Coin then
+		return self:getTibiaCoins() + self:getTransferableTibiaCoins()
+	elseif coinType == GameStore.CoinType.Tournament then
+		return self:getTournamentCoins()
+	elseif coinType == GameStore.CoinType.Transferable then
+		return self:getTransferableTibiaCoins()
+	end
 end
 
-function Player.setCoinsBalance(self, coins)
-	db.query("UPDATE `accounts` SET `coins` = " .. coins .. " WHERE `id` = " .. self:getAccountId())
-	return true
-end
-
-function Player.canRemoveCoins(self, coins)
-	if self:getCoinsBalance() < coins then
+function Player.addCoinsBalance(self, coinType, value)
+	if not self then return 0 end
+	if not coinType then
+		coinType = GameStore.CoinType.Coin
+	end
+	if coinType == GameStore.CoinType.Coin then
+		return self:addTibiaCoins(value)
+	elseif coinType == GameStore.CoinType.Tournament then
+		return self:addTournamentCoins(value)
+	elseif coinType == GameStore.CoinType.Transferable then
+		return self:addTransferableTibiaCoins(value)
+	else
 		return false
 	end
-	return true
 end
 
-function Player.removeCoinsBalance(self, coins)
-	if self:canRemoveCoins(coins) then
-		return self:setCoinsBalance(self:getCoinsBalance() - coins)
+function Player.removeCoinsBalance(self, coinType, value)
+	if not self then return 0 end
+	if not coinType then
+		coinType = GameStore.CoinType.Coin
 	end
-
-	return false
+	if coinType == GameStore.CoinType.Coin then
+		local tempValue = value
+		tempValue = math.max(0, tempValue - self:getTibiaCoins())
+		self:removeTibiaCoins(value - tempValue)
+		if tempValue > 0 then
+			return self:removeTransferableTibiaCoins(tempValue)
+		else
+			return true
+		end
+	elseif coinType == GameStore.CoinType.Tournament then
+		return self:removeTournamentCoins(value)
+	elseif coinType == GameStore.CoinType.Transferable then
+		return self:removeTransferableTibiaCoins(value)
+	else
+		return false
+	end
 end
 
-function Player.addCoinsBalance(self, coins, update)
-	self:setCoinsBalance(self:getCoinsBalance() + coins)
-	if update then sendCoinBalanceUpdating(self, true) end
-	return true
+function Player.canRemoveCoins(self, coinType, value)
+	if not self then return false end
+	local total = 0
+	if coinType == GameStore.CoinType.Coin then
+		total = self:getTibiaCoins() + self:getTransferableTibiaCoins()
+	elseif coinType == GameStore.CoinType.Transferable then
+		total = self:getTransferableTibiaCoins()
+	elseif coinType == GameStore.CoinType.Tournament then
+		total = self:getTournamentCoins()
+	end
+	return total >= value
 end
 
 function Player.sendButtonIndication(self, value1, value2)
@@ -1947,7 +1983,7 @@ function HandleHirelingNameChange(playerId, offer, newHirelingName)
 			return player:showInfoModal("Error", "Your hireling must be inside his/her lamp.")
 		end
 
-		if not player:removeCoinsBalance(offer.price) then
+		if not player:removeCoinsBalance(offer.coinType, offer.price) then
 			return player:showInfoModal("Error", "Transaction error")
 		end
 		local oldName = hireling.name
@@ -1956,7 +1992,7 @@ function HandleHirelingNameChange(playerId, offer, newHirelingName)
 		if lamp then
 			lamp:setAttribute(ITEM_ATTRIBUTE_DESCRIPTION, "This mysterious lamp summons your very own personal hireling.\nThis item cannot be traded.\nThis magic lamp is the home of " .. hireling:getName() .. ".")
 		end
-		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name .. ' ('.. oldName .. '->' .. newHirelingName ..')', (offer.price) * -1)
+		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name .. ' ('.. oldName .. '->' .. newHirelingName ..')', 0, (offer.price) * -1)
 
 		player:showInfoModal('Info',string.format('%s has been renamed to %s', oldName, newHirelingName))
 	end
@@ -1977,7 +2013,7 @@ function HandleHirelingSexChange(playerId, offer)
 			return player:showInfoModal("Error", "Your hireling must be inside his/her lamp.")
 		end
 
-		if not player:removeCoinsBalance(data.offer.price) then
+		if not player:removeCoinsBalance(data.offer.coinType, data.offer.price) then
 			return player:showInfoModal("Error", "Transaction error")
 		end
 
@@ -1995,7 +2031,7 @@ function HandleHirelingSexChange(playerId, offer)
 		hireling.sex = changeTo
 		hireling.looktype = lookType
 
-		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name .. ' ('.. hireling:getName() ..')', (offer.price) * -1)
+		GameStore.insertHistory(player:getAccountId(), GameStore.HistoryTypes.HISTORY_TYPE_NONE, offer.name .. ' ('.. hireling:getName() ..')', 0, (offer.price) * -1)
 
 		player:showInfoModal('Info',string.format('%s sex was changed to %s', hireling:getName(), sexString))
 	end

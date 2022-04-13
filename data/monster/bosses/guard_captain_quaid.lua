@@ -79,7 +79,7 @@ monster.loot = {
 	{name = "cobra hood", chance = 320},
 	{name = "skull helmet", chance = 7500},
 	{id = 26198, chance = 7200},-- collar of blue plasma
-	{name = "cobra crossbow", chance = 225}
+	{name = "cobra crossbow", chance = 5}
 }
 
 monster.attacks = {
