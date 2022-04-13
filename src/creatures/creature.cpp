@@ -705,12 +705,12 @@ void Creature::onDeath()
 	bool droppedCorpse = dropCorpse(lastHitCreature, mostDamageCreature, lastHitUnjustified, mostDamageUnjustified);
 	death(lastHitCreature);
 
-	if (droppedCorpse && !getPlayer()) {
-		g_game.removeCreature(this, false);
+	if (master) {
+		setMaster(nullptr);
 	}
 
-	if (master) {
-		removeMaster();
+	if (droppedCorpse) {
+		g_game.removeCreature(this, false);
 	}
 }
 
