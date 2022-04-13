@@ -2771,6 +2771,14 @@ void LuaScriptInterface::registerFunctions()
 	registerMethod("Player", "addTibiaCoins", LuaScriptInterface::luaPlayerAddTibiaCoins);
 	registerMethod("Player", "removeTibiaCoins", LuaScriptInterface::luaPlayerRemoveTibiaCoins);
 
+	registerMethod("Player", "getTransferableTibiaCoins", LuaScriptInterface::luaPlayerGetTransferableTibiaCoins);
+	registerMethod("Player", "addTransferableTibiaCoins", LuaScriptInterface::luaPlayerAddTransferableTibiaCoins);
+	registerMethod("Player", "removeTransferableTibiaCoins", LuaScriptInterface::luaPlayerRemoveTransferableTibiaCoins);
+
+	registerMethod("Player", "getTournamentCoins", LuaScriptInterface::luaPlayerGetTournamentCoins);
+	registerMethod("Player", "addTournamentCoins", LuaScriptInterface::luaPlayerAddTournamentCoins);
+	registerMethod("Player", "removeTournamentCoins", LuaScriptInterface::luaPlayerRemoveTournamentCoins);
+
 	registerMethod("Player", "hasBlessing", LuaScriptInterface::luaPlayerHasBlessing);
 	registerMethod("Player", "addBlessing", LuaScriptInterface::luaPlayerAddBlessing);
 	registerMethod("Player", "removeBlessing", LuaScriptInterface::luaPlayerRemoveBlessing);
@@ -11458,9 +11466,8 @@ int LuaScriptInterface::luaPlayerGetTibiaCoins(lua_State* L)
 	if (player) {
     account::Account account(player->getAccount());
     account.LoadAccountDB();
-    uint32_t coins;
-    account.GetCoins(&coins);
-    lua_pushnumber(L, coins);
+    account.GetCoins(&player->coinBalance);
+    lua_pushnumber(L, player->coinBalance);
   } else {
 		lua_pushnil(L);
 	}
@@ -11505,6 +11512,128 @@ int LuaScriptInterface::luaPlayerRemoveTibiaCoins(lua_State* L)
   account.LoadAccountDB();
   if (account.RemoveCoins(coins)) {
     account.GetCoins(&(player->coinBalance));
+    pushBoolean(L, true);
+  } else {
+    lua_pushnil(L);
+  }
+
+	return 1;
+}
+
+int LuaScriptInterface::luaPlayerGetTransferableTibiaCoins(lua_State* L)
+{
+	// player:getTransferableTibiaCoins()
+	Player* player = getUserdata<Player>(L, 1);
+	if (player) {
+    account::Account account(player->getAccount());
+    account.LoadAccountDB();
+   	account.GetTransferableCoins(&(player->transferableCoinBalance));
+    lua_pushnumber(L, player->transferableCoinBalance);
+  } else {
+		lua_pushnil(L);
+	}
+	return 1;
+}
+
+int LuaScriptInterface::luaPlayerAddTransferableTibiaCoins(lua_State* L)
+{
+	// player:addTransferableTibiaCoins(coins)
+	Player* player = getUserdata<Player>(L, 1);
+	if (!player) {
+		lua_pushnil(L);
+		return 1;
+	}
+
+  uint32_t coins = getNumber<uint32_t>(L, 2);
+
+  account::Account account(player->getAccount());
+  account.LoadAccountDB();
+  if(account.AddTransferableCoins(coins)) {
+    account.GetTransferableCoins(&(player->transferableCoinBalance));
+    pushBoolean(L, true);
+  } else {
+    lua_pushnil(L);
+  }
+
+	return 1;
+}
+
+int LuaScriptInterface::luaPlayerRemoveTransferableTibiaCoins(lua_State* L)
+{
+	// player:removeTransferableTibiaCoins(coins)
+	Player* player = getUserdata<Player>(L, 1);
+	if (!player) {
+		lua_pushnil(L);
+		return 1;
+	}
+
+  uint32_t coins = getNumber<uint32_t>(L, 2);
+
+  account::Account account(player->getAccount());
+  account.LoadAccountDB();
+  if (account.RemoveTransferableCoins(coins)) {
+    account.GetTransferableCoins(&(player->transferableCoinBalance));
+    pushBoolean(L, true);
+  } else {
+    lua_pushnil(L);
+  }
+
+	return 1;
+}
+
+int LuaScriptInterface::luaPlayerGetTournamentCoins(lua_State* L)
+{
+	// player:getTournamentCoins()
+	Player* player = getUserdata<Player>(L, 1);
+	if (player) {
+    account::Account account(player->getAccount());
+    account.LoadAccountDB();
+    account.GetTournamentCoins(&player->tournamentCoinBalance);
+    lua_pushnumber(L, player->tournamentCoinBalance);
+  } else {
+		lua_pushnil(L);
+	}
+	return 1;
+}
+
+int LuaScriptInterface::luaPlayerAddTournamentCoins(lua_State* L)
+{
+	// player:addTournamentCoins(coins)
+	Player* player = getUserdata<Player>(L, 1);
+	if (!player) {
+		lua_pushnil(L);
+		return 1;
+	}
+
+  uint32_t coins = getNumber<uint32_t>(L, 2);
+
+  account::Account account(player->getAccount());
+  account.LoadAccountDB();
+  if(account.AddTournamentCoins(coins)) {
+    account.GetTournamentCoins(&(player->tournamentCoinBalance));
+    pushBoolean(L, true);
+  } else {
+    lua_pushnil(L);
+  }
+
+	return 1;
+}
+
+int LuaScriptInterface::luaPlayerRemoveTournamentCoins(lua_State* L)
+{
+	// player:removeTournamentCoins(coins)
+	Player* player = getUserdata<Player>(L, 1);
+	if (!player) {
+		lua_pushnil(L);
+		return 1;
+	}
+
+  uint32_t coins = getNumber<uint32_t>(L, 2);
+
+  account::Account account(player->getAccount());
+  account.LoadAccountDB();
+  if (account.RemoveTournamentCoins(coins)) {
+    account.GetTournamentCoins(&(player->tournamentCoinBalance));
     pushBoolean(L, true);
   } else {
     lua_pushnil(L);

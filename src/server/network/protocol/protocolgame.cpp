@@ -4157,8 +4157,7 @@ void ProtocolGame::sendMarketEnter(uint32_t depotId)
 
 void ProtocolGame::sendCoinBalance()
 {
-	if (!player)
-	{
+	if (!player) {
 		return;
 	}
 
@@ -4176,10 +4175,10 @@ void ProtocolGame::sendCoinBalance()
 	msg.addByte(0x01);
 
 	msg.add<uint32_t>(player->coinBalance); // Normal Coins
-	msg.add<uint32_t>(player->coinBalance); // Transferable Coins
+	msg.add<uint32_t>(player->transferableCoinBalance); // Transferable Coins
 	if (version >= 1200) {
-		msg.add<uint32_t>(player->coinBalance); // Reserved Auction Coin
-		msg.add<uint32_t>(0); // Tournament Coins
+		msg.add<uint32_t>(0); // Reserved Auction Coin
+		msg.add<uint32_t>(player->tournamentCoinBalance);
 	}
 
 	writeToOutputBuffer(msg);
@@ -4194,15 +4193,20 @@ void ProtocolGame::updateCoinBalance()
 		createTask(std::bind([](uint32_t playerId) {
 			Player* threadPlayer = g_game.getPlayerByID(playerId);
 			if (threadPlayer) {
-				account::Account account;
-				account.LoadAccountDB(threadPlayer->getAccount());
-				uint32_t coins;
-				account.GetCoins(&coins);
-				threadPlayer->coinBalance = coins;
+		account::Account account;
+		account.LoadAccountDB(threadPlayer->getAccount());
+		uint32_t coins;
+		account.GetCoins(&coins);
+		threadPlayer->coinBalance = coins;
+		uint32_t transferableCoins;
+		account.GetTransferableCoins(&transferableCoins);
+		threadPlayer->transferableCoinBalance = transferableCoins;
+		uint32_t tournamentCoins;
+				account.GetTournamentCoins(&tournamentCoins);
+				threadPlayer->tournamentCoinBalance = tournamentCoins;
 				threadPlayer->sendCoinBalance();
 			}
-		},
-							 player->getID())));
+		}, player->getID())));
 }
 
 void ProtocolGame::sendMarketLeave()

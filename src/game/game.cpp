@@ -7507,12 +7507,12 @@ void Game::playerCreateMarketOffer(uint32_t playerId, uint8_t type, uint16_t spr
       account::Account account(player->getAccount());
       account.LoadAccountDB();
       uint32_t coins;
-      account.GetCoins(&coins);
+      account.GetTransferableCoins(&coins);
 
       if (amount > coins) {
         return;
       }
-      account.RemoveCoins(static_cast<uint32_t>(amount));
+      account.RemoveTransferableCoins(static_cast<uint32_t>(amount));
     } else {
 		uint16_t stashmath = amount;
 		uint16_t stashminus = player->getStashItemCount(it.wareId);
@@ -7605,7 +7605,7 @@ void Game::playerCancelMarketOffer(uint32_t playerId, uint32_t timestamp, uint16
 		if (it.id == ITEM_STORE_COIN) {
       account::Account account;
       account.LoadAccountDB(player->getAccount());
-      account.AddCoins(offer.amount);
+      account.AddTransferableCoins(offer.amount);
     }
 		else if (it.stackable) {
 			uint16_t tmpAmount = offer.amount;
@@ -7709,13 +7709,13 @@ void Game::playerAcceptMarketOffer(uint32_t playerId, uint32_t timestamp, uint16
       account::Account account;
       account.LoadAccountDB(player->getAccount());
       uint32_t coins;
-      account.GetCoins(&coins);
+      account.GetTransferableCoins(&coins);
       if (amount > coins)
       {
         return;
       }
 
-      account.RemoveCoins(amount);
+      account.RemoveTransferableCoins(amount);
       account.RegisterCoinsTransaction(account::COIN_REMOVE, amount,
                                       "Sold on Market");
     } else {
@@ -7746,7 +7746,7 @@ void Game::playerAcceptMarketOffer(uint32_t playerId, uint32_t timestamp, uint16
 		if (it.id == ITEM_STORE_COIN) {
       account::Account account;
       account.LoadAccountDB(buyerPlayer->getAccount());
-      account.AddCoins(amount);
+      account.AddTransferableCoins(amount);
       account.RegisterCoinsTransaction(account::COIN_ADD, amount,
                                       "Purchased on Market");
     }
@@ -7813,7 +7813,7 @@ void Game::playerAcceptMarketOffer(uint32_t playerId, uint32_t timestamp, uint16
 		if (it.id == ITEM_STORE_COIN) {
       account::Account account;
       account.LoadAccountDB(player->getAccount());
-      account.AddCoins(amount);
+      account.AddTransferableCoins(amount);
       account.RegisterCoinsTransaction(account::COIN_ADD, amount,
                                       "Purchased on Market");
 		} else if (it.stackable) {
@@ -8265,7 +8265,7 @@ void Game::playerCoinTransfer(uint32_t playerId, const std::string &receiverName
     account::Account receiver_account;
     receiver_account.LoadAccountDB(receiver->getAccount());
     uint32_t sender_coins;
-    sender_account.GetCoins(&sender_coins);
+    sender_account.GetTransferableCoins(&sender_coins);
 
     if (sender->getAccount() == receiver->getAccount()) {  //sender and receiver are the same
       message << "You cannot send coins to your own account.";
@@ -8277,8 +8277,8 @@ void Game::playerCoinTransfer(uint32_t playerId, const std::string &receiverName
       return;
     } else {
 
-      sender_account.RemoveCoins(amount);
-      receiver_account.AddCoins(amount);
+      sender_account.RemoveTransferableCoins(amount);
+      receiver_account.AddTransferableCoins(amount);
       message << "Transfered to " << receiverName;
       sender_account.RegisterCoinsTransaction(account::COIN_REMOVE, amount,
                                               message.str());
@@ -8288,7 +8288,7 @@ void Game::playerCoinTransfer(uint32_t playerId, const std::string &receiverName
       receiver_account.RegisterCoinsTransaction(account::COIN_REMOVE,
                                                 amount, message.str());
 
-      sender_account.GetCoins(&sender_coins);
+      sender_account.GetTransferableCoins(&sender_coins);
       message.str("");
       message << "You have successfully transfered " << amount << " coins to " << receiverName << ".";
       sender->sendStorePurchaseSuccessful(message.str(), sender_coins);

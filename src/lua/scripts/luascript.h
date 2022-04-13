@@ -1065,6 +1065,14 @@ class LuaScriptInterface
 		static int luaPlayerAddTibiaCoins(lua_State* L);
 		static int luaPlayerRemoveTibiaCoins(lua_State* L);
 
+		static int luaPlayerGetTransferableTibiaCoins(lua_State* L);
+		static int luaPlayerAddTransferableTibiaCoins(lua_State* L);
+		static int luaPlayerRemoveTransferableTibiaCoins(lua_State* L);
+
+		static int luaPlayerGetTournamentCoins(lua_State* L);
+		static int luaPlayerAddTournamentCoins(lua_State* L);
+		static int luaPlayerRemoveTournamentCoins(lua_State* L);
+
 		static int luaPlayerHasBlessing(lua_State* L);
 		static int luaPlayerAddBlessing(lua_State* L);
 		static int luaPlayerRemoveBlessing(lua_State* L);

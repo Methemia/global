@@ -87,6 +87,78 @@ error_t Account::SetDatabaseTasksInterface(DatabaseTasks *database_tasks) {
 
 
 /*******************************************************************************
+ * Tournament Coins Methods
+ ******************************************************************************/
+
+error_t Account::GetTournamentCoins(uint32_t *coins) {
+
+  if (db_ == nullptr || coins == nullptr || id_ == 0) {
+      return ERROR_NOT_INITIALIZED;
+  }
+
+  std::ostringstream query;
+  query << "SELECT `tournament_coins` FROM `accounts` WHERE `id` = " << id_;
+
+  DBResult_ptr result = db_->storeQuery(query.str());
+  if (!result) {
+      return ERROR_DB;
+  }
+
+  *coins = result->getNumber<uint32_t>("tournament_coins");
+  return ERROR_NO;
+}
+
+error_t Account::AddTournamentCoins(uint32_t amount) {
+
+  if (db_tasks_ == nullptr) {
+      return ERROR_NULLPTR;
+  }
+  if (amount == 0)  {
+    return ERROR_NO;
+  }
+
+  uint32_t current_coins = 0;
+  this->GetTournamentCoins(&current_coins);
+  if ((current_coins + amount) < current_coins) {
+    return ERROR_VALUE_OVERFLOW;
+  }
+
+  std::ostringstream query;
+  query << "UPDATE `accounts` SET `tournament_coins` = " << (current_coins + amount)
+        << " WHERE `id` = " << id_;
+
+  db_tasks_->addTask(query.str());
+  return ERROR_NO;
+}
+
+error_t Account::RemoveTournamentCoins(uint32_t amount) {
+
+  if (db_tasks_ == nullptr) {
+      return ERROR_NULLPTR;
+  }
+
+  if (amount == 0)  {
+    return ERROR_NO;
+  }
+
+  uint32_t current_coins = 0;
+  this->GetTournamentCoins(&current_coins);
+
+  if ((current_coins - amount) > current_coins) {
+    return ERROR_VALUE_NOT_ENOUGH_COINS;
+  }
+
+  std::ostringstream query;
+  query << "UPDATE `accounts` SET `tournament_coins` = "<< (current_coins - amount)
+        << " WHERE `id` = " << id_;
+
+  db_tasks_->addTask(query.str());
+
+  return ERROR_NO;
+}
+
+
+/*******************************************************************************
  * Coins Methods
  ******************************************************************************/
 
@@ -128,6 +200,73 @@ error_t Account::AddCoins(uint32_t amount) {
         << " WHERE `id` = " << id_;
 
   db_tasks_->addTask(query.str());
+  return ERROR_NO;
+}
+
+error_t Account::GetTransferableCoins(uint32_t *coins) {
+
+  if (db_ == nullptr || coins == nullptr || id_ == 0) {
+      return ERROR_NOT_INITIALIZED;
+  }
+
+  std::ostringstream query;
+  query << "SELECT `transferable_coins` FROM `accounts` WHERE `id` = " << id_;
+
+  DBResult_ptr result = db_->storeQuery(query.str());
+  if (!result) {
+      return ERROR_DB;
+  }
+
+  *coins = result->getNumber<uint32_t>("transferable_coins");
+  return ERROR_NO;
+}
+
+error_t Account::AddTransferableCoins(uint32_t amount) {
+
+  if (db_tasks_ == nullptr) {
+      return ERROR_NULLPTR;
+  }
+  if (amount == 0)  {
+    return ERROR_NO;
+  }
+
+  uint32_t current_coins = 0;
+  this->GetTransferableCoins(&current_coins);
+  if ((current_coins + amount) < current_coins) {
+    return ERROR_VALUE_OVERFLOW;
+  }
+
+  std::ostringstream query;
+  query << "UPDATE `accounts` SET `transferable_coins` = " << (current_coins + amount)
+        << " WHERE `id` = " << id_;
+
+  db_tasks_->addTask(query.str());
+  return ERROR_NO;
+}
+
+error_t Account::RemoveTransferableCoins(uint32_t amount) {
+
+  if (db_tasks_ == nullptr) {
+      return ERROR_NULLPTR;
+  }
+
+  if (amount == 0)  {
+    return ERROR_NO;
+  }
+
+  uint32_t current_coins = 0;
+  this->GetTransferableCoins(&current_coins);
+
+  if ((current_coins - amount) > current_coins) {
+    return ERROR_VALUE_NOT_ENOUGH_COINS;
+  }
+
+  std::ostringstream query;
+  query << "UPDATE `accounts` SET `transferable_coins` = "<< (current_coins - amount)
+        << " WHERE `id` = " << id_;
+
+  db_tasks_->addTask(query.str());
+
   return ERROR_NO;
 }
 

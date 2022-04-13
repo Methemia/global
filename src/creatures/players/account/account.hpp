@@ -105,6 +105,35 @@ class Account {
    */
   error_t SetDatabaseTasksInterface(DatabaseTasks *db_tasks);
 
+      /***************************************************************************
+   * Tournament Coins Methods
+   **************************************************************************/
+
+  /**
+   * @brief Get the amount of tournament coins that the account has from database.
+   *
+   * @param accountId Account ID to get the coins.
+   * @param coins Pointer to return the number of tournament coins
+   * @return error_t ERROR_NO(0) Success, otherwise Fail.
+   */
+  error_t GetTournamentCoins(uint32_t *coins);
+
+  /**
+   * @brief Add tournament coins to the account and update database.
+   *
+   * @param amount Amount of tournament coins to be added
+   * @return error_t ERROR_NO(0) Success, otherwise Fail.
+   */
+  error_t AddTournamentCoins(uint32_t amount);
+
+  /**
+   * @brief Removes tournament coins from the account and update database.
+   *
+   * @param amount Amount of tournament coins to be removed
+   * @return error_t ERROR_NO(0) Success, otherwise Fail.
+   */
+  error_t RemoveTournamentCoins(uint32_t amount);
+
 
   /***************************************************************************
    * Coins Methods
@@ -119,6 +148,15 @@ class Account {
    */
   error_t GetCoins(uint32_t *coins);
 
+   /**
+   * @brief Get the amount of transferable coins that the account has from database.
+   *
+   * @param accountId Account ID to get the coins.
+   * @param coins Pointer to return the number of coins
+   * @return error_t ERROR_NO(0) Success, otherwise Fail.
+   */
+  error_t GetTransferableCoins(uint32_t *coins);
+
   /**
    * @brief Add coins to the account and update database.
    *
@@ -128,12 +166,28 @@ class Account {
   error_t AddCoins(uint32_t amount);
 
   /**
+   * @brief Add transferable coins to the account and update database.
+   *
+   * @param amount Amount of coins to be added
+   * @return error_t ERROR_NO(0) Success, otherwise Fail.
+   */
+  error_t AddTransferableCoins(uint32_t amount);
+
+  /**
    * @brief Removes coins from the account and update database.
    *
    * @param amount Amount of coins to be removed
    * @return error_t ERROR_NO(0) Success, otherwise Fail.
    */
   error_t RemoveCoins(uint32_t amount);
+
+    /**
+   * @brief Removes transferable coins from the account and update database.
+   *
+   * @param amount Amount of coins to be removed
+   * @return error_t ERROR_NO(0) Success, otherwise Fail.
+   */
+  error_t RemoveTransferableCoins(uint32_t amount);
 
   /**
    * @brief Register account coins transactions in database.
