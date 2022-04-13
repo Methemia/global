@@ -717,21 +717,13 @@ uint32_t MoveEvent::EquipItem(MoveEvent* moveEvent, Player* player, Item* item, 
 		player->setItemAbility(slot, true);
 	}
 
-	if (it.imbuingSlots > 0) {
-		std::vector<Imbuement*> imbuement;
-		for(uint8_t slotid = 0; slotid < it.imbuingSlots; slotid++) {
-			uint32_t info = item->getImbuement(slotid);
-			if (info >> 8 == 0) {
-				continue;
-			}
-			imbuement.push_back(g_imbuements->getImbuement(info & 0xFF));
+	for (uint8_t slotid = 0; slotid < item->getImbuementSlot(); slotid++) {
+		ImbuementInfo imbuementInfo;
+		if (!item->getImbuementInfo(slotid, &imbuementInfo)) {
+			continue;
 		}
-		if(!imbuement.empty()) {
-			g_game.startImbuementCountdown(item);
-			for (Imbuement* ib : imbuement) {
-				player->onEquipImbueItem(ib);
-			}
-		}
+		player->addItemImbuementStats(imbuementInfo.imbuement);
+		g_game.increasePlayerActiveImbuements(player->getID());
 	}
 
 	if (!it.abilities) {
@@ -760,20 +752,20 @@ uint32_t MoveEvent::EquipItem(MoveEvent* moveEvent, Player* player, Item* item, 
 	if (it.abilities->regeneration) {
 		Condition* condition = Condition::createCondition(static_cast<ConditionId_t>(slot), CONDITION_REGENERATION, -1, 0);
 
-		if (it.abilities->healthGain != 0) {
-			condition->setParam(CONDITION_PARAM_HEALTHGAIN, it.abilities->healthGain);
+		if (it.abilities->getHealthGain() != 0) {
+			condition->setParam(CONDITION_PARAM_HEALTHGAIN, it.abilities->getHealthGain());
 		}
 
-		if (it.abilities->healthTicks != 0) {
-			condition->setParam(CONDITION_PARAM_HEALTHTICKS, it.abilities->healthTicks);
+		if (it.abilities->getHealthTicks() != 0) {
+			condition->setParam(CONDITION_PARAM_HEALTHTICKS, it.abilities->getHealthTicks());
 		}
 
-		if (it.abilities->manaGain != 0) {
-			condition->setParam(CONDITION_PARAM_MANAGAIN, it.abilities->manaGain);
+		if (it.abilities->getManaGain() != 0) {
+			condition->setParam(CONDITION_PARAM_MANAGAIN, it.abilities->getManaGain());
 		}
 
-		if (it.abilities->manaTicks != 0) {
-			condition->setParam(CONDITION_PARAM_MANATICKS, it.abilities->manaTicks);
+		if (it.abilities->getManaTicks() != 0) {
+			condition->setParam(CONDITION_PARAM_MANATICKS, it.abilities->getManaTicks());
 		}
 
 		player->addCondition(condition);
@@ -822,20 +814,13 @@ uint32_t MoveEvent::DeEquipItem(MoveEvent*, Player* player, Item* item, slots_t 
 		g_game.transformItem(item, it.transformDeEquipTo);
 	}
 
-	if (it.imbuingSlots > 0) {
-		std::vector<Imbuement*> imbuement;
-		for(uint8_t slotid = 0; slotid < it.imbuingSlots; slotid++) {
-			uint32_t info = item->getImbuement(slotid);
-			if (info >> 8 == 0) {
-				continue;
-			}
-			imbuement.push_back(g_imbuements->getImbuement(info & 0xFF));
+	for (uint8_t slotid = 0; slotid < item->getImbuementSlot(); slotid++) {
+		ImbuementInfo imbuementInfo;
+		if (!item->getImbuementInfo(slotid, &imbuementInfo)) {
+			continue;
 		}
-		if(!imbuement.empty()) {
-			for (Imbuement* ib : imbuement) {
-				player->onDeEquipImbueItem(ib);
-			}
-		}
+		player->removeItemImbuementStats(imbuementInfo.imbuement);
+		g_game.decreasePlayerActiveImbuements(player->getID());
 	}
 
 	if (!it.abilities) {

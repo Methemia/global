@@ -464,10 +464,10 @@ class Player final : public Creature, public Cylinder
 			bedItem = b;
 		}
 
-		bool inImbuing() {
-			return imbuing != nullptr;
+		bool hasImbuingItem() {
+			return imbuingItem != nullptr;
 		}
-		void inImbuing(Item* item);
+		void setImbuingItem(Item* item);
 
 		void addBlessing(uint8_t index, uint8_t count) {
 			if (blessings[index - 1] == 255) {
@@ -860,11 +860,14 @@ class Player final : public Creature, public Cylinder
 		}
 
 		uint16_t getSkillLevel(uint8_t skill) const {
-			if (skill == SKILL_LIFE_LEECH_CHANCE || skill == SKILL_MANA_LEECH_CHANCE) {
-				return std::min<uint16_t>(100, std::max<uint16_t>(0, skills[skill].level + varSkills[skill]));
+			uint16_t skillLevel = std::max<uint16_t>(0, skills[skill].level + varSkills[skill]);
+
+			auto it = maxValuePerSkill.find(skill);
+			if (it != maxValuePerSkill.end()) {
+				skillLevel = std::min<uint16_t>(it->second, skillLevel);
 			}
 
-			return std::max<uint16_t>(0, skills[skill].level + varSkills[skill]);
+		return skillLevel;
 		}
 		uint16_t getBaseSkill(uint8_t skill) const {
 			return skills[skill].level;
@@ -1467,7 +1470,28 @@ class Player final : public Creature, public Cylinder
 				client->sendOutfitWindow();
 			}
 		}
-		void sendImbuementWindow(Item* item);
+		// Imbuements
+		void onApplyImbuement(Imbuement *imbuement, Item *item, uint8_t slot, bool protectionCharm);
+		void onClearImbuement(Item* item, uint8_t slot);
+
+		void addItemImbuementStats(const Imbuement* imbuement);
+		void removeItemImbuementStats(const Imbuement* imbuement);
+
+		void sendImbuementResult(const std::string message)
+		{
+			if (client)
+			{
+				client->sendImbuementResult(message);
+			}
+		}
+		void openImbuementWindow(Item* item);
+		void closeImbuementWindow() const
+		{
+			if(client)
+			{
+				client->closeImbuementWindow();
+			}
+		}
 		void sendPodiumWindow(const Item* podium, const Position& position, uint16_t spriteId, uint8_t stackpos) {
 			if (client) {
 				client->sendPodiumWindow(podium, position, spriteId, stackpos);
@@ -1754,9 +1778,6 @@ class Player final : public Creature, public Cylinder
 
 		void setTraining(bool value);
 
-		void onEquipImbueItem(Imbuement* imbuement);
-		void onDeEquipImbueItem(Imbuement* imbuement);
-
 		bool isMarketExhausted() const;
 		void updateMarketExhausted() {
 			lastMarketInteraction = OTSYS_TIME();
@@ -1948,6 +1969,11 @@ class Player final : public Creature, public Cylinder
 		void removeExperience(uint64_t exp, bool sendText = false);
 
 		void updateInventoryWeight();
+		/**
+		 * @brief Starts checking the imbuements in the item so that the time decay is performed
+		 * Registers the player in an unordered_map in game.h so that the function can be initialized by the task
+		 */
+		void updateInventoryImbuement(bool init = false);
 
 		void setNextWalkActionTask(SchedulerTask* task);
 		void setNextWalkTask(SchedulerTask* task);
@@ -2000,6 +2026,12 @@ class Player final : public Creature, public Cylinder
 		std::map<uint32_t, DepotChest*> depotChests;
 		std::map<uint8_t, int64_t> moduleDelayMap;
 		std::map<uint32_t, int32_t> storageMap;
+
+		std::map<uint8_t, uint16_t> maxValuePerSkill = {
+			{SKILL_LIFE_LEECH_CHANCE, 100},
+			{SKILL_MANA_LEECH_CHANCE, 100},
+			{SKILL_CRITICAL_HIT_CHANCE, 10}
+		};
 
 		std::map<uint32_t, Reward*> rewardMap;
 
@@ -2057,7 +2089,7 @@ class Player final : public Creature, public Cylinder
 		GuildRank_ptr guildRank;
 		Group* group = nullptr;
 		Inbox* inbox;
-		Item* imbuing = nullptr; // for intarnal use
+		Item* imbuingItem = nullptr;
 		Item* tradeItem = nullptr;
  		Item* inventory[CONST_SLOT_LAST + 1] = {};
 		Item* writeItem = nullptr;
@@ -2177,9 +2209,9 @@ class Player final : public Creature, public Cylinder
 		BlockType_t lastAttackBlockType = BLOCK_NONE;
 		tradestate_t tradeState = TRADE_NONE;
 		fightMode_t fightMode = FIGHTMODE_ATTACK;
-		account::AccountType accountType =
-		account::AccountType::ACCOUNT_TYPE_NORMAL;
+		account::AccountType accountType = account::AccountType::ACCOUNT_TYPE_NORMAL;
 		QuickLootFilter_t quickLootFilter;
+		VipStatus_t statusVipList = VIPSTATUS_ONLINE;
 
 		bool chaseMode = false;
 		bool secureMode = true;

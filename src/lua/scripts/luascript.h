@@ -405,7 +405,7 @@ class LuaScriptInterface
 #ifndef LUAJIT_VERSION
 		static const luaL_Reg luaBitReg[7];
 #endif
-		static const luaL_Reg luaConfigManagerTable[4];
+		static const luaL_Reg luaConfigManagerTable[5];
 		static const luaL_Reg luaDatabaseTable[9];
 		static const luaL_Reg luaResultTable[6];
 		static const luaL_Reg luaSpdlogTable[5];
@@ -505,6 +505,7 @@ class LuaScriptInterface
 
 		static int luaConfigManagerGetString(lua_State* L);
 		static int luaConfigManagerGetNumber(lua_State* L);
+		static int luaConfigManagerGetFloat(lua_State* L);
 		static int luaConfigManagerGetBoolean(lua_State* L);
 
 		static int luaDatabaseExecute(lua_State* L);
@@ -761,6 +762,9 @@ class LuaScriptInterface
 
 		static int luaItemHasProperty(lua_State* L);
 
+		static int luaItemGetImbuement(lua_State* L);
+		static int luaItemGetImbuementSlot(lua_State* L);
+
 		// Container
 		static int luaContainerCreate(lua_State* L);
 
@@ -896,6 +900,7 @@ class LuaScriptInterface
 		static int luaPlayerSetCapacity(lua_State* L);
 
 		static int luaPlayerSetTraining(lua_State* L);
+		static int luaPlayerGetIsTraining(lua_State* L);
 
 		static int luaPlayerGetKills(lua_State* L);
 		static int luaPlayerSetKills(lua_State* L);
@@ -1071,7 +1076,8 @@ class LuaScriptInterface
 		static int luaPlayerForgetSpell(lua_State* L);
 		static int luaPlayerHasLearnedSpell(lua_State* L);
 
-		static int luaPlayerSendImbuementPanel(lua_State* L);
+		static int luaPlayerOpenImbuementWindow(lua_State* L);
+		static int luaPlayerCloseImbuementWindow(lua_State* L);
 
 		static int luaPlayerSendTutorial(lua_State* L);
 		static int luaPlayerAddMapMark(lua_State* L);
@@ -1247,6 +1253,7 @@ class LuaScriptInterface
 		static int luaVocationGetId(lua_State* L);
 		static int luaVocationGetClientId(lua_State* L);
 		static int luaVocationGetName(lua_State* L);
+		static int luaGetBaseId(lua_State* L);
 		static int luaVocationGetDescription(lua_State* L);
 
 		static int luaVocationGetRequiredSkillTries(lua_State* L);
@@ -1265,6 +1272,7 @@ class LuaScriptInterface
 		static int luaVocationGetMaxSoul(lua_State* L);
 		static int luaVocationGetSoulGainTicks(lua_State* L);
 
+		static int luaVocationGetBaseAttackSpeed(lua_State* L);
 		static int luaVocationGetAttackSpeed(lua_State* L);
 		static int luaVocationGetBaseSpeed(lua_State* L);
 
@@ -1346,7 +1354,7 @@ class LuaScriptInterface
 		static int luaItemTypeGetAttack(lua_State* L);
 		static int luaItemTypeGetDefense(lua_State* L);
 		static int luaItemTypeGetExtraDefense(lua_State* L);
-		static int luaItemTypeGetImbuingSlots(lua_State* L);
+		static int luaItemTypeGetImbuementSlot(lua_State* L);
 		static int luaItemTypeGetArmor(lua_State* L);
 		static int luaItemTypeGetWeaponType(lua_State* L);
 

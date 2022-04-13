@@ -22,6 +22,9 @@
 
 static constexpr size_t NETWORKMESSAGE_PLAYERNAME_MAXLENGTH = 30;
 static constexpr int32_t NETWORKMESSAGE_MAXSIZE = 24590;
+// This is in miliseconds
+static constexpr int32_t EVENT_IMBUEMENT_INTERVAL = 1000;
+static constexpr uint8_t IMBUEMENT_MAX_TIER = 3;
 
 enum MagicEffectClasses : uint8_t {
 	CONST_ME_NONE,
@@ -426,7 +429,7 @@ enum Icons_t {
 };
 
 enum CreatureIcon_t {
-CREATUREICON_NONE = 0,
+	CREATUREICON_NONE = 0,
 	CREATUREICON_HIGHERRECEIVEDDAMAGE = 1,
 	CREATUREICON_LOWERDEALTDAMAGE = 2,
 	CREATUREICON_TURNEDMELEE = 3,

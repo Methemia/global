@@ -24,6 +24,9 @@
 #include "utils/enums.h"
 #include "items/itemloader.h"
 #include "game/movement/position.h"
+#include "config/configmanager.h"
+
+extern ConfigManager g_config;
 
 enum SlotPositionBits : uint32_t {
 	SLOTP_WHEREEVER = 0xFFFFFFFF,
@@ -86,40 +89,95 @@ enum ItemTypes_t {
 	ITEM_TYPE_LAST,
 };
 
+const std::unordered_map<std::string, ImbuementTypes_t> ImbuementsTypeMap = {
+	{"elemental damage", IMBUEMENT_ELEMENTAL_DAMAGE},
+	{"life leech", IMBUEMENT_LIFE_LEECH},
+	{"mana leech", IMBUEMENT_MANA_LEECH},
+	{"critical hit", IMBUEMENT_CRITICAL_HIT},
+	{"elemental protection death", IMBUEMENT_ELEMENTAL_PROTECTION_DEATH},
+	{"elemental protection earth", IMBUEMENT_ELEMENTAL_PROTECTION_EARTH},
+	{"elemental protection fire", IMBUEMENT_ELEMENTAL_PROTECTION_FIRE},
+	{"elemental protection ice", IMBUEMENT_ELEMENTAL_PROTECTION_ICE},
+	{"elemental protection energy", IMBUEMENT_ELEMENTAL_PROTECTION_ENERGY},
+	{"elemental protection holy", IMBUEMENT_ELEMENTAL_PROTECTION_HOLY},
+	{"increase speed", IMBUEMENT_INCREASE_SPEED},
+	{"skillboost axe", IMBUEMENT_SKILLBOOST_AXE},
+	{"skillboost sword", IMBUEMENT_SKILLBOOST_SWORD},
+	{"skillboost club", IMBUEMENT_SKILLBOOST_CLUB},
+	{"skillboost shielding", IMBUEMENT_SKILLBOOST_SHIELDING},
+	{"skillboost distance", IMBUEMENT_SKILLBOOST_DISTANCE},
+	{"skillboost magic level", IMBUEMENT_SKILLBOOST_MAGIC_LEVEL},
+	{"increase capacity", IMBUEMENT_INCREASE_CAPACITY}
+};
+
 struct Abilities {
-	uint32_t healthGain = 0;
-	uint32_t healthTicks = 0;
-	uint32_t manaGain = 0;
-	uint32_t manaTicks = 0;
+	public:
+		uint32_t conditionImmunities = 0;
+		uint32_t conditionSuppressions = 0;
 
-	uint32_t conditionImmunities = 0;
-	uint32_t conditionSuppressions = 0;
+		//stats modifiers
+		int32_t stats[STAT_LAST + 1] = { 0 };
+		int32_t statsPercent[STAT_LAST + 1] = { 0 };
 
-	//stats modifiers
-	int32_t stats[STAT_LAST + 1] = { 0 };
-	int32_t statsPercent[STAT_LAST + 1] = { 0 };
+		//extra skill modifiers
+		int32_t skills[SKILL_LAST + 1] = { 0 };
 
-	//extra skill modifiers
-	int32_t skills[SKILL_LAST + 1] = { 0 };
+		int32_t speed = 0;
 
-	int32_t speed = 0;
+		// field damage abilities modifiers
+		int16_t fieldAbsorbPercent[COMBAT_COUNT] = { 0 };
 
-	// field damage abilities modifiers
-	int16_t fieldAbsorbPercent[COMBAT_COUNT] = { 0 };
+		//damage abilities modifiers
+		int16_t absorbPercent[COMBAT_COUNT] = { 0 };
 
-	//damage abilities modifiers
-	int16_t absorbPercent[COMBAT_COUNT] = { 0 };
+		//relfect abilities modifires
+		int16_t reflectPercent[COMBAT_COUNT] = { 0 };
 
-	//relfect abilities modifires
-	int16_t reflectPercent[COMBAT_COUNT] = { 0 };
+		//elemental damage
+		uint16_t elementDamage = 0;
+		CombatType_t elementType = COMBAT_NONE;
 
-	//elemental damage
-	uint16_t elementDamage = 0;
-	CombatType_t elementType = COMBAT_NONE;
+		bool manaShield = false;
+		bool invisible = false;
+		bool regeneration = false;
 
-	bool manaShield = false;
-	bool invisible = false;
-	bool regeneration = false;
+		void setHealthGain(uint32_t value) {
+			healthGain = value;
+		}
+
+		uint32_t getHealthGain() const {
+			return healthGain * g_config.getFloat(ConfigManager::RATE_HEALTH_REGEN);
+		}
+
+		void setHealthTicks(uint32_t value) {
+			healthTicks = value;
+		}
+
+		uint32_t getHealthTicks() const {
+			return healthTicks / g_config.getFloat(ConfigManager::RATE_HEALTH_REGEN_SPEED);
+		}
+
+		void setManaGain(uint32_t value) {
+			manaGain = value;
+		}
+
+		uint32_t getManaGain() const {
+			return manaGain * g_config.getFloat(ConfigManager::RATE_MANA_REGEN);
+		}
+
+		void setManaTicks(uint32_t value) {
+			manaTicks = value;
+		}
+
+		uint32_t getManaTicks() const {
+			return manaTicks / g_config.getFloat(ConfigManager::RATE_MANA_REGEN_SPEED);
+		}
+
+	private:
+		uint32_t healthGain = 0;
+		uint32_t healthTicks = 0;
+		uint32_t manaGain = 0;
+		uint32_t manaTicks = 0;
 };
 
 class ConditionDamage;
@@ -215,6 +273,10 @@ class ItemType
 			return str;
 		}
 
+		void setImbuementType(ImbuementTypes_t imbuementType, uint16_t slotMaxTier) {
+			imbuementTypes[imbuementType] = std::min<uint16_t>(IMBUEMENT_MAX_TIER, slotMaxTier);
+		}
+
 		itemgroup_t group = ITEM_GROUP_NONE;
 		ItemTypes_t type = ITEM_TYPE_NONE;
 		uint16_t id = 0;
@@ -246,7 +308,7 @@ class ItemType
 		int32_t defense = 0;
 		int32_t extraDefense = 0;
 		int32_t armor = 0;
-		int32_t imbuingSlots = 0;
+		int32_t imbuementSlot = 0;
 		int32_t rotateTo = 0;
 		int32_t runeMagLevel = 0;
 		int32_t runeLevel = 0;
@@ -273,6 +335,7 @@ class ItemType
 		ShootType_t shootType = CONST_ANI_NONE;
 		RaceType_t corpseType = RACE_NONE;
 		FluidTypes_t fluidSource = FLUID_NONE;
+		std::map<ImbuementTypes_t, uint16_t> imbuementTypes;
 
 		uint8_t floorChange = 0;
 		uint8_t alwaysOnTopOrder = 0;

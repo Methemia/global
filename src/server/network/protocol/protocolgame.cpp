@@ -754,8 +754,8 @@ void ProtocolGame::parsePacketFromDispatcher(NetworkMessage msg, uint8_t recvbyt
 		case 0xD3: g_dispatcher.addTask(createTask(std::bind(&ProtocolGame::parseSetOutfit, getThis(), msg))); break;
 		case 0xD4: parseToggleMount(msg); break;
 		case 0xD5: parseApplyImbuement(msg); break;
-		case 0xD6: parseClearingImbuement(msg); break;
-		case 0xD7: parseCloseImbuingWindow(msg); break;
+		case 0xD6: parseClearImbuement(msg); break;
+		case 0xD7: parseCloseImbuementWindow(msg); break;
 		case 0xDC: parseAddVip(msg); break;
 		case 0xDD: parseRemoveVip(msg); break;
 		case 0xDE: parseEditVip(msg); break;
@@ -1224,15 +1224,15 @@ void ProtocolGame::parseApplyImbuement(NetworkMessage &msg)
 	addGameTask(&Game::playerApplyImbuement, player->getID(), imbuementId, slot, protectionCharm);
 }
 
-void ProtocolGame::parseClearingImbuement(NetworkMessage &msg)
+void ProtocolGame::parseClearImbuement(NetworkMessage &msg)
 {
 	uint8_t slot = msg.getByte();
-	addGameTask(&Game::playerClearingImbuement, player->getID(), slot);
+	addGameTask(&Game::playerClearImbuement, player->getID(), slot);
 }
 
-void ProtocolGame::parseCloseImbuingWindow(NetworkMessage &)
+void ProtocolGame::parseCloseImbuementWindow(NetworkMessage &)
 {
-	addGameTask(&Game::playerCloseImbuingWindow, player->getID());
+	addGameTask(&Game::playerCloseImbuementWindow, player->getID());
 }
 
 void ProtocolGame::parseUseItem(NetworkMessage &msg)
@@ -2769,12 +2769,16 @@ void ProtocolGame::sendCreatureIcon(const Creature* creature)
 	NetworkMessage msg;
 	msg.addByte(0x8B);
 	msg.add<uint32_t>(creature->getID());
-	msg.addByte(14); // type 14 for this
-	msg.addByte(icon != CREATUREICON_NONE); // 0 = no icon, 1 = we'll send an icon
+	// Type 14 for this
+	msg.addByte(14);
+	// 0 = no icon, 1 = we'll send an icon
+	msg.addByte(icon != CREATUREICON_NONE);
 	if (icon != CREATUREICON_NONE) {
 		msg.addByte(icon);
-		msg.addByte(0); // Creature update
-		msg.add<uint16_t>(0); // Used for the life in the new quest
+		// Creature update
+		msg.addByte(1);
+		// Used for the life in the new quest
+		msg.add<uint16_t>(0);
 	}
 	writeToOutputBuffer(msg);
 }
@@ -2994,7 +2998,6 @@ void ProtocolGame::sendCyclopediaCharacterGeneralStats()
 	msg.add<uint16_t>(player->getMagicLevelPercent() * 100);
 	for (uint8_t i = SKILL_FIRST; i < SKILL_CRITICAL_HIT_CHANCE; ++i)
 	{
-		// check if all clients have the same hardcoded skill ids
 		static const uint8_t HardcodedSkillIds[] = { 11, 9, 8, 10, 7, 6, 13 };
 		msg.addByte(HardcodedSkillIds[i]);
 		msg.add<uint16_t>(std::min<int32_t>(player->getSkillLevel(i), std::numeric_limits<uint16_t>::max()));
@@ -3022,7 +3025,7 @@ void ProtocolGame::sendCyclopediaCharacterCombatStats()
 		msg.add<uint16_t>(0);
 	}
 
-// Cleave (12.70)
+	// Cleave (12.70)
 	msg.add<uint16_t>(0);
 	// Magic shield capacity (12.70)
 	msg.add<uint16_t>(0); // Direct bonus
@@ -3591,12 +3594,6 @@ void ProtocolGame::sendPremiumTrigger()
 }
 
 // Send preyInfo
-void ProtocolGame::closeImbuingWindow()
-{
-	NetworkMessage msg;
-	msg.addByte(0xEC);
-	writeToOutputBuffer(msg);
-}
 
 void ProtocolGame::initPreyData()
 {
@@ -4559,7 +4556,15 @@ void ProtocolGame::sendMarketDetail(uint16_t itemId)
 				separator = true;
 			}
 
-			ss << getSkillName(i) << ' ' << std::showpos << it.abilities->skills[i] << std::noshowpos << '%';
+			ss << getSkillName(i) << ' ';
+			if (i != SKILL_CRITICAL_HIT_CHANCE) {
+				ss << std::showpos;
+			}
+			ss << it.abilities->skills[i] << '%';
+
+			if (i != SKILL_CRITICAL_HIT_CHANCE) {
+				ss << std::noshowpos;
+			}
 		}
 
 		if (it.abilities->stats[STAT_MAGICPOINTS] != 0)
@@ -4643,10 +4648,9 @@ void ProtocolGame::sendMarketDetail(uint16_t itemId)
 		msg.add<uint16_t>(0x00);
 	}
 
-	uint8_t slot = Item::items[itemId].imbuingSlots;
-	if (slot > 0)
+	if (it.imbuementSlot > 0)
 	{
-		msg.addString(std::to_string(slot));
+		msg.addString(std::to_string(it.imbuementSlot));
 	}
 	else
 	{
@@ -4668,6 +4672,7 @@ void ProtocolGame::sendMarketDetail(uint16_t itemId)
 		msg.addByte(0x01);
 		msg.add<uint32_t>(statistics->numTransactions);
 		msg.add<uint32_t>(std::min<uint64_t>(std::numeric_limits<uint32_t>::max(), statistics->totalPrice));
+		msg.add<uint32_t>(0);
 		msg.add<uint32_t>(statistics->highestPrice);
 		msg.add<uint32_t>(statistics->lowestPrice);
 	}
@@ -4682,6 +4687,7 @@ void ProtocolGame::sendMarketDetail(uint16_t itemId)
 		msg.addByte(0x01);
 		msg.add<uint32_t>(statistics->numTransactions);
 		msg.add<uint32_t>(std::min<uint64_t>(std::numeric_limits<uint32_t>::max(), statistics->totalPrice));
+		msg.add<uint32_t>(0);
 		msg.add<uint32_t>(statistics->highestPrice);
 		msg.add<uint32_t>(statistics->lowestPrice);
 	}
@@ -5456,7 +5462,7 @@ void ProtocolGame::sendAddCreature(const Creature *creature, const Position &pos
 			}
 			else
 			{
-				vipStatus = VIPSTATUS_ONLINE;
+				vipStatus = vipPlayer->statusVipList;
 			}
 
 			sendVIP(entry.guid, entry.name, entry.description, entry.icon, entry.notify, vipStatus);
@@ -5475,7 +5481,7 @@ void ProtocolGame::sendAddCreature(const Creature *creature, const Position &pos
 			}
 			else
 			{
-				vipStatus = VIPSTATUS_ONLINE;
+				vipStatus = vipPlayer->statusVipList;
 			}
 
 			sendVIP(entry.guid, entry.name, entry.description, entry.icon, entry.notify, vipStatus);
@@ -6585,19 +6591,19 @@ void ProtocolGame::AddOutfit(NetworkMessage &msg, const Outfit_t &outfit, bool a
 	}
 }
 
-void ProtocolGame::addImbuementInfo(NetworkMessage &msg, uint32_t imbuid)
+void ProtocolGame::addImbuementInfo(NetworkMessage &msg, uint32_t imbuementId)
 {
-	Imbuement *imbuement = g_imbuements->getImbuement(imbuid);
-	BaseImbue *base = g_imbuements->getBaseByID(imbuement->getBaseID());
-	Category *category = g_imbuements->getCategoryByID(imbuement->getCategory());
+	Imbuement *imbuement = g_imbuements->getImbuement(imbuementId);
+	const BaseImbuement *baseImbuement = g_imbuements->getBaseByID(imbuement->getBaseID());
+	CategoryImbuement *categoryImbuement = g_imbuements->getCategoryByID(imbuement->getCategory());
 
-	msg.add<uint32_t>(imbuid);
-	msg.addString(base->name + " " + imbuement->getName());
+	msg.add<uint32_t>(imbuementId);
+	msg.addString(baseImbuement->name + " " + imbuement->getName());
 	msg.addString(imbuement->getDescription());
-	msg.addString(category->name + imbuement->getSubGroup());
+	msg.addString(categoryImbuement->name + imbuement->getSubGroup());
 
 	msg.add<uint16_t>(imbuement->getIconID());
-	msg.add<uint32_t>(base->duration);
+	msg.add<uint32_t>(baseImbuement->duration);
 
 	msg.addByte(imbuement->isPremium() ? 0x01 : 0x00);
 
@@ -6612,87 +6618,86 @@ void ProtocolGame::addImbuementInfo(NetworkMessage &msg, uint32_t imbuid)
 		msg.add<uint16_t>(itm.second);
 	}
 
-	msg.add<uint32_t>(base->price);
-	msg.addByte(base->percent);
-	msg.add<uint32_t>(base->protection);
+	msg.add<uint32_t>(baseImbuement->price);
+	msg.addByte(baseImbuement->percent);
+	msg.add<uint32_t>(baseImbuement->protectionPrice);
 }
 
-void ProtocolGame::sendImbuementWindow(Item *item)
+void ProtocolGame::openImbuementWindow(Item *item)
 {
 	if (!item || item->isRemoved())
 	{
 		return;
 	}
 
-	const ItemType &it = Item::items[item->getID()];
-
-	bool itemHasImbue = false;
-	uint8_t slot = it.imbuingSlots;
-	for (uint8_t i = 0; i < slot; i++)
-	{
-		uint32_t info = item->getImbuement(i);
-		if (info >> 8)
-		{
-			itemHasImbue = true;
-			break;
-		}
-	}
-
-	// Seting imbuing item
-	player->inImbuing(item);
+	player->setImbuingItem(item);
 
 	NetworkMessage msg;
 	msg.addByte(0xEB);
 	msg.addItemId(item->getID());
-	msg.addByte(slot);
+	msg.addByte(item->getImbuementSlot());
 
-	for (uint8_t i = 0; i < slot; i++)
+	// Send imbuement time
+	for (uint8_t slotid = 0; slotid < item->getImbuementSlot(); slotid++)
 	{
-		uint32_t info = item->getImbuement(i);
-		if (info >> 8)
-		{
-			msg.addByte(0x01);
-
-			addImbuementInfo(msg, (info & 0xFF));
-			msg.add<uint32_t>(info >> 8);
-			msg.add<uint32_t>(g_imbuements->getBaseByID(g_imbuements->getImbuement((info & 0xFF))->getBaseID())->removecust);
-		}
-		else
+		ImbuementInfo imbuementInfo;
+		if (!item->getImbuementInfo(slotid, &imbuementInfo))
 		{
 			msg.addByte(0x00);
+			continue;
 		}
+		msg.addByte(0x01);
+		addImbuementInfo(msg, imbuementInfo.imbuement->getID());
+		msg.add<uint32_t>(imbuementInfo.duration);
+		msg.add<uint32_t>(g_imbuements->getBaseByID(imbuementInfo.imbuement->getBaseID())->removeCost);
 	}
 
 	std::vector<Imbuement *> imbuements = g_imbuements->getImbuements(player, item);
 	std::unordered_map<uint16_t, uint16_t> needItems;
 	msg.add<uint16_t>(imbuements.size());
-	for (Imbuement *ib : imbuements)
+	for (const Imbuement *imbuement : imbuements)
 	{
-		addImbuementInfo(msg, ib->getId());
+		addImbuementInfo(msg, imbuement->getID());
 
-		const auto &items = ib->getItems();
-		for (const auto &itm : items)
+		const auto &items = imbuement->getItems();
+		for (const auto &imbuementItems : items)
 		{
-			if (!needItems.count(itm.first))
+			if (!needItems.count(imbuementItems.first))
 			{
-				needItems[itm.first] = player->getItemTypeCount(itm.first);
-				uint32_t stashCount = player->getStashItemCount(Item::items[itm.first].clientId);
+				needItems[imbuementItems.first] = player->getItemTypeCount(imbuementItems.first);
+				uint32_t stashCount = player->getStashItemCount(Item::items[imbuementItems.first].clientId);
 				if (stashCount > 0) {
-					needItems[itm.first] += stashCount;
+					needItems[imbuementItems.first] += stashCount;
 				}
 			}
 		}
 	}
 
 	msg.add<uint32_t>(needItems.size());
-	for (const auto &itm : needItems)
+	for (const auto &imbuementItems : needItems)
 	{
-		msg.addItemId(itm.first);
-		msg.add<uint16_t>(itm.second);
+		msg.addItemId(imbuementItems.first);
+		msg.add<uint16_t>(imbuementItems.second);
 	}
 
 	sendResourcesBalance(player->getMoney(), player->getBankBalance());
 
+	writeToOutputBuffer(msg);
+}
+
+void ProtocolGame::sendImbuementResult(const std::string message)
+{
+	NetworkMessage msg;
+	msg.addByte(0xED);
+	msg.addByte(0x01);
+	msg.addString(message);
+	writeToOutputBuffer(msg);
+}
+
+void ProtocolGame::closeImbuementWindow()
+{
+	NetworkMessage msg;
+	msg.addByte(0xEC);
 	writeToOutputBuffer(msg);
 }
 
