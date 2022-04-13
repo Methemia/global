@@ -47,6 +47,7 @@
 #include "creatures/npc/npc.h"
 #include "server/network/webhook/webhook.h"
 #include "items/decay/decay.h"
+#include "game/gameserverconfig.h"
 
 
 extern ConfigManager g_config;
@@ -64,6 +65,7 @@ extern Weapons* g_weapons;
 extern Scripts* g_scripts;
 extern Modules* g_modules;
 extern Imbuements* g_imbuements;
+extern GameserverConfig g_gameserver;
 
 Game::Game()
 {
@@ -635,7 +637,7 @@ bool Game::loadItemsPrice()
 {
 	itemsSaleCount = 0;
 	std::ostringstream query, query2;
-	query << "SELECT DISTINCT `itemtype` FROM `market_offers`;";
+	query << "SELECT DISTINCT `itemtype` FROM `market_offers` WHERE " << g_gameserver.getWorldId() << ";";
 
 	Database& db = Database::getInstance();
 	DBResult_ptr result = db.storeQuery(query.str());
@@ -6832,35 +6834,49 @@ bool save = false;
 void Game::loadMotdNum()
 {
 	Database& db = Database::getInstance();
+	uint16_t worldId = g_gameserver.getWorldId();
 
-	DBResult_ptr result = db.storeQuery("SELECT `value` FROM `server_config` WHERE `config` = 'motd_num'");
+	std::ostringstream selectQuery;
+	selectQuery << "SELECT `value` FROM `server_config` WHERE `world_id` = "<< worldId <<" AND `config` = 'motd_num'";
+
+	DBResult_ptr result = db.storeQuery(selectQuery.str());
 	if (result) {
 		motdNum = result->getNumber<uint32_t>("value");
 	} else {
-		db.executeQuery("INSERT INTO `server_config` (`config`, `value`) VALUES ('motd_num', '0')");
+		std::ostringstream insertQuery;
+		insertQuery << "INSERT INTO `server_config` (`world_id`, `config`, `value`) VALUES ("<< worldId <<", 'motd_num', '0')";
+
+		db.executeQuery(insertQuery.str());
 	}
 
-	result = db.storeQuery("SELECT `value` FROM `server_config` WHERE `config` = 'motd_hash'");
+	std::ostringstream selectpQuery;
+	selectpQuery << "SELECT `value` FROM `server_config` WHERE `world_id` = " << worldId << " AND `config` = 'motd_hash'";
+
+	result = db.storeQuery(selectpQuery.str());
 	if (result) {
 		motdHash = result->getString("value");
 		if (motdHash != transformToSHA1(g_config.getString(ConfigManager::MOTD))) {
 			++motdNum;
 		}
 	} else {
-		db.executeQuery("INSERT INTO `server_config` (`config`, `value`) VALUES ('motd_hash', '')");
+		std::ostringstream insertxQuery;
+		insertxQuery << "INSERT INTO `server_config` (`world_id`, `config`, `value`) VALUES (" << worldId << ", 'motd_hash', '')";
+
+		db.executeQuery(insertxQuery.str());
 	}
 }
 
 void Game::saveMotdNum() const
 {
 	Database& db = Database::getInstance();
+	uint16_t worldId = g_gameserver.getWorldId();
 
 	std::ostringstream query;
-	query << "UPDATE `server_config` SET `value` = '" << motdNum << "' WHERE `config` = 'motd_num'";
+	query << "UPDATE `server_config` SET `value` = '" << motdNum << "' WHERE `world_id` = " << worldId << " AND `config` = 'motd_num'";
 	db.executeQuery(query.str());
 
 	query.str(std::string());
-	query << "UPDATE `server_config` SET `value` = '" << transformToSHA1(g_config.getString(ConfigManager::MOTD)) << "' WHERE `config` = 'motd_hash'";
+	query << "UPDATE `server_config` SET `value` = '" << transformToSHA1(g_config.getString(ConfigManager::MOTD)) << "' WHERE `world_id` = " << worldId << " AND `config` = 'motd_hash'";
 	db.executeQuery(query.str());
 }
 
@@ -6881,21 +6897,28 @@ void Game::checkPlayersRecord()
 void Game::updatePlayersRecord() const
 {
 	Database& db = Database::getInstance();
+	uint16_t worldId = g_gameserver.getWorldId();
 
 	std::ostringstream query;
-	query << "UPDATE `server_config` SET `value` = '" << playersRecord << "' WHERE `config` = 'players_record'";
+	query << "UPDATE `server_config` SET `value` = '" << playersRecord << "' WHERE `world_id` = "<< worldId <<" AND `config` = 'players_record'";
 	db.executeQuery(query.str());
 }
 
 void Game::loadPlayersRecord()
 {
 	Database& db = Database::getInstance();
+	uint16_t worldId = g_gameserver.getWorldId();
+	std::ostringstream loadQuery;
+	loadQuery << "SELECT `value` FROM `server_config` WHERE `world_id` = " << worldId << " AND `config` = 'players_record'";
 
-	DBResult_ptr result = db.storeQuery("SELECT `value` FROM `server_config` WHERE `config` = 'players_record'");
+	DBResult_ptr result = db.storeQuery(loadQuery.str());
 	if (result) {
 		playersRecord = result->getNumber<uint32_t>("value");
 	} else {
-		db.executeQuery("INSERT INTO `server_config` (`config`, `value`) VALUES ('players_record', '0')");
+		std::ostringstream insertQuery;
+		insertQuery << "INSERT INTO `server_config` (`world_id`, `config`, `value`) VALUES (" << worldId << ", 'players_record', '0')";
+
+		db.executeQuery(insertQuery.str());
 	}
 }
 

@@ -489,6 +489,7 @@ class Player final : public Creature, public Cylinder
 		uint8_t getBlessingCount(uint8_t index) const {
 			return blessings[index - 1];
 		}
+		std::string getBlessingsName() const; 
 
 		bool isOffline() const {
 			return (getID() == 0);
@@ -1982,6 +1983,8 @@ class Player final : public Creature, public Cylinder
 		void setNextPotionActionTask(SchedulerTask* task);
 
 		void death(Creature* lastHitCreature) override;
+		bool spawn();
+		void despawn();
 		bool dropCorpse(Creature* lastHitCreature, Creature* mostDamageCreature, bool lastHitUnjustified, bool mostDamageUnjustified) override;
 		Item* getCorpse(Creature* lastHitCreature, Creature* mostDamageCreature) override;
 
@@ -2231,6 +2234,7 @@ class Player final : public Creature, public Cylinder
 		bool supplyStash = false; // Menu option 'stow, stow container ...'
 		bool marketMenu = false; // Menu option 'show in market'
 		bool exerciseTraining = false;
+		bool dead = false;
 
 		static uint32_t playerAutoID;
 
@@ -2268,6 +2272,12 @@ class Player final : public Creature, public Cylinder
 		}
 		uint16_t getLookCorpse() const override;
 		void getPathSearchParams(const Creature* creature, FindPathParams& fpp) const override;
+		void setDead(bool isDead) {
+			dead = isDead;
+		}
+		bool isDead() const {
+			return dead;
+		}
 
 		friend class Game;
 		friend class Npc;

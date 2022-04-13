@@ -25,12 +25,14 @@
 #include "game/game.h"
 #include "game/scheduling/scheduler.h"
 #include "creatures/monsters/monster.h"
+#include "game/gameserverconfig.h"
 
 #include <limits>
 
 extern ConfigManager g_config;
 extern Game g_game;
 extern Monsters g_monsters;
+extern GameserverConfig g_gameserver;
 
 bool IOLoginData::LoginServerAuthentication(const std::string& name,
                                             const std::string& password) {
@@ -75,7 +77,7 @@ uint32_t IOLoginData::gameworldAuthentication(const std::string& accountName, co
   uint32_t accountId = result->getNumber<uint32_t>("id");
 
   query.str(std::string());
-  query << "SELECT `account_id`, `name`, `deletion` FROM `players` WHERE `name` = " << db.escapeString(characterName);
+  query << "SELECT `account_id`, `name`, `deletion` FROM `players` WHERE `name` = " << db.escapeString(characterName) << " AND `world_id` = " << g_gameserver.getWorldId();
   result = db.storeQuery(query.str());
   if (!result) {
     SPDLOG_ERROR("Not able to find player: {}", characterName);
@@ -116,7 +118,7 @@ void IOLoginData::updateOnlineStatus(uint32_t guid, bool login)
 
   std::ostringstream query;
   if (login) {
-    query << "INSERT INTO `players_online` VALUES (" << guid << ')';
+    query << "INSERT INTO `players_online` (`player_id`, `world_id`) VALUES (" << guid << ',' << g_gameserver.getWorldId() << ')';
   } else {
     query << "DELETE FROM `players_online` WHERE `player_id` = " << guid;
   }

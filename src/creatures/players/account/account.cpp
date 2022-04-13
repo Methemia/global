@@ -371,7 +371,7 @@ error_t Account::LoadAccountPlayersDB(std::vector<Player> *players) {
   }
 
   std::ostringstream query;
-  query << "SELECT `name`, `deletion` FROM `players` WHERE `account_id` = "
+  query << "SELECT `name`, `world_id`, `deletion` FROM `players` WHERE `account_id` = "
         << id_ << " ORDER BY `name` ASC";
   DBResult_ptr result = db_->storeQuery(query.str());
   if (!result) {
@@ -382,6 +382,7 @@ error_t Account::LoadAccountPlayersDB(std::vector<Player> *players) {
     if (result->getNumber<uint64_t>("deletion") == 0) {
       Player new_player;
       new_player.name = result->getString("name");
+      new_player.worldId = result->getNumber<uint32_t>("world_id");
       new_player.deletion = result->getNumber<uint64_t>("deletion");
       players->push_back(new_player);
     }

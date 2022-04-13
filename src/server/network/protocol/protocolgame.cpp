@@ -408,7 +408,7 @@ void ProtocolGame::connect(uint32_t playerId, OperatingSystem_t operatingSystem)
 	player->isConnecting = false;
 
 	player->client = getThis();
-	sendAddCreature(player, player->getPosition(), 0, false);
+	sendAddCreature(player, player->getPosition(), 0, true);
 	player->lastIP = player->getIP();
 	player->lastLoginSaved = std::max<time_t>(time(nullptr), player->lastLoginSaved + 1);
 	acceptPackets = true;
@@ -461,7 +461,7 @@ void ProtocolGame::logout(bool displayEffect, bool forced)
 		disconnect();
 	}
 
-	g_game.removeCreature(player);
+	g_game.removeCreature(player, true);
 }
 
 void ProtocolGame::onRecvFirstMessage(NetworkMessage &msg)
@@ -641,15 +641,42 @@ void ProtocolGame::parsePacket(NetworkMessage& msg)
 	uint8_t recvbyte = msg.getByte();
 
 	//a dead player can not perform actions
-	if (!player || player->isRemoved() || player->getHealth() <= 0) {
+	if (!player || player->isRemoved()) {
 		if (recvbyte == 0x0F) {
 			// we need to make the player pointer != null in this part, game.cpp release is the first step
 			// login(player->getName(), player->getAccount(), player->operatingSystem);
 			disconnect();
+}
+
+		return;
+	}
+
+	//a dead player can not performs actions
+	if (player->isDead() || player->getHealth() <= 0) {
+		if (recvbyte == 0x14) {
+			disconnect();
 			return;
 		}
 
-		if (recvbyte != 0x14) {
+		if (recvbyte == 0x0F) {
+			if (!player) {
+				return;
+			}
+
+			if (!player->spawn()) {
+				disconnect();
+				g_game.removeCreature(player);
+				return;
+			}
+
+			sendAddCreature(player, player->getPosition(), 0, false);
+			return;
+		}
+
+		if (recvbyte != 0x1D && recvbyte != 0x1E) {
+			// keep the connection alive
+			g_scheduler.addEvent(createSchedulerTask(500, std::bind(&ProtocolGame::sendPing, getThis())));
+			g_scheduler.addEvent(createSchedulerTask(1000, std::bind(&ProtocolGame::sendPingBack, getThis())));
 			return;
 		}
 	}
@@ -957,49 +984,47 @@ void ProtocolGame::GetFloorDescription(NetworkMessage &msg, int32_t x, int32_t y
 
 void ProtocolGame::checkCreatureAsKnown(uint32_t id, bool &known, uint32_t &removedKnown)
 {
-	auto result = knownCreatureSet.insert(id);
-	if (!result.second)
-	{
-		known = true;
-		return;
-	}
+	known = !knownCreatureSet.insert(id).second;
+    if (known) {
+        return;
+    }
 
-	known = false;
+    if (knownCreatureSet.size() < 1300) {
+        removedKnown = 0;
+        return;
+    }
 
-	if (knownCreatureSet.size() > 1300)
-	{
-		// Look for a creature to remove
-		for (auto it = knownCreatureSet.begin(), end = knownCreatureSet.end(); it != end; ++it) {
-			// We need to protect party players from removing
-			Creature* creature = g_game.getCreatureByID(*it);
-			Player* checkPlayer;
-			if (creature && (checkPlayer = creature->getPlayer()) != nullptr) {
-				if (player->getParty() != checkPlayer->getParty() && !canSee(creature)) {
-					removedKnown = *it;
-					knownCreatureSet.erase(it);
-					return;
-				}
-			} else if (!canSee(creature)) {
-				removedKnown = *it;
-				knownCreatureSet.erase(it);
-				return;
-			}
-		}
+    // Look for a creature to remove
+    for (auto it = knownCreatureSet.begin(), end = knownCreatureSet.end(); it != end; ++it) {
+        if (*it == id) {
+            continue;
+        }
 
-		// Bad situation. Let's just remove anyone.
-		auto it = knownCreatureSet.begin();
-		if (*it == id)
-		{
-			++it;
-		}
+        Creature* creature = g_game.getCreatureByID(*it);
+        if (!creature || canSee(creature)) {
+            continue;
+        }
 
-		removedKnown = *it;
-		knownCreatureSet.erase(it);
-	}
-	else
-	{
-		removedKnown = 0;
-	}
+        const Player* checkPlayer = creature->getPlayer();
+
+        if (!checkPlayer) {
+            removedKnown = *it;
+            knownCreatureSet.erase(it);
+            return;
+        }
+
+        // We need to protect party players from removing
+        if (checkPlayer && player->getParty() != checkPlayer->getParty()) {
+            removedKnown = *it;
+            knownCreatureSet.erase(it);
+            return;
+        }
+
+        removedKnown = *it;
+    }
+
+    /* Bad situation. Let's just remove the last valid one. */
+    knownCreatureSet.erase(removedKnown);
 }
 
 bool ProtocolGame::canSee(const Creature *c) const

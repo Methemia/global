@@ -29,6 +29,7 @@
 #include "io/iologindata.h"
 #include "creatures/players/management/ban.h"
 #include "game/game.h"
+#include "game/gameserverconfig.h"
 
 #include <algorithm>
 #include <limits>
@@ -36,6 +37,7 @@
 
 extern ConfigManager g_config;
 extern Game g_game;
+extern GameserverConfig g_gameserver;
 
 void ProtocolLogin::disconnectClient(const std::string& message, uint16_t version)
 {
@@ -79,26 +81,28 @@ void ProtocolLogin::getCharacterList(const std::string& accountName, const std::
 	output->addByte(0x28);
 	output->addString(accountName + "\n" + password);
 
+	std::vector<GameServer> Gameservers = g_gameserver.getGameservers();
+
 	// Add char list
 	std::vector<account::Player> players;
 	account.GetAccountPlayers(&players);
 	output->addByte(0x64);
 
-	output->addByte(1);  // number of worlds
+	output->addByte(Gameservers.size());  // number of worlds
 
-	output->addByte(0);  // world id
-	output->addString(g_config.getString(ConfigManager::SERVER_NAME));
-	output->addString(g_config.getString(ConfigManager::IP));
-
-	output->add<uint16_t>(g_config.getShortNumber(ConfigManager::GAME_PORT));
-
-	output->addByte(0);
+	for (GameServer server : Gameservers) {
+		output->addByte(server.worldid);
+		output->addString(server.name);
+		output->addString(server.ip);
+		output->add<uint16_t>(server.port);
+		output->addByte(0); // Preview State
+	}
 
 	uint8_t size = std::min<size_t>(std::numeric_limits<uint8_t>::max(),
                                   players.size());
 	output->addByte(size);
 	for (uint8_t i = 0; i < size; i++) {
-		output->addByte(0);
+		output->addByte(players[i].worldId);
 		output->addString(players[i].name);
 	}
 

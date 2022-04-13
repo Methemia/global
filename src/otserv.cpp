@@ -36,6 +36,7 @@
 #include "creatures/combat/spells.h"
 #include "server/server.h"
 #include "server/network/webhook/webhook.h"
+#include "game/gameserverconfig.h"
 
 #if __has_include("gitmetadata.h")
 	#include "gitmetadata.h"
@@ -55,6 +56,7 @@ Monsters g_monsters;
 Vocations g_vocations;
 extern Scripts* g_scripts;
 extern Spells* g_spells;
+GameserverConfig g_gameserver;
 RSA2 g_RSA;
 
 
@@ -273,6 +275,18 @@ void mainLoader(int, char*[], ServiceManager* services) {
 	// Init and load modules
 	initGlobalScopes();
 	loadModules();
+
+	std::cout << ">> Loading multiworld config..." << std::endl;
+	if (!g_gameserver.load()) {
+		SPDLOG_ERROR("Unable to load gameservers!");
+		startupErrorMessage();
+		return;
+	}
+
+	std::vector<GameServer> Gameservers = g_gameserver.getGameservers();
+	for (GameServer server : Gameservers) {
+		std::cout << ">>>> World "<< server.name<<" (ID "<< server.worldid<<") - Loaded successfully." << std::endl;
+	}
 
 #ifdef _WIN32
 	const std::string& defaultPriority = g_config.getString(

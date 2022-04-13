@@ -27,6 +27,7 @@
 
 #include "config/configmanager.h"
 #include "game/game.h"
+#include "game/gameserverconfig.h"
 
 #if LUA_VERSION_NUM >= 502
 #undef lua_strlen
@@ -34,6 +35,7 @@
 #endif
 
 extern Game g_game;
+extern GameserverConfig g_gameserver;
 
 namespace {
 
@@ -114,6 +116,8 @@ bool ConfigManager::load()
 	if (!loaded) { //info that must be loaded one time (unless we reset the modules involved)
 		boolean[BIND_ONLY_GLOBAL_ADDRESS] = getGlobalBoolean(L, "bindOnlyGlobalAddress", false);
 		boolean[OPTIMIZE_DATABASE] = getGlobalBoolean(L, "startupDatabaseOptimization", true);
+
+		g_gameserver.setWorldId(getGlobalNumber(L, "worldId", 0));
 
 		string[IP] = getGlobalString(L, "ip", "127.0.0.1");
 		string[MAP_NAME] = getGlobalString(L, "mapName", "otservbr");

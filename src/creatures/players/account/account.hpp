@@ -55,6 +55,7 @@ enum CoinTransactionType : uint8_t {
 
 typedef struct {
   std::string name;
+  uint32_t worldId;
   uint64_t deletion;
 } Player;
 

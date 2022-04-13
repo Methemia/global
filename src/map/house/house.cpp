@@ -26,9 +26,11 @@
 #include "game/game.h"
 #include "config/configmanager.h"
 #include "items/bed.h"
+#include "game/gameserverconfig.h"
 
 extern ConfigManager g_config;
 extern Game g_game;
+extern GameserverConfig g_gameserver;
 
 House::House(uint32_t houseId) : id(houseId) {}
 
@@ -44,7 +46,7 @@ void House::setOwner(uint32_t guid, bool updateDatabase/* = true*/, Player* play
 		Database& db = Database::getInstance();
 
 		std::ostringstream query;
-		query << "UPDATE `houses` SET `owner` = " << guid << ", `bid` = 0, `bid_end` = 0, `last_bid` = 0, `highest_bidder` = 0  WHERE `id` = " << id;
+		query << "UPDATE `houses` SET `owner` = " << guid << ", `bid` = 0, `bid_end` = 0, `last_bid` = 0, `highest_bidder` = 0  WHERE `world_id` = "<< g_gameserver.getWorldId() <<" AND `id` = " << id;
 		db.executeQuery(query.str());
 	}
 
@@ -110,7 +112,7 @@ void House::setOwner(uint32_t guid, bool updateDatabase/* = true*/, Player* play
 
 		Database& db = Database::getInstance();
 		std::ostringstream query;
-		query << "SELECT `name`, `account_id` FROM `players` WHERE `id` = " << guid;
+		query << "SELECT `name`, `account_id` FROM `players` WHERE `world_id` = " << g_gameserver.getWorldId() << " AND `id` = " << guid;
 		DBResult_ptr result = db.storeQuery(query.str());
 		if (!result) {
 			return;
